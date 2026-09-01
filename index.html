@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PROMPT HUB // 顶级 AI 图像与视频提示词实验室</title>
+  <title>PROMPTS.LAB // 顶级 AI 图像与视频提示词实验室</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- GSAP Motion & Animation Library -->
+  <!-- GSAP Motion & Easing Engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   
   <!-- Canvas Confetti -->
@@ -33,23 +33,28 @@
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
+            display: ['"Cabinet Grotesk"', '"Plus Jakarta Sans"', 'sans-serif'],
           },
           colors: {
-            cyber: {
-              bg: '#040508',
-              surface: '#0A0D14',
-              surfaceElevated: '#121824',
-              border: 'rgba(255, 255, 255, 0.08)',
-              glow: '#8B5CF6',
+            obsidian: {
+              950: '#030407',
+              900: '#07090E',
+              850: '#0C1017',
+              800: '#131824',
+              700: '#1C2436',
+            },
+            neon: {
+              purple: '#A855F7',
               cyan: '#06B6D4',
-              pink: '#EC4899',
+              pink: '#F43F5E',
+              amber: '#F59E0B',
               emerald: '#10B981',
             }
           },
           boxShadow: {
-            'glow-violet': '0 0 35px -5px rgba(139, 92, 246, 0.3)',
-            'glow-cyan': '0 0 35px -5px rgba(6, 182, 212, 0.3)',
-            'spotlight': '0 0 80px -10px rgba(139, 92, 246, 0.15)',
+            'glow-purple': '0 0 40px -8px rgba(168, 85, 247, 0.4)',
+            'glow-cyan': '0 0 40px -8px rgba(6, 182, 212, 0.4)',
+            'card-3d': '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
           }
         }
       }
@@ -57,284 +62,306 @@
   </script>
 
   <style>
-    /* Custom Spotlight Hover Effect */
-    .spotlight-card {
+    /* CSS Variables & Dynamic Spotlight */
+    :root {
+      --card-radius: 24px;
+    }
+
+    body {
+      background-color: #030407;
+      color: #E2E8F0;
+      overflow-x: hidden;
+    }
+
+    /* Card 3D Perspective & Spotlight Border */
+    .bento-card-wrapper {
+      perspective: 1200px;
+    }
+    
+    .bento-card {
       position: relative;
       background: radial-gradient(
-        600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-        rgba(139, 92, 246, 0.12),
-        transparent 40%
-      ), #0A0D14;
-      transition: border-color 0.3s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        700px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+        rgba(168, 85, 247, 0.12),
+        transparent 50%
+      ), #07090E;
+      border-radius: var(--card-radius);
+      transform-style: preserve-3d;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+      will-change: transform;
     }
-    .spotlight-card::before {
+
+    .bento-card::before {
       content: "";
       position: absolute;
       inset: -1px;
-      border-radius: inherit;
+      border-radius: calc(var(--card-radius) + 1px);
       padding: 1px;
       background: radial-gradient(
-        400px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-        rgba(139, 92, 246, 0.5),
-        rgba(255, 255, 255, 0.06) 50%,
-        transparent 100%
+        500px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+        rgba(168, 85, 247, 0.6),
+        rgba(255, 255, 255, 0.08) 40%,
+        transparent 80%
       );
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       pointer-events: none;
+      z-index: 10;
     }
 
-    /* Noise Texture Overlay */
-    .noise-bg {
-      background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
-      background-size: 24px 24px;
+    /* Ambient noise & grid */
+    .cyber-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
     }
 
-    /* Custom Scrollbars */
+    /* Smooth Custom Scrollbar */
     ::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
     }
     ::-webkit-scrollbar-track {
       background: transparent;
     }
     ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.15);
       border-radius: 9999px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(139, 92, 246, 0.5);
+      background: rgba(168, 85, 247, 0.6);
     }
-    
-    /* Code Highlighting */
-    .prose code {
-      color: #a78bfa;
-      background: rgba(139, 92, 246, 0.1);
-      padding: 2px 6px;
-      border-radius: 6px;
-      font-family: 'JetBrains Mono', monospace;
+
+    /* Line clamp */
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   </style>
 </head>
-<body class="bg-[#040508] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-purple-600 selection:text-white relative overflow-x-hidden font-sans">
+<body class="min-h-screen flex flex-col font-sans selection:bg-neon-purple selection:text-white">
 
-  <!-- Interactive Ambient Canvas Background -->
-  <canvas id="ambient-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
-  <div class="fixed inset-0 pointer-events-none z-0 noise-bg opacity-70"></div>
+  <!-- Interactive Ambient Canvas -->
+  <canvas id="ambient-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-50"></canvas>
+  <div class="fixed inset-0 pointer-events-none z-0 cyber-grid"></div>
 
-  <!-- Radiant Light Orbs -->
-  <div class="fixed top-[-150px] left-1/4 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
-  <div class="fixed top-[20%] right-[-150px] w-[500px] h-[500px] bg-cyan-600/10 rounded-full blur-[140px] pointer-events-none z-0"></div>
+  <!-- Ambient Radiant Orbs -->
+  <div class="fixed -top-40 left-1/3 w-[700px] h-[700px] bg-purple-600/15 rounded-full blur-[160px] pointer-events-none z-0"></div>
+  <div class="fixed top-1/2 -right-40 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none z-0"></div>
 
-  <!-- Top Glass Header -->
-  <header class="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#040508]/75 backdrop-blur-xl">
+  <!-- Top Glass Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-obsidian-950/80 backdrop-blur-2xl">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
       
-      <!-- Brand & Title -->
+      <!-- Brand Logo -->
       <div class="flex items-center gap-4">
-        <button id="mobile-menu-btn" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.05] lg:hidden transition-all">
+        <button id="mobile-menu-btn" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.06] lg:hidden transition-all">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
-        <div class="flex items-center gap-3.5 group cursor-pointer" onclick="resetFilters()">
+        <div class="flex items-center gap-3.5 group cursor-pointer" onclick="resetAllFilters()">
           <div class="relative">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-cyan-500 p-[1px] shadow-lg shadow-purple-600/25 group-hover:shadow-purple-600/50 transition-all duration-300">
-              <div class="w-full h-full bg-[#07090e] rounded-2xl flex items-center justify-center">
-                <i data-lucide="sparkles" class="w-5 h-5 text-purple-400 group-hover:rotate-12 transition-transform duration-300"></i>
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-neon-purple via-indigo-500 to-neon-cyan p-[1.5px] shadow-lg shadow-purple-950/80 group-hover:shadow-glow-purple transition-all duration-300">
+              <div class="w-full h-full bg-obsidian-950 rounded-2xl flex items-center justify-center">
+                <i data-lucide="sparkles" class="w-5 h-5 text-neon-purple group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300"></i>
               </div>
             </div>
-            <div class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-[#040508]"></div>
+            <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-neon-emerald rounded-full border-2 border-obsidian-950 shadow-[0_0_8px_#10B981]"></div>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h1 class="text-lg font-extrabold tracking-tight text-white bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-slate-400">
-                PROMPTS<span class="text-purple-400">.</span>HUB
-              </h1>
-              <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30">
-                v2.0 Pro
+              <span class="font-display font-black text-xl tracking-tight text-white">
+                PROMPTS<span class="text-neon-purple">.</span>LAB
+              </span>
+              <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-neon-purple/10 text-purple-300 border border-neon-purple/30">
+                PRO V2
               </span>
             </div>
-            <p class="text-xs text-slate-400 font-medium">Cinema-Grade AI Image & Video Prompts</p>
+            <p class="text-[11px] font-mono text-slate-400">Cinematic AI Prompt Repository & Showcase</p>
           </div>
         </div>
       </div>
 
-      <!-- Real-time Spotlight Search Bar -->
-      <div class="flex-1 max-w-xl relative hidden md:block">
-        <div class="relative group">
-          <div class="absolute -inset-0.5 bg-gradient-to-r from-purple-600/30 to-cyan-500/30 rounded-2xl blur opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition duration-300"></div>
-          <div class="relative flex items-center bg-[#0A0D14] border border-white/[0.08] rounded-2xl px-4 py-2.5 shadow-inner">
-            <i data-lucide="search" class="w-4 h-4 text-slate-400 mr-3"></i>
-            <input 
-              type="text" 
-              id="search-input" 
-              placeholder="搜索任何提示词、画面特征、镜头语言或推荐模型..." 
-              class="w-full bg-transparent text-sm text-slate-100 placeholder-slate-500 focus:outline-none"
-            >
-            <div class="flex items-center gap-1.5 ml-2">
-              <button id="search-clear-btn" class="hidden text-slate-500 hover:text-slate-300 p-1">
-                <i data-lucide="x" class="w-3.5 h-3.5"></i>
-              </button>
-              <kbd class="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono font-semibold text-slate-400 bg-white/[0.05] border border-white/[0.1] rounded-md shadow-sm">
-                /
-              </kbd>
-            </div>
+      <!-- Quick Command Bar / Search Trigger -->
+      <div class="flex-1 max-w-lg hidden md:block">
+        <div 
+          onclick="openCommandPalette()" 
+          class="flex items-center justify-between bg-obsidian-900/90 hover:bg-obsidian-850 border border-white/[0.08] hover:border-neon-purple/40 rounded-2xl px-4 py-2.5 cursor-pointer shadow-inner transition-all duration-200 group"
+        >
+          <div class="flex items-center gap-3 text-slate-400 group-hover:text-slate-200">
+            <i data-lucide="search" class="w-4 h-4 text-neon-purple"></i>
+            <span class="text-xs font-medium">快速搜索提示词、镜头、特征或模型...</span>
+          </div>
+          <div class="flex items-center gap-1.5 font-mono text-[10px] text-slate-400 bg-white/[0.05] border border-white/[0.1] px-2 py-0.5 rounded-lg">
+            <span>⌘K</span>
+            <span class="text-slate-600">/</span>
+            <span>/</span>
           </div>
         </div>
       </div>
 
-      <!-- Action Buttons & Repo Link -->
+      <!-- GitHub Link & Stats -->
       <div class="flex items-center gap-3">
         <a 
           href="https://github.com/miseryCN/imagePrompts" 
           target="_blank" 
           rel="noopener noreferrer"
-          class="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-200 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] rounded-xl transition-all hover:scale-105 active:scale-95 shadow-sm hover:border-purple-500/40"
+          class="flex items-center gap-2 px-4 py-2 text-xs font-bold text-slate-200 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] hover:border-neon-purple/40 rounded-xl transition-all hover:scale-105 active:scale-95 shadow-sm"
         >
-          <i data-lucide="github" class="w-4 h-4 text-purple-400"></i>
-          <span>GitHub Repo</span>
+          <i data-lucide="github" class="w-4 h-4 text-neon-purple"></i>
+          <span>GitHub</span>
         </a>
       </div>
 
     </div>
   </header>
 
-  <!-- Mobile Search Bar -->
-  <div class="p-4 md:hidden border-b border-white/[0.08] bg-[#0A0D14]/90 backdrop-blur z-30">
-    <div class="flex items-center bg-[#040508] border border-white/[0.08] rounded-xl px-3 py-2">
-      <i data-lucide="search" class="w-4 h-4 text-slate-400 mr-2.5"></i>
-      <input 
-        type="text" 
-        id="search-input-mobile" 
-        placeholder="搜索提示词或模型..." 
-        class="w-full bg-transparent text-sm text-slate-100 placeholder-slate-500 focus:outline-none"
-      >
-    </div>
-  </div>
-
-  <!-- Main Content Layout -->
+  <!-- Main Workspace -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full flex gap-8 relative z-10">
     
-    <!-- Sidebar Navigation -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-[#080B12] lg:bg-transparent border-r border-white/[0.08] lg:border-r-0 p-6 lg:p-0 lg:static lg:w-64 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-out flex flex-col gap-6 overflow-y-auto">
+    <!-- Sidebar Navigation Drawer -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-obsidian-950 lg:bg-transparent border-r border-white/[0.08] lg:border-r-0 p-6 lg:p-0 lg:static lg:w-64 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-out flex flex-col gap-6 overflow-y-auto">
       
-      <!-- Mobile Close Button -->
+      <!-- Mobile Close -->
       <div class="flex items-center justify-between lg:hidden pb-4 border-b border-white/[0.08]">
-        <div class="flex items-center gap-2">
-          <i data-lucide="layers" class="w-4 h-4 text-purple-400"></i>
-          <span class="font-bold text-sm text-white">分类导航</span>
-        </div>
+        <span class="font-bold text-sm text-white flex items-center gap-2">
+          <i data-lucide="compass" class="w-4 h-4 text-neon-purple"></i>
+          分类矩阵
+        </span>
         <button id="sidebar-close-btn" class="p-1 rounded-lg text-slate-400 hover:text-white">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <!-- Navigation Tree -->
+      <!-- Category Filter Tabs -->
       <div class="space-y-6">
         
-        <!-- All Prompts Button -->
+        <!-- All Prompts Tab -->
         <div>
           <button 
             data-cat="all" 
             data-sub="all" 
-            class="nav-tab w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all duration-200 bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-600/20"
+            class="nav-tab w-full flex items-center justify-between px-3.5 py-3 rounded-2xl font-bold text-xs transition-all duration-200 bg-gradient-to-r from-neon-purple via-indigo-600 to-neon-purple bg-pos-0 hover:bg-pos-100 text-white shadow-glow-purple"
           >
             <span class="flex items-center gap-2.5">
-              <i data-lucide="sparkles" class="w-4 h-4 text-purple-200"></i>
+              <i data-lucide="layout-grid" class="w-4 h-4"></i>
               全部提示词
             </span>
-            <span id="badge-all-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-black/30 text-purple-200">0</span>
+            <span id="badge-all-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-black/40 text-purple-200">0</span>
           </button>
         </div>
 
-        <!-- Section 1: Image Generation -->
+        <!-- Image Generation Group -->
         <div class="space-y-1.5">
-          <div class="flex items-center justify-between px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+          <div class="flex items-center justify-between px-3 py-1 text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
             <span class="flex items-center gap-2 text-slate-300">
-              <span class="w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_8px_#a855f7]"></span>
-              图像生成 (Image)
+              <span class="w-2 h-2 rounded-full bg-neon-purple shadow-[0_0_8px_#A855F7]"></span>
+              图像生成 (IMAGE)
             </span>
             <span id="badge-image-total" class="text-[11px] font-mono text-slate-500">0</span>
           </div>
           <div class="space-y-1 pl-2" id="image-sub-nav">
-            <!-- Dynamic inject -->
+            <!-- Injected via JS -->
           </div>
         </div>
 
-        <!-- Section 2: Video Generation -->
+        <!-- Video Generation Group -->
         <div class="space-y-1.5">
-          <div class="flex items-center justify-between px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+          <div class="flex items-center justify-between px-3 py-1 text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
             <span class="flex items-center gap-2 text-slate-300">
-              <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#06b6d4]"></span>
-              视频生成 (Video)
+              <span class="w-2 h-2 rounded-full bg-neon-cyan shadow-[0_0_8px_#06B6D4]"></span>
+              视频生成 (VIDEO)
             </span>
             <span id="badge-video-total" class="text-[11px] font-mono text-slate-500">0</span>
           </div>
           <div class="space-y-1 pl-2" id="video-sub-nav">
-            <!-- Dynamic inject -->
+            <!-- Injected via JS -->
           </div>
         </div>
 
       </div>
 
-      <!-- Pro Tips Widget -->
-      <div class="mt-auto p-4 rounded-2xl bg-gradient-to-b from-white/[0.04] to-white/[0.01] border border-white/[0.08] text-xs text-slate-400 space-y-2.5">
-        <div class="flex items-center gap-2 text-slate-200 font-semibold">
-          <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i>
-          极速工作流
+      <!-- Quick Action Floating Card -->
+      <div class="mt-auto p-4 rounded-3xl bg-gradient-to-b from-obsidian-850 to-obsidian-900 border border-white/[0.08] text-xs space-y-2.5 shadow-card-3d">
+        <div class="flex items-center gap-2 text-white font-bold">
+          <i data-lucide="terminal" class="w-4 h-4 text-neon-purple"></i>
+          极速复制引擎
         </div>
         <p class="text-[11px] leading-relaxed text-slate-400">
-          点击卡片右下角 <span class="text-purple-300 font-medium">复制</span> 触发粒子动效并直达剪贴板；点击卡片展开高清结构化解析与镜头说明。
+          轻触卡片上任意复制键，即刻享受微触觉音效反馈与粒子特效，直通 Midjourney, Flux, Kling 与 MiniMax。
         </p>
       </div>
 
     </aside>
 
-    <!-- Sidebar Mobile Backdrop -->
-    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 lg:hidden hidden"></div>
+    <!-- Sidebar Backdrop for Mobile -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-md z-40 lg:hidden hidden"></div>
 
-    <!-- Main Grid Section -->
+    <!-- Gallery Main View -->
     <main class="flex-1 min-w-0">
       
-      <!-- Top Filter & Stats Bar -->
-      <div class="flex flex-wrap items-center justify-between gap-4 pb-6 mb-6 border-b border-white/[0.08]">
-        <div>
-          <div class="flex items-center gap-2 text-xs text-slate-500 font-mono mb-1">
-            <span id="crumb-parent">ALL</span>
-            <span class="text-slate-700">/</span>
-            <span id="crumb-current" class="text-purple-400 font-semibold">OVERVIEW</span>
+      <!-- Top Filter Bar & Model Pills -->
+      <div class="flex flex-col gap-4 pb-6 mb-6 border-b border-white/[0.08]">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 text-xs font-mono text-slate-400 mb-1">
+              <span id="crumb-parent">INDEX</span>
+              <span class="text-slate-700">/</span>
+              <span id="crumb-current" class="text-neon-purple font-semibold">ALL_PROMPTS</span>
+            </div>
+            <h2 id="gallery-heading" class="text-2xl sm:text-3xl font-display font-black text-white tracking-tight flex items-center gap-3">
+              <span>探索顶级提示词</span>
+              <span id="gallery-badge" class="text-xs font-mono font-bold px-3 py-1 rounded-full bg-neon-purple/10 text-neon-purple border border-neon-purple/30">
+                0 PROMPTS
+              </span>
+            </h2>
           </div>
-          <h2 id="gallery-heading" class="text-2xl font-extrabold text-white tracking-tight flex items-center gap-3">
-            <span>探索灵感库</span>
-            <span id="gallery-badge" class="text-xs font-mono font-medium px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">
-              0 PROMPTS
-            </span>
-          </h2>
+
+          <!-- View Switcher -->
+          <div class="flex items-center gap-2">
+            <div class="flex items-center bg-obsidian-900 border border-white/[0.08] rounded-xl p-1">
+              <button id="view-grid-btn" onclick="setViewMode('grid')" class="p-1.5 rounded-lg bg-neon-purple text-white shadow-sm transition-all" title="Bento 网格视图">
+                <i data-lucide="layout-grid" class="w-4 h-4"></i>
+              </button>
+              <button id="view-list-btn" onclick="setViewMode('list')" class="p-1.5 rounded-lg text-slate-400 hover:text-white transition-all" title="密集列表视图">
+                <i data-lucide="list" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <!-- Quick Filter Tags -->
-        <div class="flex items-center gap-2 flex-wrap" id="model-filter-tags">
-          <!-- Injected via JS -->
+        <!-- Filter Chips (Models & Aspect Ratios) -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar" id="model-chips-container">
+          <!-- Dynamic Model Pills -->
         </div>
       </div>
 
-      <!-- Bento Grid Cards Container -->
-      <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <!-- Bento Cards Grid -->
+      <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Cards injected via JS -->
       </div>
 
-      <!-- Zero Result Empty State -->
-      <div id="empty-state" class="hidden py-20 text-center space-y-4">
-        <div class="w-16 h-16 mx-auto rounded-3xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-slate-500 shadow-glow-violet">
-          <i data-lucide="compass" class="w-8 h-8 text-purple-400"></i>
+      <!-- Zero Results Empty State -->
+      <div id="empty-state" class="hidden py-24 text-center space-y-4">
+        <div class="w-16 h-16 mx-auto rounded-3xl bg-obsidian-900 border border-white/[0.08] flex items-center justify-center text-slate-500 shadow-glow-purple">
+          <i data-lucide="search-x" class="w-8 h-8 text-neon-purple"></i>
         </div>
         <h3 class="text-lg font-bold text-white">未找到匹配的提示词</h3>
-        <p class="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
-          当前分类或搜索词暂无对应内容。您可以重置筛选或在本地添加新的 Markdown 提示词文件。
+        <p class="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
+          您可以尝试调整搜索关键词、切换模型标签或重置当前分类筛选。
         </p>
-        <button onclick="resetFilters()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/40 text-xs font-semibold transition-all">
-          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-          重置全部筛选
+        <button onclick="resetAllFilters()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-neon-purple hover:bg-purple-500 text-white text-xs font-bold shadow-glow-purple transition-all hover:scale-105 active:scale-95">
+          <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+          重置所有筛选
         </button>
       </div>
 
@@ -342,19 +369,56 @@
 
   </div>
 
-  <!-- Cinematic Detail Modal / Drawer -->
-  <div id="modal-container" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 lg:p-10">
-    <div id="modal-backdrop" class="fixed inset-0 bg-[#040508]/85 backdrop-blur-xl opacity-0 transition-opacity duration-300"></div>
+  <!-- Command Palette Modal (⌘K / Ctrl+K) -->
+  <div id="command-palette-modal" class="fixed inset-0 z-50 hidden flex items-start justify-center pt-20 px-4 sm:px-6">
+    <div id="command-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-xl opacity-0 transition-opacity"></div>
+    <div id="command-box" class="relative w-full max-w-2xl bg-obsidian-900 border border-white/[0.12] rounded-3xl shadow-2xl overflow-hidden z-10 scale-95 opacity-0 transition-all duration-200">
+      
+      <!-- Search Input -->
+      <div class="p-4 border-b border-white/[0.08] flex items-center gap-3">
+        <i data-lucide="search" class="w-5 h-5 text-neon-purple"></i>
+        <input 
+          type="text" 
+          id="palette-input" 
+          placeholder="输入关键词、场景、画风、镜头语言或模型名称..." 
+          class="w-full bg-transparent text-white text-sm placeholder-slate-500 focus:outline-none"
+        >
+        <kbd class="text-[10px] font-mono text-slate-400 bg-white/[0.05] border border-white/[0.1] px-2 py-0.5 rounded-md">
+          ESC
+        </kbd>
+      </div>
+
+      <!-- Quick Results List -->
+      <div id="palette-results" class="max-h-[60vh] overflow-y-auto p-3 space-y-1.5 text-sm">
+        <!-- Results injected via JS -->
+      </div>
+
+      <!-- Footer Help -->
+      <div class="p-3 px-5 border-t border-white/[0.08] bg-obsidian-950/80 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+        <div class="flex items-center gap-3">
+          <span><kbd class="text-slate-400">↑↓</kbd> 导航</span>
+          <span><kbd class="text-slate-400">↵</kbd> 打开详情</span>
+          <span><kbd class="text-slate-400">ESC</kbd> 退出</span>
+        </div>
+        <span class="text-neon-purple font-semibold">PROMPTS.LAB SEARCH</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Full Detail & Markdown Inspector Modal -->
+  <div id="detail-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 lg:p-10">
+    <div id="detail-backdrop" class="fixed inset-0 bg-black/85 backdrop-blur-2xl opacity-0 transition-opacity duration-300"></div>
     
-    <div id="modal-content" class="relative bg-[#0A0E17] border border-white/[0.12] rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl shadow-purple-950/50 overflow-hidden z-10 scale-95 opacity-0 transition-all duration-300">
+    <div id="detail-box" class="relative bg-obsidian-900 border border-white/[0.12] rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl shadow-purple-950/80 overflow-hidden z-10 scale-95 opacity-0 transition-all duration-300">
       
       <!-- Top Modal Header -->
-      <div class="p-6 border-b border-white/[0.08] flex items-start justify-between gap-4 bg-gradient-to-r from-[#0C101A] to-[#101624]">
+      <div class="p-6 border-b border-white/[0.08] flex items-start justify-between gap-4 bg-gradient-to-r from-obsidian-850 to-obsidian-900">
         <div class="space-y-2">
-          <div id="modal-badges" class="flex items-center gap-2 flex-wrap"></div>
-          <h3 id="modal-title" class="text-xl font-extrabold text-white tracking-tight leading-snug"></h3>
+          <div id="modal-tags-container" class="flex items-center gap-2 flex-wrap"></div>
+          <h3 id="modal-title-text" class="text-xl sm:text-2xl font-display font-extrabold text-white tracking-tight leading-snug"></h3>
         </div>
-        <button id="modal-close" class="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">
+        <button id="detail-close-btn" class="p-2 text-slate-400 hover:text-white rounded-2xl hover:bg-white/[0.08] transition-colors">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
@@ -362,38 +426,38 @@
       <!-- Modal Body -->
       <div class="p-6 overflow-y-auto space-y-6 flex-1 text-sm text-slate-300">
         
-        <!-- Prompt Box -->
+        <!-- Prompt Box with Big Copy Button -->
         <div class="space-y-2.5">
           <div class="flex items-center justify-between">
-            <span class="font-bold text-xs uppercase tracking-widest text-slate-400 flex items-center gap-2">
-              <i data-lucide="terminal" class="w-4 h-4 text-purple-400"></i>
+            <span class="font-mono font-bold text-xs uppercase tracking-widest text-slate-400 flex items-center gap-2">
+              <i data-lucide="terminal" class="w-4 h-4 text-neon-purple"></i>
               完整提示词 (PROMPT CODE)
             </span>
-            <button id="modal-copy-action" class="flex items-center gap-2 px-4 py-1.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-purple-600/30 transition-all hover:scale-105 active:scale-95">
-              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+            <button id="modal-copy-btn" class="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-neon-purple via-indigo-600 to-neon-purple hover:scale-105 active:scale-95 text-white rounded-2xl text-xs font-extrabold shadow-glow-purple transition-all">
+              <i data-lucide="copy" class="w-4 h-4"></i>
               <span>一键复制提示词</span>
             </button>
           </div>
-          <div class="relative group">
-            <pre id="modal-prompt-raw" class="p-5 bg-[#05070C] border border-white/[0.08] rounded-2xl text-purple-200 font-mono text-xs whitespace-pre-wrap leading-relaxed selection:bg-purple-600/40 overflow-x-auto shadow-inner"></pre>
+          <div class="relative">
+            <pre id="modal-prompt-text" class="p-5 bg-obsidian-950 border border-white/[0.08] rounded-2xl text-purple-200 font-mono text-xs whitespace-pre-wrap leading-relaxed selection:bg-neon-purple/40 shadow-inner overflow-x-auto"></pre>
           </div>
         </div>
 
-        <!-- Markdown Rendered Section -->
+        <!-- Markdown Structured Breakdown -->
         <div class="space-y-2.5">
-          <span class="font-bold text-xs uppercase tracking-widest text-slate-400 flex items-center gap-2">
-            <i data-lucide="file-code" class="w-4 h-4 text-cyan-400"></i>
-            文档结构与参数详解
+          <span class="font-mono font-bold text-xs uppercase tracking-widest text-slate-400 flex items-center gap-2">
+            <i data-lucide="layers" class="w-4 h-4 text-neon-cyan"></i>
+            文档结构与参数详解 (SPECIFICATIONS)
           </span>
-          <div id="modal-doc-render" class="p-5 bg-[#05070C]/60 border border-white/[0.06] rounded-2xl text-xs space-y-3 prose prose-invert max-w-none prose-headings:text-white prose-p:text-slate-300 prose-li:text-slate-300"></div>
+          <div id="modal-markdown-render" class="p-6 bg-obsidian-950/80 border border-white/[0.06] rounded-2xl text-xs space-y-3.5 prose prose-invert max-w-none prose-headings:text-white prose-p:text-slate-300 prose-li:text-slate-300 prose-pre:bg-obsidian-900 prose-pre:border prose-pre:border-white/10"></div>
         </div>
 
       </div>
 
       <!-- Modal Footer -->
-      <div class="p-4 px-6 border-t border-white/[0.08] bg-[#07090F] flex items-center justify-between text-xs text-slate-400">
-        <span id="modal-filepath" class="font-mono text-[11px] text-slate-500 truncate max-w-md"></span>
-        <a id="modal-github-url" href="#" target="_blank" class="flex items-center gap-1.5 text-purple-300 hover:text-white font-medium px-3.5 py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] transition-all">
+      <div class="p-4 px-6 border-t border-white/[0.08] bg-obsidian-950 flex items-center justify-between text-xs text-slate-400">
+        <span id="modal-rel-path" class="font-mono text-[11px] text-slate-500 truncate max-w-md"></span>
+        <a id="modal-github-link" href="#" target="_blank" class="flex items-center gap-1.5 text-purple-300 hover:text-white font-semibold px-4 py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] transition-all">
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           在 GitHub 打开源文件
         </a>
@@ -403,21 +467,67 @@
   </div>
 
   <!-- Toast Notification -->
-  <div id="toast-wrapper" class="fixed bottom-8 right-8 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300">
-    <div class="flex items-center gap-3 px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-600 text-white shadow-2xl shadow-purple-600/40 text-xs font-bold tracking-wide">
-      <i data-lucide="check-circle-2" class="w-4 h-4"></i>
-      <span id="toast-text">提示词已复制到剪贴板！</span>
+  <div id="toast" class="fixed bottom-8 right-8 z-50 transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-neon-purple via-indigo-600 to-neon-cyan text-white shadow-glow-purple text-xs font-black tracking-wide">
+      <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+      <span id="toast-message">✨ 提示词已成功复制到剪贴板！</span>
     </div>
   </div>
 
-  <!-- Logic & Data Engine -->
+  <!-- Core Scripts & Application Engine -->
   <script>
+    // Audio Synthesizer (Micro haptic sound on click)
+    const AudioEngine = {
+      ctx: null,
+      init() {
+        if (!this.ctx && (window.AudioContext || window.webkitAudioContext)) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      },
+      playClick() {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(800, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(300, this.ctx.currentTime + 0.04);
+          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.04);
+        } catch (e) {}
+      },
+      playSuccess() {
+        try {
+          this.init();
+          if (!this.ctx) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, this.ctx.currentTime); // C5
+          osc.frequency.setValueAtTime(659.25, this.ctx.currentTime + 0.06); // E5
+          osc.frequency.setValueAtTime(783.99, this.ctx.currentTime + 0.12); // G5
+          gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.25);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.25);
+        } catch (e) {}
+      }
+    };
+
+    // Category Taxonomy
     const CATEGORIES = {
       image: {
         label: "图像生成",
         icon: "image",
-        color: "from-purple-500 to-indigo-500",
-        badge: "text-purple-300 bg-purple-500/10 border-purple-500/20",
+        color: "from-purple-600 via-indigo-600 to-cyan-500",
+        badge: "text-purple-300 bg-purple-500/10 border-purple-500/30",
         subs: {
           portrait: "人像写真",
           landscape: "风光场景",
@@ -430,8 +540,8 @@
       video: {
         label: "视频生成",
         icon: "video",
-        color: "from-cyan-500 to-blue-500",
-        badge: "text-cyan-300 bg-cyan-500/10 border-cyan-500/20",
+        color: "from-cyan-500 via-blue-600 to-indigo-600",
+        badge: "text-cyan-300 bg-cyan-500/10 border-cyan-500/30",
         subs: {
           portrait: "人物动态",
           cinematic: "电影运镜",
@@ -442,78 +552,93 @@
       }
     };
 
-    let allPrompts = [];
-    let activeCategory = 'all';
-    let activeSubcategory = 'all';
-    let activeModelFilter = 'all';
-    let searchKeyword = '';
+    // Visual Gradient Covers mapping by Subcategory
+    const COVER_GRADIENTS = {
+      "portrait": "bg-gradient-to-tr from-rose-950/60 via-purple-950/40 to-amber-950/30",
+      "landscape": "bg-gradient-to-tr from-emerald-950/60 via-teal-950/40 to-sky-950/30",
+      "anime": "bg-gradient-to-tr from-sky-950/60 via-indigo-950/40 to-pink-950/30",
+      "cg-fantasy": "bg-gradient-to-tr from-purple-950/70 via-fuchsia-950/40 to-cyan-950/30",
+      "commercial": "bg-gradient-to-tr from-slate-900 via-cyan-950/30 to-amber-950/20",
+      "artistic": "bg-gradient-to-tr from-amber-950/60 via-rose-950/40 to-purple-950/30",
+      "cinematic": "bg-gradient-to-tr from-amber-950/70 via-stone-900 to-orange-950/40",
+      "nature": "bg-gradient-to-tr from-green-950/60 via-emerald-950/40 to-sky-950/30",
+      "vfx": "bg-gradient-to-tr from-blue-950/70 via-purple-950/40 to-cyan-950/30"
+    };
 
-    // Initialize Application
-    async function initApp() {
+    // State Variables
+    let allPrompts = [];
+    let currentCategory = 'all';
+    let currentSubcategory = 'all';
+    let currentModelFilter = 'all';
+    let searchQuery = '';
+    let viewMode = 'grid'; // 'grid' | 'list'
+
+    // Init App
+    async function init() {
       initAmbientCanvas();
-      renderSidebarMenus();
-      await fetchPromptsData();
-      bindInteractiveEvents();
-      setupSpotlightCards();
+      renderSidebarNavigation();
+      await loadPromptsData();
+      bindEvents();
+      setupCardInteractions();
       lucide.createIcons();
 
-      // Entrance Animations with GSAP
-      gsap.from('header', { y: -30, opacity: 0, duration: 0.6, ease: 'power3.out' });
-      gsap.from('aside', { x: -30, opacity: 0, duration: 0.6, delay: 0.1, ease: 'power3.out' });
-      gsap.from('main', { opacity: 0, y: 20, duration: 0.6, delay: 0.2, ease: 'power3.out' });
+      // GSAP Initial Reveal
+      gsap.from('header', { y: -40, opacity: 0, duration: 0.7, ease: 'power3.out' });
+      gsap.from('aside', { x: -40, opacity: 0, duration: 0.7, delay: 0.1, ease: 'power3.out' });
+      gsap.from('main', { opacity: 0, y: 30, duration: 0.7, delay: 0.2, ease: 'power3.out' });
     }
 
-    // Ambient Canvas Particle Mesh
+    // Ambient Floating Particles Canvas
     function initAmbientCanvas() {
       const canvas = document.getElementById('ambient-canvas');
       const ctx = canvas.getContext('2d');
-      let width = (canvas.width = window.innerWidth);
-      let height = (canvas.height = window.innerHeight);
+      let w = (canvas.width = window.innerWidth);
+      let h = (canvas.height = window.innerHeight);
 
       window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
       });
 
       const particles = [];
-      const count = Math.floor((width * height) / 35000);
+      const count = Math.floor((w * h) / 30000);
       for (let i = 0; i < count; i++) {
         particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-          radius: Math.random() * 1.5 + 0.5,
-          alpha: Math.random() * 0.5 + 0.1
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          size: Math.random() * 1.5 + 0.5,
+          alpha: Math.random() * 0.4 + 0.1
         });
       }
 
-      function draw() {
-        ctx.clearRect(0, 0, width, height);
+      function loop() {
+        ctx.clearRect(0, 0, w, h);
         particles.forEach(p => {
           p.x += p.vx;
           p.y += p.vy;
-          if (p.x < 0) p.x = width;
-          if (p.x > width) p.x = 0;
-          if (p.y < 0) p.y = height;
-          if (p.y > height) p.y = 0;
+          if (p.x < 0) p.x = w;
+          if (p.x > w) p.x = 0;
+          if (p.y < 0) p.y = h;
+          if (p.y > h) p.y = 0;
 
           ctx.beginPath();
-          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(168, 85, 247, ${p.alpha})`;
           ctx.fill();
         });
-        requestAnimationFrame(draw);
+        requestAnimationFrame(loop);
       }
-      draw();
+      loop();
     }
 
-    // Render Navigation Trees
-    function renderSidebarMenus() {
-      // Image Tree
+    // Render Navigation Sidebar
+    function renderSidebarNavigation() {
+      // Image Subcategories
       const imgContainer = document.getElementById('image-sub-nav');
       imgContainer.innerHTML = `
-        <button data-cat="image" data-sub="all" class="nav-tab w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-white/[0.04] transition-all text-xs font-medium">
+        <button data-cat="image" data-sub="all" class="nav-tab w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all text-xs font-semibold">
           <span class="flex items-center gap-2">
             <i data-lucide="grid" class="w-3.5 h-3.5"></i>
             全部图像
@@ -521,16 +646,16 @@
           <span id="badge-image-all" class="text-[10px] font-mono text-slate-500">0</span>
         </button>
       ` + Object.entries(CATEGORIES.image.subs).map(([key, label]) => `
-        <button data-cat="image" data-sub="${key}" class="nav-tab w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-white/[0.04] transition-all text-xs">
+        <button data-cat="image" data-sub="${key}" class="nav-tab w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all text-xs font-medium">
           <span>${label}</span>
           <span id="badge-image-${key}" class="text-[10px] font-mono text-slate-500">0</span>
         </button>
       `).join('');
 
-      // Video Tree
+      // Video Subcategories
       const vidContainer = document.getElementById('video-sub-nav');
       vidContainer.innerHTML = `
-        <button data-cat="video" data-sub="all" class="nav-tab w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-white/[0.04] transition-all text-xs font-medium">
+        <button data-cat="video" data-sub="all" class="nav-tab w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all text-xs font-semibold">
           <span class="flex items-center gap-2">
             <i data-lucide="film" class="w-3.5 h-3.5"></i>
             全部视频
@@ -538,43 +663,43 @@
           <span id="badge-video-all" class="text-[10px] font-mono text-slate-500">0</span>
         </button>
       ` + Object.entries(CATEGORIES.video.subs).map(([key, label]) => `
-        <button data-cat="video" data-sub="${key}" class="nav-tab w-full flex items-center justify-between px-3 py-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-white/[0.04] transition-all text-xs">
+        <button data-cat="video" data-sub="${key}" class="nav-tab w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all text-xs font-medium">
           <span>${label}</span>
           <span id="badge-video-${key}" class="text-[10px] font-mono text-slate-500">0</span>
         </button>
       `).join('');
     }
 
-    // Load Data
-    async function fetchPromptsData() {
+    // Load Data from JSON
+    async function loadPromptsData() {
       try {
-        const response = await fetch('data/prompts.json');
-        if (response.ok) {
-          const res = await response.json();
-          allPrompts = res.prompts || [];
+        const res = await fetch('data/prompts.json');
+        if (res.ok) {
+          const json = await res.json();
+          allPrompts = json.prompts || [];
         }
-      } catch (e) {
-        console.warn("Failed fetching data/prompts.json", e);
+      } catch (err) {
+        console.warn("Failed fetching data/prompts.json", err);
       }
 
-      refreshCounts();
-      renderModelFilters();
-      renderCards();
+      updateCounters();
+      renderModelPills();
+      renderPromptsGallery();
     }
 
-    function refreshCounts() {
+    function updateCounters() {
       document.getElementById('badge-all-count').innerText = allPrompts.length;
       
-      const imgCount = allPrompts.filter(p => p.category === 'image').length;
-      const vidCount = allPrompts.filter(p => p.category === 'video').length;
+      const imgTotal = allPrompts.filter(p => p.category === 'image').length;
+      const vidTotal = allPrompts.filter(p => p.category === 'video').length;
 
-      document.getElementById('badge-image-total').innerText = imgCount;
-      const imgAll = document.getElementById('badge-image-all');
-      if (imgAll) imgAll.innerText = imgCount;
+      document.getElementById('badge-image-total').innerText = imgTotal;
+      const imgAllEl = document.getElementById('badge-image-all');
+      if (imgAllEl) imgAllEl.innerText = imgTotal;
 
-      document.getElementById('badge-video-total').innerText = vidCount;
-      const vidAll = document.getElementById('badge-video-all');
-      if (vidAll) vidAll.innerText = vidCount;
+      document.getElementById('badge-video-total').innerText = vidTotal;
+      const vidAllEl = document.getElementById('badge-video-all');
+      if (vidAllEl) vidAllEl.innerText = vidTotal;
 
       Object.keys(CATEGORIES.image.subs).forEach(sub => {
         const el = document.getElementById(`badge-image-${sub}`);
@@ -587,46 +712,62 @@
       });
     }
 
-    function renderModelFilters() {
-      const modelsSet = new Set();
+    function renderModelPills() {
+      const models = new Set();
       allPrompts.forEach(p => {
-        if (p.models) p.models.forEach(m => modelsSet.add(m));
+        if (p.models) p.models.forEach(m => models.add(m));
       });
 
-      const container = document.getElementById('model-filter-tags');
-      const models = Array.from(modelsSet);
+      const container = document.getElementById('model-chips-container');
+      const list = Array.from(models);
 
-      if (models.length === 0) {
+      if (list.length === 0) {
         container.innerHTML = '';
         return;
       }
 
       container.innerHTML = `
-        <span class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider mr-1">模型:</span>
-        <button onclick="setModelFilter('all')" class="model-btn text-xs px-2.5 py-1 rounded-lg font-medium transition-all ${activeModelFilter === 'all' ? 'bg-purple-600 text-white shadow-sm' : 'bg-white/[0.04] text-slate-400 hover:text-white'}">
+        <span class="text-[11px] font-mono text-slate-500 font-bold uppercase tracking-wider mr-1 shrink-0">模型:</span>
+        <button onclick="filterByModel('all')" class="model-pill shrink-0 text-xs px-3 py-1 rounded-xl font-bold transition-all ${currentModelFilter === 'all' ? 'bg-neon-purple text-white shadow-glow-purple' : 'bg-white/[0.04] text-slate-400 hover:text-white border border-white/[0.06]'}">
           全部
         </button>
-      ` + models.map(m => `
-        <button onclick="setModelFilter('${m}')" class="model-btn text-xs px-2.5 py-1 rounded-lg font-medium transition-all ${activeModelFilter === m ? 'bg-purple-600 text-white shadow-sm' : 'bg-white/[0.04] text-slate-400 hover:text-white'}">
+      ` + list.map(m => `
+        <button onclick="filterByModel('${m}')" class="model-pill shrink-0 text-xs px-3 py-1 rounded-xl font-bold transition-all ${currentModelFilter === m ? 'bg-neon-purple text-white shadow-glow-purple' : 'bg-white/[0.04] text-slate-400 hover:text-white border border-white/[0.06]'}">
           ${m}
         </button>
       `).join('');
     }
 
-    function setModelFilter(model) {
-      activeModelFilter = model;
-      renderModelFilters();
-      renderCards();
+    function filterByModel(model) {
+      AudioEngine.playClick();
+      currentModelFilter = model;
+      renderModelPills();
+      renderPromptsGallery();
     }
 
-    function filterPromptsList() {
-      return allPrompts.filter(item => {
-        if (activeCategory !== 'all' && item.category !== activeCategory) return false;
-        if (activeSubcategory !== 'all' && item.subcategory !== activeSubcategory) return false;
-        if (activeModelFilter !== 'all' && (!item.models || !item.models.includes(activeModelFilter))) return false;
+    function setViewMode(mode) {
+      AudioEngine.playClick();
+      viewMode = mode;
+      document.getElementById('view-grid-btn').className = mode === 'grid' ? 'p-1.5 rounded-lg bg-neon-purple text-white shadow-sm transition-all' : 'p-1.5 rounded-lg text-slate-400 hover:text-white transition-all';
+      document.getElementById('view-list-btn').className = mode === 'list' ? 'p-1.5 rounded-lg bg-neon-purple text-white shadow-sm transition-all' : 'p-1.5 rounded-lg text-slate-400 hover:text-white transition-all';
+      
+      const container = document.getElementById('cards-container');
+      if (mode === 'list') {
+        container.className = 'grid grid-cols-1 gap-4';
+      } else {
+        container.className = 'grid grid-cols-1 md:grid-cols-2 gap-6';
+      }
+      renderPromptsGallery();
+    }
 
-        if (searchKeyword) {
-          const q = searchKeyword.toLowerCase();
+    function getFilteredPrompts() {
+      return allPrompts.filter(item => {
+        if (currentCategory !== 'all' && item.category !== currentCategory) return false;
+        if (currentSubcategory !== 'all' && item.subcategory !== currentSubcategory) return false;
+        if (currentModelFilter !== 'all' && (!item.models || !item.models.includes(currentModelFilter))) return false;
+
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
           const matchTitle = item.title?.toLowerCase().includes(q);
           const matchPrompt = item.prompt?.toLowerCase().includes(q);
           const matchTarget = item.target?.toLowerCase().includes(q);
@@ -638,128 +779,178 @@
       });
     }
 
-    function renderCards() {
-      const filtered = filterPromptsList();
-      const grid = document.getElementById('cards-grid');
+    function renderPromptsGallery() {
+      const filtered = getFilteredPrompts();
+      const container = document.getElementById('cards-container');
       const emptyState = document.getElementById('empty-state');
       const badge = document.getElementById('gallery-badge');
 
       badge.innerText = `${filtered.length} PROMPTS`;
 
-      // Update Headings
-      if (activeCategory === 'all') {
-        document.getElementById('crumb-parent').innerText = 'ALL';
-        document.getElementById('crumb-current').innerText = 'OVERVIEW';
-        document.getElementById('gallery-heading').firstElementChild.innerText = '探索灵感库';
+      // Update Breadcrumb & Heading
+      if (currentCategory === 'all') {
+        document.getElementById('crumb-parent').innerText = 'INDEX';
+        document.getElementById('crumb-current').innerText = 'ALL_PROMPTS';
+        document.getElementById('gallery-heading').firstElementChild.innerText = '探索顶级提示词';
       } else {
-        const catInfo = CATEGORIES[activeCategory];
-        document.getElementById('crumb-parent').innerText = activeCategory.toUpperCase();
-        if (activeSubcategory === 'all') {
+        const catInfo = CATEGORIES[currentCategory];
+        document.getElementById('crumb-parent').innerText = currentCategory.toUpperCase();
+        if (currentSubcategory === 'all') {
           document.getElementById('crumb-current').innerText = catInfo.label.toUpperCase();
           document.getElementById('gallery-heading').firstElementChild.innerText = `${catInfo.label} 全景`;
         } else {
-          const subName = catInfo.subs[activeSubcategory] || activeSubcategory;
+          const subName = catInfo.subs[currentSubcategory] || currentSubcategory;
           document.getElementById('crumb-current').innerText = subName.toUpperCase();
           document.getElementById('gallery-heading').firstElementChild.innerText = `${catInfo.label} · ${subName}`;
         }
       }
 
       if (filtered.length === 0) {
-        grid.innerHTML = '';
+        container.innerHTML = '';
         emptyState.classList.remove('hidden');
         return;
       }
 
       emptyState.classList.add('hidden');
-      grid.innerHTML = filtered.map(item => {
+
+      container.innerHTML = filtered.map(item => {
         const isImage = item.category === 'image';
         const badgeStyle = isImage ? 'text-purple-300 bg-purple-500/10 border-purple-500/30' : 'text-cyan-300 bg-cyan-500/10 border-cyan-500/30';
         const iconName = isImage ? 'image' : 'video';
+        const coverGrad = COVER_GRADIENTS[item.subcategory] || "bg-gradient-to-tr from-purple-950/50 via-slate-900 to-indigo-950/40";
+
+        if (viewMode === 'list') {
+          return `
+            <div class="bento-card-wrapper">
+              <div class="bento-card p-5 border border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-4 group hover:border-neon-purple/40 transition-all cursor-default">
+                <div class="space-y-1.5 flex-1 min-w-0">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${badgeStyle}">
+                      <i data-lucide="${iconName}" class="w-3 h-3"></i>
+                      ${item.categoryLabel} · ${item.subcategoryLabel}
+                    </span>
+                    ${item.aspectRatio ? `<span class="text-[10px] font-mono text-slate-400 px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.06]">${item.aspectRatio}</span>` : ''}
+                    ${item.models && item.models.length ? `<span class="text-[10px] font-mono text-purple-300 bg-purple-950/40 px-2 py-0.5 rounded-md border border-purple-800/40">${item.models[0]}</span>` : ''}
+                  </div>
+                  <h3 class="text-sm font-bold text-white tracking-tight truncate group-hover:text-purple-300 transition-colors">
+                    ${escapeHtml(item.title)}
+                  </h3>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <button onclick="openDetailModal('${item.id}')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] transition-all">
+                    详情
+                  </button>
+                  <button onclick="copyPromptText('${item.id}', this, event)" class="px-4 py-1.5 rounded-xl text-xs font-extrabold text-white bg-gradient-to-r from-neon-purple to-indigo-600 hover:scale-105 active:scale-95 shadow-glow-purple transition-all flex items-center gap-1.5">
+                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                    复制
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }
 
         return `
-          <div class="prompt-card spotlight-card rounded-3xl p-6 flex flex-col justify-between gap-5 border border-white/[0.08] hover:border-purple-500/40 cursor-default" data-id="${item.id}">
-            
-            <div class="space-y-3.5">
-              <!-- Top Badges -->
-              <div class="flex items-center justify-between gap-2">
-                <div class="flex items-center gap-2 flex-wrap">
-                  <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full border ${badgeStyle}">
-                    <i data-lucide="${iconName}" class="w-3.5 h-3.5"></i>
-                    ${item.categoryLabel} · ${item.subcategoryLabel}
-                  </span>
-                  ${item.aspectRatio ? `
-                    <span class="text-xs font-mono font-medium text-slate-400 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08]">
-                      ${item.aspectRatio}
+          <div class="bento-card-wrapper">
+            <div class="bento-card p-6 border border-white/[0.08] flex flex-col justify-between gap-5 group hover:border-neon-purple/40 transition-all cursor-default shadow-card-3d" data-id="${item.id}">
+              
+              <div class="space-y-4">
+                
+                <!-- Visual Cinematic Mockup Cover Banner -->
+                <div class="relative h-28 rounded-2xl ${coverGrad} border border-white/[0.06] p-4 flex flex-col justify-between overflow-hidden shadow-inner">
+                  <!-- Ambient Light in Card -->
+                  <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-neon-purple/20 rounded-full blur-2xl"></div>
+                  
+                  <div class="flex items-center justify-between gap-2 relative z-10">
+                    <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border ${badgeStyle} backdrop-blur-md">
+                      <i data-lucide="${iconName}" class="w-3.5 h-3.5"></i>
+                      ${item.categoryLabel} · ${item.subcategoryLabel}
                     </span>
-                  ` : ''}
+                    <span class="text-[10px] font-mono font-bold text-slate-300 px-2 py-0.5 rounded-md bg-black/40 border border-white/10 backdrop-blur-md">
+                      ${item.aspectRatio || '4K UHD'}
+                    </span>
+                  </div>
+
+                  <div class="flex items-center gap-1.5 relative z-10 flex-wrap">
+                    ${item.models && item.models.length ? item.models.map(m => `
+                      <span class="text-[10px] font-mono text-purple-200 bg-black/50 backdrop-blur-md px-2 py-0.5 rounded-md border border-purple-500/20">
+                        ${m}
+                      </span>
+                    `).join('') : ''}
+                  </div>
+                </div>
+
+                <!-- Title -->
+                <h3 class="text-base font-extrabold text-white tracking-tight line-clamp-2 leading-snug group-hover:text-purple-300 transition-colors">
+                  ${escapeHtml(item.title)}
+                </h3>
+
+                <!-- Prompt Code Block Snippet -->
+                <div class="relative bg-obsidian-950 border border-white/[0.06] rounded-2xl p-4 text-xs font-mono text-slate-300 line-clamp-3 leading-relaxed shadow-inner">
+                  ${escapeHtml(item.prompt || item.target)}
                 </div>
               </div>
 
-              <!-- Title -->
-              <h3 class="text-base font-bold text-white tracking-tight line-clamp-2 leading-snug group-hover:text-purple-300 transition-colors">
-                ${escapeHtml(item.title)}
-              </h3>
+              <!-- Footer Action Buttons -->
+              <div class="flex items-center justify-between gap-3 pt-3 border-t border-white/[0.06]">
+                <button 
+                  onclick="openDetailModal('${item.id}')"
+                  class="flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white px-4 py-2 rounded-xl hover:bg-white/[0.06] transition-all"
+                >
+                  <i data-lucide="eye" class="w-4 h-4 text-neon-purple"></i>
+                  查看详情
+                </button>
 
-              <!-- Models -->
-              ${item.models && item.models.length ? `
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  ${item.models.map(m => `<span class="text-[11px] font-mono text-slate-400 bg-black/40 px-2 py-0.5 rounded-md border border-white/[0.06]">${m}</span>`).join('')}
-                </div>
-              ` : ''}
-
-              <!-- Prompt Snippet -->
-              <div class="relative bg-[#05070C] border border-white/[0.06] rounded-2xl p-4 text-xs font-mono text-slate-300 line-clamp-3 leading-relaxed shadow-inner">
-                ${escapeHtml(item.prompt || item.target)}
+                <button 
+                  onclick="copyPromptText('${item.id}', this, event)"
+                  class="flex items-center gap-2 text-xs font-extrabold px-5 py-2.5 bg-gradient-to-r from-neon-purple via-indigo-600 to-neon-purple hover:scale-105 active:scale-95 text-white rounded-xl transition-all shadow-glow-purple"
+                >
+                  <i data-lucide="copy" class="w-4 h-4"></i>
+                  <span>一键复制</span>
+                </button>
               </div>
+
             </div>
-
-            <!-- Footer Action Buttons -->
-            <div class="flex items-center justify-between gap-3 pt-3 border-t border-white/[0.06]">
-              <button 
-                onclick="openModal('${item.id}')"
-                class="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-white px-3.5 py-2 rounded-xl hover:bg-white/[0.06] transition-all"
-              >
-                <i data-lucide="eye" class="w-4 h-4 text-purple-400"></i>
-                查看结构化详情
-              </button>
-
-              <button 
-                onclick="triggerCopyPrompt('${item.id}', this, event)"
-                class="flex items-center gap-1.5 text-xs font-bold px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-xl transition-all shadow-lg shadow-purple-600/25 hover:scale-105 active:scale-95"
-              >
-                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                <span>一键复制</span>
-              </button>
-            </div>
-
           </div>
         `;
       }).join('');
 
       lucide.createIcons();
 
-      // GSAP Stagger Entrance
-      gsap.fromTo('.prompt-card', 
-        { opacity: 0, y: 25, scale: 0.98 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.35, stagger: 0.04, ease: 'power2.out' }
+      // GSAP Entrance Stagger
+      gsap.fromTo('.bento-card', 
+        { opacity: 0, y: 25, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.04, ease: 'power2.out' }
       );
     }
 
-    // Spotlight cursor tracker
-    function setupSpotlightCards() {
+    // 3D Physics Tilt and Dynamic Spotlight Cursor Tracking
+    function setupCardInteractions() {
       document.addEventListener('mousemove', (e) => {
-        document.querySelectorAll('.spotlight-card').forEach(card => {
+        document.querySelectorAll('.bento-card').forEach(card => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
           card.style.setProperty('--mouse-x', `${x}px`);
           card.style.setProperty('--mouse-y', `${y}px`);
+
+          // 3D Tilt calculation if mouse inside
+          if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -4;
+            const rotateY = ((x - centerX) / centerX) * 4;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
+          } else {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+          }
         });
       });
     }
 
     // Modal Operations
-    function openModal(id) {
+    function openDetailModal(id) {
+      AudioEngine.playClick();
       const item = allPrompts.find(p => p.id === id);
       if (!item) return;
 
@@ -767,194 +958,233 @@
       const badgeStyle = isImage ? 'text-purple-300 bg-purple-500/10 border-purple-500/30' : 'text-cyan-300 bg-cyan-500/10 border-cyan-500/30';
       const iconName = isImage ? 'image' : 'video';
 
-      document.getElementById('modal-title').innerText = item.title;
-      document.getElementById('modal-badges').innerHTML = `
-        <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full border ${badgeStyle}">
+      document.getElementById('modal-title-text').innerText = item.title;
+      document.getElementById('modal-tags-container').innerHTML = `
+        <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border ${badgeStyle}">
           <i data-lucide="${iconName}" class="w-3.5 h-3.5"></i>
           ${item.categoryLabel} · ${item.subcategoryLabel}
         </span>
         ${item.aspectRatio ? `
-          <span class="text-xs font-mono font-medium text-slate-400 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08]">
+          <span class="text-xs font-mono font-bold text-slate-300 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08]">
             ${item.aspectRatio}
           </span>
         ` : ''}
       `;
 
-      document.getElementById('modal-prompt-raw').innerText = item.prompt || '暂无纯文本提示词';
-      document.getElementById('modal-filepath').innerText = item.path;
-      document.getElementById('modal-github-url').href = `https://github.com/miseryCN/imagePrompts/blob/main/${item.path}`;
+      document.getElementById('modal-prompt-text').innerText = item.prompt || '暂无纯文本提示词';
+      document.getElementById('modal-rel-path').innerText = item.path;
+      document.getElementById('modal-github-link').href = `https://github.com/miseryCN/imagePrompts/blob/main/${item.path}`;
 
       if (window.marked && item.rawContent) {
-        document.getElementById('modal-doc-render').innerHTML = marked.parse(item.rawContent);
+        document.getElementById('modal-markdown-render').innerHTML = marked.parse(item.rawContent);
       } else {
-        document.getElementById('modal-doc-render').innerText = item.rawContent;
+        document.getElementById('modal-markdown-render').innerText = item.rawContent;
       }
 
-      document.getElementById('modal-copy-action').onclick = (e) => {
-        triggerCopyPrompt(item.id, document.getElementById('modal-copy-action'), e);
+      document.getElementById('modal-copy-btn').onclick = (e) => {
+        copyPromptText(item.id, document.getElementById('modal-copy-btn'), e);
       };
 
-      const container = document.getElementById('modal-container');
-      const backdrop = document.getElementById('modal-backdrop');
-      const content = document.getElementById('modal-content');
+      const modal = document.getElementById('detail-modal');
+      const backdrop = document.getElementById('detail-backdrop');
+      const box = document.getElementById('detail-box');
 
-      container.classList.remove('hidden');
+      modal.classList.remove('hidden');
       gsap.to(backdrop, { opacity: 1, duration: 0.25 });
-      gsap.to(content, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(1.4)' });
+      gsap.to(box, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(1.4)' });
 
       lucide.createIcons();
     }
 
-    function closeModal() {
-      const container = document.getElementById('modal-container');
-      const backdrop = document.getElementById('modal-backdrop');
-      const content = document.getElementById('modal-content');
+    function closeDetailModal() {
+      AudioEngine.playClick();
+      const modal = document.getElementById('detail-modal');
+      const backdrop = document.getElementById('detail-backdrop');
+      const box = document.getElementById('detail-box');
 
       gsap.to(backdrop, { opacity: 0, duration: 0.2 });
-      gsap.to(content, { opacity: 0, scale: 0.95, duration: 0.2, onComplete: () => {
-        container.classList.add('hidden');
+      gsap.to(box, { opacity: 0, scale: 0.95, duration: 0.2, onComplete: () => {
+        modal.classList.add('hidden');
       }});
     }
 
-    // Copy Prompt with Confetti & Toast
-    function triggerCopyPrompt(id, btnElement, event) {
+    // Command Palette Modal
+    function openCommandPalette() {
+      AudioEngine.playClick();
+      const modal = document.getElementById('command-palette-modal');
+      const backdrop = document.getElementById('command-backdrop');
+      const box = document.getElementById('command-box');
+      const input = document.getElementById('palette-input');
+
+      input.value = searchQuery;
+      renderPaletteResults(searchQuery);
+
+      modal.classList.remove('hidden');
+      gsap.to(backdrop, { opacity: 1, duration: 0.2 });
+      gsap.to(box, { opacity: 1, scale: 1, duration: 0.25, ease: 'power3.out' });
+      input.focus();
+    }
+
+    function closeCommandPalette() {
+      const modal = document.getElementById('command-palette-modal');
+      const backdrop = document.getElementById('command-backdrop');
+      const box = document.getElementById('command-box');
+
+      gsap.to(backdrop, { opacity: 0, duration: 0.15 });
+      gsap.to(box, { opacity: 0, scale: 0.95, duration: 0.15, onComplete: () => {
+        modal.classList.add('hidden');
+      }});
+    }
+
+    function renderPaletteResults(query) {
+      const container = document.getElementById('palette-results');
+      const q = query.toLowerCase().trim();
+      const results = allPrompts.filter(item => {
+        if (!q) return true;
+        return item.title?.toLowerCase().includes(q) || item.prompt?.toLowerCase().includes(q) || item.subcategoryLabel?.toLowerCase().includes(q);
+      }).slice(0, 8);
+
+      if (results.length === 0) {
+        container.innerHTML = `<div class="p-8 text-center text-slate-500 text-xs">无匹配结果</div>`;
+        return;
+      }
+
+      container.innerHTML = results.map(item => `
+        <div onclick="selectPaletteItem('${item.id}')" class="p-3 rounded-2xl hover:bg-white/[0.06] border border-transparent hover:border-white/[0.08] cursor-pointer flex items-center justify-between gap-3 transition-all">
+          <div class="space-y-1 min-w-0">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-mono font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded">${item.categoryLabel} · ${item.subcategoryLabel}</span>
+              <span class="text-xs font-bold text-white truncate">${escapeHtml(item.title)}</span>
+            </div>
+            <p class="text-[11px] font-mono text-slate-400 truncate">${escapeHtml(item.prompt || item.target)}</p>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function selectPaletteItem(id) {
+      closeCommandPalette();
+      openDetailModal(id);
+    }
+
+    // Copy Prompt with Confetti & Audio
+    function copyPromptText(id, btnElement, event) {
       const item = allPrompts.find(p => p.id === id);
       if (!item || !item.prompt) return;
 
       navigator.clipboard.writeText(item.prompt);
+      AudioEngine.playSuccess();
 
-      // Trigger Confetti Burst at cursor position
+      // Confetti burst
       if (window.confetti && event) {
         const x = event.clientX / window.innerWidth;
         const y = event.clientY / window.innerHeight;
         confetti({
-          particleCount: 30,
-          spread: 60,
+          particleCount: 40,
+          spread: 70,
           origin: { x, y },
-          colors: ['#8b5cf6', '#06b6d4', '#ec4899', '#ffffff']
+          colors: ['#A855F7', '#06B6D4', '#F43F5E', '#10B981', '#FFFFFF']
         });
       }
 
-      showToast("✨ 提示词已成功复制到剪贴板！");
+      showToastNotification("✨ 提示词已成功复制到剪贴板！");
 
       if (btnElement) {
-        const originalText = btnElement.innerHTML;
-        btnElement.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i><span>已复制!</span>`;
-        btnElement.classList.remove('from-purple-600', 'to-indigo-600');
+        const orig = btnElement.innerHTML;
+        btnElement.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i><span>已复制!</span>`;
         btnElement.classList.add('from-emerald-600', 'to-teal-600');
         lucide.createIcons();
         setTimeout(() => {
-          btnElement.innerHTML = originalText;
+          btnElement.innerHTML = orig;
           btnElement.classList.remove('from-emerald-600', 'to-teal-600');
-          btnElement.classList.add('from-purple-600', 'to-indigo-600');
           lucide.createIcons();
         }, 1800);
       }
     }
 
-    function showToast(msg) {
-      const toast = document.getElementById('toast-wrapper');
-      document.getElementById('toast-text').innerText = msg;
-      toast.classList.remove('translate-y-20', 'opacity-0');
+    function showToastNotification(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-message').innerText = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
       setTimeout(() => {
-        toast.classList.add('translate-y-20', 'opacity-0');
-      }, 2500);
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 2600);
     }
 
-    function resetFilters() {
-      activeCategory = 'all';
-      activeSubcategory = 'all';
-      activeModelFilter = 'all';
-      searchKeyword = '';
-      const searchInput = document.getElementById('search-input');
-      if (searchInput) searchInput.value = '';
-      const searchInputMobile = document.getElementById('search-input-mobile');
-      if (searchInputMobile) searchInputMobile.value = '';
-
-      updateNavClasses();
-      renderModelFilters();
-      renderCards();
+    function resetAllFilters() {
+      AudioEngine.playClick();
+      currentCategory = 'all';
+      currentSubcategory = 'all';
+      currentModelFilter = 'all';
+      searchQuery = '';
+      updateNavHighlight();
+      renderModelPills();
+      renderPromptsGallery();
     }
 
-    function updateNavClasses() {
+    function updateNavHighlight() {
       document.querySelectorAll('.nav-tab').forEach(b => {
-        b.classList.remove('bg-gradient-to-r', 'from-purple-600', 'to-indigo-600', 'text-white', 'shadow-lg', 'shadow-purple-600/20', 'bg-white/[0.08]');
+        b.classList.remove('bg-gradient-to-r', 'from-neon-purple', 'via-indigo-600', 'to-neon-purple', 'text-white', 'shadow-glow-purple', 'bg-white/[0.08]');
         b.classList.add('text-slate-400');
       });
 
-      const activeBtn = document.querySelector(`.nav-tab[data-cat="${activeCategory}"][data-sub="${activeSubcategory}"]`);
-      if (activeBtn) {
-        activeBtn.classList.remove('text-slate-400');
-        activeBtn.classList.add('bg-gradient-to-r', 'from-purple-600', 'to-indigo-600', 'text-white', 'shadow-lg', 'shadow-purple-600/20');
+      const active = document.querySelector(`.nav-tab[data-cat="${currentCategory}"][data-sub="${currentSubcategory}"]`);
+      if (active) {
+        active.classList.remove('text-slate-400');
+        active.classList.add('bg-gradient-to-r', 'from-neon-purple', 'via-indigo-600', 'to-neon-purple', 'text-white', 'shadow-glow-purple');
       }
     }
 
-    // Event Bindings
-    function bindInteractiveEvents() {
-      // Sidebar Navigation Click
+    // Global Bindings
+    function bindEvents() {
+      // Nav tabs
       document.addEventListener('click', (e) => {
-        const btn = e.target.closest('.nav-tab');
-        if (!btn) return;
-
-        activeCategory = btn.getAttribute('data-cat');
-        activeSubcategory = btn.getAttribute('data-sub');
-
-        updateNavClasses();
-        renderCards();
-
-        // Close mobile sidebar
+        const tab = e.target.closest('.nav-tab');
+        if (!tab) return;
+        AudioEngine.playClick();
+        currentCategory = tab.getAttribute('data-cat');
+        currentSubcategory = tab.getAttribute('data-sub');
+        updateNavHighlight();
+        renderPromptsGallery();
         closeMobileSidebar();
       });
 
-      // Desktop Search
-      const searchInput = document.getElementById('search-input');
-      const searchClear = document.getElementById('search-clear-btn');
-
-      searchInput.addEventListener('input', (e) => {
-        searchKeyword = e.target.value.trim();
-        searchClear.classList.toggle('hidden', !searchKeyword);
-        renderCards();
+      // Palette input
+      const pInput = document.getElementById('palette-input');
+      pInput.addEventListener('input', (e) => {
+        renderPaletteResults(e.target.value);
       });
 
-      searchClear.addEventListener('click', () => {
-        searchInput.value = '';
-        searchKeyword = '';
-        searchClear.classList.add('hidden');
-        renderCards();
-        searchInput.focus();
-      });
-
-      // Mobile Search
-      const mobileSearch = document.getElementById('search-input-mobile');
-      if (mobileSearch) {
-        mobileSearch.addEventListener('input', (e) => {
-          searchKeyword = e.target.value.trim();
-          renderCards();
-        });
-      }
-
-      // Keyboard Shortcuts ('/' to search, 'Esc' to close modal)
+      // Keyboard Shortcuts
       window.addEventListener('keydown', (e) => {
-        if (e.key === '/' && document.activeElement !== searchInput && document.activeElement !== mobileSearch) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
           e.preventDefault();
-          searchInput.focus();
-        }
-        if (e.key === 'Escape') {
-          closeModal();
+          openCommandPalette();
+        } else if (e.key === '/' && document.activeElement !== pInput) {
+          e.preventDefault();
+          openCommandPalette();
+        } else if (e.key === 'Escape') {
+          closeCommandPalette();
+          closeDetailModal();
         }
       });
 
-      // Modal Events
-      document.getElementById('modal-close').addEventListener('click', closeModal);
-      document.getElementById('modal-backdrop').addEventListener('click', closeModal);
+      // Detail Modal & Backdrop
+      document.getElementById('detail-close-btn').addEventListener('click', closeDetailModal);
+      document.getElementById('detail-backdrop').addEventListener('click', closeDetailModal);
+      document.getElementById('command-backdrop').addEventListener('click', closeCommandPalette);
 
-      // Mobile Sidebar Events
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      // Mobile Menu
+      const mobileBtn = document.getElementById('mobile-menu-btn');
       const sidebar = document.getElementById('sidebar');
       const backdrop = document.getElementById('sidebar-backdrop');
-      const sidebarClose = document.getElementById('sidebar-close-btn');
+      const closeBtn = document.getElementById('sidebar-close-btn');
 
-      mobileMenuBtn.addEventListener('click', () => {
+      mobileBtn.addEventListener('click', () => {
+        AudioEngine.playClick();
         sidebar.classList.remove('-translate-x-full');
         backdrop.classList.remove('hidden');
       });
@@ -965,7 +1195,7 @@
       }
 
       backdrop.addEventListener('click', closeMobileSidebar);
-      sidebarClose.addEventListener('click', closeMobileSidebar);
+      closeBtn.addEventListener('click', closeMobileSidebar);
     }
 
     function escapeHtml(str) {
@@ -978,7 +1208,7 @@
         .replace(/'/g, "&#039;");
     }
 
-    document.addEventListener('DOMContentLoaded', initApp);
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
 </html>
