@@ -85,13 +85,6 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
     else:
         prompt_text = ""
 
-    # Extract metadata fields
-    models = []
-    models_match = re.search(r'推荐模型[^\n：:]*[：:]\s*([^\n]+)', content)
-    if models_match:
-        models_str = models_match.group(1).strip()
-        models = [m.strip() for m in re.split(r'[/,、|]', models_str) if m.strip()]
-
     target_desc = ""
     target_match = re.search(r'生成目标[^\n：:]*[：:]\s*([^\n]+)', content)
     if target_match:
@@ -168,7 +161,6 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
         "path": rel_path,
         "filename": filename,
         "target": target_desc or title,
-        "models": models,
         "aspectRatio": aspect_ratio,
         "dimensions": dimensions_str,
         "prompt": prompt_text,
