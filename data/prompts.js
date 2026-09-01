@@ -1,5 +1,5 @@
 window.STITCH_PROMPTS_DATA = {
-  "version": "1788243852",
+  "version": "1788244154",
   "categories": {
     "image": {
       "_label": "图像生成",
