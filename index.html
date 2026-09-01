@@ -37,7 +37,7 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <!-- Preloaded Data Dataset with Cache Busting Version -->
-  <script src="data/prompts.js?v=1788249885"></script>
+  <script src="data/prompts.js?v=1788250054"></script>
 
   <script>
     tailwind.config = {
@@ -405,14 +405,31 @@
               </h2>
             </div>
 
-            <!-- View Switcher -->
-            <div class="flex items-center bg-[#101217] border border-white/[0.08] rounded-xl p-1">
-              <button id="view-grid-btn" onclick="switchViewMode('grid')" class="p-1.5 rounded-lg bg-stitch-accent text-white shadow-sm transition-all" title="网格视图">
-                <i data-lucide="layout-grid" class="w-4 h-4"></i>
-              </button>
-              <button id="view-list-btn" onclick="switchViewMode('list')" class="p-1.5 rounded-lg text-slate-400 hover:text-white transition-all" title="列表视图">
-                <i data-lucide="list" class="w-4 h-4"></i>
-              </button>
+            <!-- Controls: Sort Order Switcher & View Mode Switcher -->
+            <div class="flex items-center gap-2.5">
+              
+              <!-- Sort Order Switcher (Default: Newest First) -->
+              <div class="flex items-center bg-[#101217] border border-white/[0.08] rounded-xl p-1 text-xs">
+                <button id="sort-latest-btn" onclick="switchSortOrder('latest')" class="px-2.5 py-1 rounded-lg bg-stitch-accent text-white font-bold transition-all flex items-center gap-1 shadow-sm" title="最新上传在最前">
+                  <i data-lucide="arrow-down-narrow-wide" class="w-3.5 h-3.5"></i>
+                  <span>最新</span>
+                </button>
+                <button id="sort-oldest-btn" onclick="switchSortOrder('oldest')" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-semibold transition-all flex items-center gap-1" title="最早上传在最前">
+                  <i data-lucide="arrow-up-narrow-wide" class="w-3.5 h-3.5"></i>
+                  <span>最早</span>
+                </button>
+              </div>
+
+              <!-- View Switcher -->
+              <div class="flex items-center bg-[#101217] border border-white/[0.08] rounded-xl p-1">
+                <button id="view-grid-btn" onclick="switchViewMode('grid')" class="p-1.5 rounded-lg bg-stitch-accent text-white shadow-sm transition-all" title="网格视图">
+                  <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                </button>
+                <button id="view-list-btn" onclick="switchViewMode('list')" class="p-1.5 rounded-lg text-slate-400 hover:text-white transition-all" title="列表视图">
+                  <i data-lucide="list" class="w-4 h-4"></i>
+                </button>
+              </div>
+
             </div>
           </div>
 
@@ -693,6 +710,7 @@
     let currentCategory = 'all';
     let currentSubcategory = 'all';
     let currentRatioFilter = 'all';
+    let currentSortOrder = 'latest'; // 'latest' (newest first) | 'oldest' (oldest first)
     let searchQuery = '';
     let viewMode = 'grid'; // 'grid' | 'list'
     let activeModalItem = null;
@@ -844,6 +862,14 @@
       renderPromptsGallery();
     }
 
+    function switchSortOrder(order) {
+      AudioEngine.playClick();
+      currentSortOrder = order;
+      document.getElementById('sort-latest-btn').className = order === 'latest' ? 'px-2.5 py-1 rounded-lg bg-stitch-accent text-white font-bold transition-all flex items-center gap-1 shadow-sm' : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-semibold transition-all flex items-center gap-1';
+      document.getElementById('sort-oldest-btn').className = order === 'oldest' ? 'px-2.5 py-1 rounded-lg bg-stitch-accent text-white font-bold transition-all flex items-center gap-1 shadow-sm' : 'px-2.5 py-1 rounded-lg text-slate-400 hover:text-white font-semibold transition-all flex items-center gap-1';
+      renderPromptsGallery();
+    }
+
     function switchViewMode(mode) {
       AudioEngine.playClick();
       viewMode = mode;
@@ -860,7 +886,7 @@
     }
 
     function getFilteredPrompts() {
-      return allPrompts.filter(item => {
+      const filtered = allPrompts.filter(item => {
         if (currentCategory !== 'all' && item.category !== currentCategory) return false;
         if (currentSubcategory !== 'all' && item.subcategory !== currentSubcategory) return false;
         if (currentRatioFilter !== 'all' && item.aspectRatio !== currentRatioFilter) return false;
@@ -876,6 +902,15 @@
         }
         return true;
       });
+
+      // Sort by upload/create timestamp
+      filtered.sort((a, b) => {
+        const tA = a.timestamp || 0;
+        const tB = b.timestamp || 0;
+        return currentSortOrder === 'latest' ? (tB - tA) : (tA - tB);
+      });
+
+      return filtered;
     }
 
     function renderPromptsGallery() {
@@ -958,6 +993,7 @@
                       ${item.aspectRatio}
                     </span>
                     ${item.dimensions ? `<span class="text-[10px] font-mono text-slate-500">${item.dimensions}</span>` : ''}
+                    ${item.dateStr ? `<span class="text-[10px] font-mono text-slate-500 flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3 text-slate-600"></i>${item.dateStr}</span>` : ''}
                   </div>
                   <h3 class="text-sm font-bold text-white truncate group-hover:text-stitch-accent transition-colors">
                     ${escapeHtml(item.title)}
@@ -1007,6 +1043,7 @@
                     画幅 ${item.aspectRatio}
                   </span>
                   ${item.dimensions ? `<span class="text-[10px] font-mono text-slate-500">${item.dimensions}px</span>` : ''}
+                  ${item.dateStr ? `<span class="text-[10px] font-mono text-slate-400 px-2 py-0.5 rounded bg-white/[0.03] flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3 text-slate-500"></i>${item.dateStr}</span>` : ''}
                 </div>
 
                 <h3 class="text-base font-bold text-white tracking-tight line-clamp-2 leading-snug group-hover:text-stitch-accent transition-colors">
@@ -1071,6 +1108,7 @@
           ${item.aspectRatio}
         </span>
         ${item.dimensions ? `<span class="text-xs font-mono text-slate-400 px-2 py-0.5 rounded bg-white/[0.04]">${item.dimensions}px</span>` : ''}
+        ${item.datetimeStr ? `<span class="text-xs font-mono text-slate-400 px-2.5 py-0.5 rounded bg-white/[0.04]">发布时间: ${item.datetimeStr}</span>` : ''}
       `;
 
       // Render Modal Media Viewport
@@ -1457,6 +1495,7 @@
       currentCategory = 'all';
       currentSubcategory = 'all';
       currentRatioFilter = 'all';
+      currentSortOrder = 'latest';
       searchQuery = '';
       updateNavHighlight();
       renderRatioPills();

@@ -3,6 +3,7 @@
 """
 Scan image/ and video/ directories for Markdown prompt files,
 detect associated media assets, calculate the exact closest standard aspect ratio,
+extract commit/creation timestamp, sort prompts chronologically (newest first),
 and generate data/prompts.json and data/prompts.js with automatic cache-busting timestamp versioning.
 """
 
@@ -10,6 +11,8 @@ import os
 import re
 import time
 import json
+import subprocess
+from datetime import datetime
 from pathlib import Path
 from PIL import Image
 
@@ -46,6 +49,26 @@ CATEGORY_NAMES = {
         "vfx": "特效与概念",
     }
 }
+
+def get_file_timestamp(file_path: Path, root_dir: Path) -> int:
+    """Get Git commit timestamp or filesystem mtime."""
+    try:
+        res = subprocess.run(
+            ["git", "log", "-1", "--format=%ct", "--", file_path.relative_to(root_dir).as_posix()],
+            cwd=str(root_dir),
+            capture_output=True,
+            text=True,
+            timeout=3
+        )
+        if res.returncode == 0 and res.stdout.strip():
+            return int(res.stdout.strip())
+    except Exception:
+        pass
+    
+    try:
+        return int(file_path.stat().st_mtime)
+    except Exception:
+        return int(time.time())
 
 def calculate_closest_ratio(width: int, height: int) -> str:
     """Calculate the closest standard aspect ratio for given width and height."""
@@ -151,6 +174,12 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
 
     dimensions_str = f"{actual_width}x{actual_height}" if actual_width and actual_height else ""
 
+    # Timestamp & Date Formatting
+    ts = get_file_timestamp(file_path, root_dir)
+    dt = datetime.fromtimestamp(ts)
+    date_str = dt.strftime('%Y-%m-%d')
+    datetime_str = dt.strftime('%Y-%m-%d %H:%M')
+
     return {
         "id": rel_path.replace('/', '__').replace('.md', ''),
         "title": title,
@@ -166,6 +195,9 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
         "prompt": prompt_text,
         "mediaType": media_type,
         "mediaUrl": media_url,
+        "timestamp": ts,
+        "dateStr": date_str,
+        "datetimeStr": datetime_str,
         "rawContent": content,
     }
 
@@ -185,6 +217,9 @@ def build_data():
             item = parse_markdown_file(md_file, root_dir)
             if item:
                 items.append(item)
+
+    # Sort chronologically by timestamp in descending order (Newest first by default)
+    items.sort(key=lambda x: x.get('timestamp', 0), reverse=True)
 
     output_data = {
         "version": version_timestamp,
