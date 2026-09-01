@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Scan image/ and video/ directories for Markdown prompt files,
-detect associated media assets (or assign defaults),
+detect associated media assets, calculate the exact closest standard aspect ratio (16:9, 4:3, 1:1, 3:4, 9:16, etc.),
 and generate both data/prompts.json and data/prompts.js for the GitHub Pages static website.
 """
 
@@ -10,6 +10,19 @@ import os
 import re
 import json
 from pathlib import Path
+from PIL import Image
+
+STANDARD_RATIOS = [
+    ("21:9", 21 / 9),
+    ("16:9", 16 / 9),
+    ("3:2",  3 / 2),
+    ("4:3",  4 / 3),
+    ("1:1",  1 / 1),
+    ("3:4",  3 / 4),
+    ("2:3",  2 / 3),
+    ("9:16", 9 / 16),
+    ("9:21", 9 / 21),
+]
 
 CATEGORY_NAMES = {
     "image": {
@@ -32,6 +45,14 @@ CATEGORY_NAMES = {
         "vfx": "特效与概念",
     }
 }
+
+def calculate_closest_ratio(width: int, height: int) -> str:
+    """Calculate the closest standard aspect ratio for given width and height."""
+    if not width or not height or height == 0:
+        return "16:9"
+    actual_ratio = width / height
+    closest = min(STANDARD_RATIOS, key=lambda x: abs(actual_ratio - x[1]))
+    return closest[0]
 
 def parse_markdown_file(file_path: Path, root_dir: Path):
     try:
@@ -75,24 +96,31 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
     if target_match:
         target_desc = target_match.group(1).strip()
 
-    aspect_ratio = ""
-    ar_match = re.search(r'(?:推荐画幅|比例|Aspect Ratio)[^\n：:]*[：:]\s*([^\n]+)', content)
-    if ar_match:
-        aspect_ratio = ar_match.group(1).strip()
-
-    # Detect custom media in same directory or frontmatter
+    # Detect associated media file
     media_url = ""
     media_type = cat # "image" or "video"
+    actual_width = 0
+    actual_height = 0
+    aspect_ratio = ""
 
     stem = file_path.stem
     parent_dir = file_path.parent
+    
+    # 1. Search for matching image
     for ext in ['.jpg', '.jpeg', '.png', '.webp']:
         cand = parent_dir / f"{stem}{ext}"
         if cand.exists():
             media_url = cand.relative_to(root_dir).as_posix()
             media_type = "image"
+            try:
+                with Image.open(cand) as im:
+                    actual_width, actual_height = im.size
+                    aspect_ratio = calculate_closest_ratio(actual_width, actual_height)
+            except Exception as e:
+                print(f"Warning reading image size {cand}: {e}")
             break
     
+    # 2. Search for matching video
     if not media_url:
         for ext in ['.mp4', '.webm', '.gif']:
             cand = parent_dir / f"{stem}{ext}"
@@ -101,17 +129,34 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
                 media_type = "video"
                 break
 
-    # Fallback placeholders
+    # 3. Fallback placeholder if no media
     if not media_url:
         if cat == "video":
             media_url = "assets/placeholder-video.mp4"
             media_type = "video"
+            aspect_ratio = "16:9"
         else:
             media_url = "assets/placeholder-image.jpg"
             media_type = "image"
+            aspect_ratio = "4:3"
+
+    # Fallback aspect ratio from markdown if not detected from image
+    if not aspect_ratio:
+        ar_match = re.search(r'(?:推荐画幅|比例|Aspect Ratio)[^\n：:]*[：:]\s*([^\n]+)', content)
+        if ar_match:
+            raw_ar = ar_match.group(1).strip()
+            # Try to find standard ratio in string
+            for std_name, _ in STANDARD_RATIOS:
+                if std_name in raw_ar:
+                    aspect_ratio = std_name
+                    break
+        if not aspect_ratio:
+            aspect_ratio = "16:9" if cat == "video" else "3:4"
 
     cat_label = CATEGORY_NAMES.get(cat, {}).get("_label", cat)
     subcat_label = CATEGORY_NAMES.get(cat, {}).get(subcat, subcat)
+
+    dimensions_str = f"{actual_width}x{actual_height}" if actual_width and actual_height else ""
 
     return {
         "id": rel_path.replace('/', '__').replace('.md', ''),
@@ -125,6 +170,7 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
         "target": target_desc or title,
         "models": models,
         "aspectRatio": aspect_ratio,
+        "dimensions": dimensions_str,
         "prompt": prompt_text,
         "mediaType": media_type,
         "mediaUrl": media_url,
