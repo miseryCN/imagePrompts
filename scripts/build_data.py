@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 """
 Scan image/ and video/ directories for Markdown prompt files,
-detect associated media assets, calculate the exact closest standard aspect ratio,
-extract commit/creation timestamp, sort prompts chronologically (newest first),
-and generate data/prompts.json and data/prompts.js with automatic cache-busting timestamp versioning.
+clean, format, and normalize prompt texts, detect associated media assets,
+calculate the exact closest standard aspect ratio, extract commit/creation timestamp,
+sort prompts chronologically (newest first), and generate data/prompts.json and data/prompts.js.
 """
 
 import os
@@ -27,6 +27,81 @@ STANDARD_RATIOS = [
     ("9:16", 9 / 16),
     ("9:21", 9 / 21),
 ]
+
+SECTION_TAGS = [
+    r'核心主体[：:]',
+    r'衣着(?:搭配)?[：:]',
+    r'表情[、与及]妆容[：:]',
+    r'核心动作(?:/状态)?[：:]',
+    r'动作设计[：:]',
+    r'场景环境[：:]',
+    r'镜头(?:焦段[、与]光圈[、与]景别|景别|语言)?[：:]',
+    r'光照(?:方向[、与]强度|氛围)?[：:]',
+    r'色彩风格[：:]',
+    r'整体氛围[：:]',
+    r'画质要求[：:]',
+    r'画面呈现[“"”\']?',
+    r'背景柔和虚化[：:]?',
+    r'负面提示词[：:]?',
+    r'人物特征[：:]',
+    r'发型配饰[：:]',
+    r'关键细节[：:]',
+]
+
+def clean_prompt_text(raw_text: str) -> str:
+    """Normalize and format prompt text into clean, structured lines."""
+    if not raw_text:
+        return ""
+
+    text = raw_text.replace('\r\n', '\n').replace('\r', '\n')
+
+    # Convert section tags into newlines if joined by spaces
+    for tag in SECTION_TAGS:
+        text = re.sub(rf'[ \t]*({tag})', r'\n\1', text)
+
+    # Normalize multiple spaces and cleanup punctuation spacing
+    lines = text.split('\n')
+    cleaned_lines = []
+
+    for line in lines:
+        l = line.strip()
+        if not l:
+            if cleaned_lines and cleaned_lines[-1] != '':
+                cleaned_lines.append('')
+            continue
+
+        # Replace multiple spaces with a single space
+        l = re.sub(r'[ \t]{2,}', ' ', l)
+        
+        # Clean spacing around Chinese punctuation
+        l = re.sub(r'([，。！？；：、（）]) +', r'\1', l)
+        l = re.sub(r' +([，。！？；：、（）])', r'\1', l)
+
+        # Ensure colon after 负面提示词
+        l = re.sub(r'^负面提示词(?![：:])', '负面提示词：', l)
+
+        cleaned_lines.append(l)
+
+    return '\n'.join(cleaned_lines).strip()
+
+def clean_markdown_file(file_path: Path):
+    """Clean markdown prompt block in-place."""
+    try:
+        content = file_path.read_text(encoding='utf-8')
+        prompt_match = re.search(r'```(?:text|prompt)?\s*\n(.*?)\n```', content, re.DOTALL)
+        if not prompt_match:
+            return False
+
+        raw_prompt = prompt_match.group(1)
+        cleaned_prompt = clean_prompt_text(raw_prompt)
+
+        if raw_prompt.strip() != cleaned_prompt:
+            new_content = content[:prompt_match.start(1)] + cleaned_prompt + content[prompt_match.end(1):]
+            file_path.write_text(new_content, encoding='utf-8')
+            return True
+    except Exception as e:
+        print(f"Error cleaning {file_path}: {e}")
+    return False
 
 CATEGORY_NAMES = {
     "image": {
@@ -79,6 +154,9 @@ def calculate_closest_ratio(width: int, height: int) -> str:
     return closest[0]
 
 def parse_markdown_file(file_path: Path, root_dir: Path):
+    # Ensure markdown file is cleanly formatted
+    clean_markdown_file(file_path)
+
     try:
         content = file_path.read_text(encoding='utf-8')
     except Exception as e:
@@ -104,7 +182,7 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
     # Extract prompt text
     prompt_match = re.search(r'```(?:text|prompt)?\s*\n(.*?)\n```', content, re.DOTALL)
     if prompt_match:
-        prompt_text = prompt_match.group(1).strip()
+        prompt_text = clean_prompt_text(prompt_match.group(1).strip())
     else:
         prompt_text = ""
 

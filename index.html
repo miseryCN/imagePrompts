@@ -37,7 +37,7 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <!-- Preloaded Data Dataset with Cache Busting Version -->
-  <script src="data/prompts.js?v=1788250984"></script>
+  <script src="data/prompts.js?v=1788251100"></script>
 
   <script>
     tailwind.config = {
@@ -1449,12 +1449,25 @@
       openDetailModal(id);
     }
 
+    // Clean & Normalize Prompt Text
+    function formatCleanPrompt(text) {
+      if (!text) return "";
+      return text
+        .replace(/\r\n/g, '\n')
+        .replace(/\r/g, '\n')
+        .split('\n')
+        .map(line => line.trim().replace(/[ \t]{2,}/g, ' '))
+        .filter(line => line.length > 0)
+        .join('\n');
+    }
+
     // Copy Prompt
     function copyPromptText(id, btnElement, event) {
       const item = allPrompts.find(p => p.id === id);
       if (!item || !item.prompt) return;
 
-      navigator.clipboard.writeText(item.prompt);
+      const cleanText = formatCleanPrompt(item.prompt);
+      navigator.clipboard.writeText(cleanText);
       AudioEngine.playClick();
 
       if (window.confetti && event) {
