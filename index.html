@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>STITCH PROMPTS // 创意图像与视频提示词实验室</title>
+
+  <!-- Cache Control Directives (Dual-Pronged Cache Invalidation) -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,8 +30,8 @@
   <!-- Marked.js for Markdown Rendering -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-  <!-- Preloaded Data Dataset -->
-  <script src="data/prompts.js"></script>
+  <!-- Preloaded Data Dataset with Cache Busting Version -->
+  <script src="data/prompts.js?v=1788242245"></script>
 
   <script>
     tailwind.config = {
@@ -480,18 +485,24 @@
       { id: "21:9", label: "21:9 (电影宽幕)" }
     ];
 
-    // Robust Media Resolver Helper
+    // Robust Media Resolver Helper with Cache Busting
     function getMediaInfo(item) {
       if (!item) {
-        return { url: 'assets/placeholder-image.jpg', type: 'image' };
+        return { url: 'assets/placeholder-image.jpg', rawUrl: 'assets/placeholder-image.jpg', type: 'image' };
       }
       const isVideo = item.category === 'video' || item.mediaType === 'video';
       let url = item.mediaUrl;
       if (!url || url === 'undefined' || typeof url !== 'string') {
         url = isVideo ? 'assets/placeholder-video.mp4' : 'assets/placeholder-image.jpg';
       }
+      
+      // Auto Cache-Busting Version
+      const ver = (window.STITCH_PROMPTS_DATA && window.STITCH_PROMPTS_DATA.version) ? window.STITCH_PROMPTS_DATA.version : Date.now();
+      const bustedUrl = url.includes('?') ? `${url}&v=${ver}` : `${url}?v=${ver}`;
+
       return {
-        url: url,
+        url: bustedUrl,
+        rawUrl: url,
         type: isVideo ? 'video' : 'image'
       };
     }
@@ -585,7 +596,8 @@
 
     async function loadPromptsData() {
       try {
-        const res = await fetch(`data/prompts.json?t=${Date.now()}`);
+        const ver = (window.STITCH_PROMPTS_DATA && window.STITCH_PROMPTS_DATA.version) ? window.STITCH_PROMPTS_DATA.version : Date.now();
+        const res = await fetch(`data/prompts.json?v=${ver}`);
         if (res.ok) {
           const json = await res.json();
           if (json.prompts && json.prompts.length > 0) {

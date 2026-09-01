@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 """
 Scan image/ and video/ directories for Markdown prompt files,
-detect associated media assets, calculate the exact closest standard aspect ratio (16:9, 4:3, 1:1, 3:4, 9:16, etc.),
-and generate both data/prompts.json and data/prompts.js for the GitHub Pages static website.
+detect associated media assets, calculate the exact closest standard aspect ratio,
+and generate data/prompts.json and data/prompts.js with automatic cache-busting timestamp versioning.
 """
 
 import os
 import re
+import time
 import json
 from pathlib import Path
 from PIL import Image
@@ -145,7 +146,6 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
         ar_match = re.search(r'(?:推荐画幅|比例|Aspect Ratio)[^\n：:]*[：:]\s*([^\n]+)', content)
         if ar_match:
             raw_ar = ar_match.group(1).strip()
-            # Try to find standard ratio in string
             for std_name, _ in STANDARD_RATIOS:
                 if std_name in raw_ar:
                     aspect_ratio = std_name
@@ -182,6 +182,8 @@ def build_data():
     data_dir = root_dir / "data"
     data_dir.mkdir(exist_ok=True)
 
+    version_timestamp = str(int(time.time()))
+
     items = []
     for top_cat in ["image", "video"]:
         cat_dir = root_dir / top_cat
@@ -193,6 +195,7 @@ def build_data():
                 items.append(item)
 
     output_data = {
+        "version": version_timestamp,
         "categories": CATEGORY_NAMES,
         "total": len(items),
         "prompts": items
@@ -208,7 +211,18 @@ def build_data():
     with open(js_file, "w", encoding="utf-8") as f:
         f.write("window.STITCH_PROMPTS_DATA = " + json.dumps(output_data, ensure_ascii=False, indent=2) + ";\n")
 
-    print(f"Generated {out_file} and {js_file} with {len(items)} prompts.")
+    # Update index.html script tag with cache-busting version
+    index_file = root_dir / "index.html"
+    if index_file.exists():
+        index_html = index_file.read_text(encoding="utf-8")
+        updated_html = re.sub(
+            r'<script\s+src="data/prompts\.js(?:\?v=[^"]*)?"',
+            f'<script src="data/prompts.js?v={version_timestamp}"',
+            index_html
+        )
+        index_file.write_text(updated_html, encoding="utf-8")
+
+    print(f"Generated {out_file} and {js_file} with {len(items)} prompts (Version: {version_timestamp}).")
     return output_data
 
 if __name__ == "__main__":
