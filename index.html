@@ -25,6 +25,9 @@
   <!-- Marked.js for Markdown Rendering -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
+  <!-- Preloaded Data Dataset -->
+  <script src="data/prompts.js"></script>
+
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -373,7 +376,7 @@
               成图 / 成片高清素材视口 (MEDIA SHOWCASE)
             </span>
           </div>
-          <div id="modal-media-viewport" class="relative w-full max-h-[380px] bg-[#050608] border border-white/[0.08] rounded-xl overflow-hidden flex items-center justify-center">
+          <div id="modal-media-viewport" class="relative w-full max-h-[380px] bg-[#050608] border border-white/[0.08] rounded-xl overflow-hidden flex items-center justify-center p-2">
             <!-- Dynamic Video or Image Inserted Here -->
           </div>
         </div>
@@ -453,6 +456,22 @@
       }
     };
 
+    // Robust Media Resolver Helper
+    function getMediaInfo(item) {
+      if (!item) {
+        return { url: 'assets/placeholder-image.jpg', type: 'image' };
+      }
+      const isVideo = item.category === 'video' || item.mediaType === 'video';
+      let url = item.mediaUrl;
+      if (!url || url === 'undefined' || typeof url !== 'string') {
+        url = isVideo ? 'assets/placeholder-video.mp4' : 'assets/placeholder-image.jpg';
+      }
+      return {
+        url: url,
+        type: isVideo ? 'video' : 'image'
+      };
+    }
+
     // Category Taxonomy
     const CATEGORIES = {
       image: {
@@ -489,6 +508,11 @@
 
     // Init Application
     async function init() {
+      // Priority 1: Check preloaded window data
+      if (window.STITCH_PROMPTS_DATA && window.STITCH_PROMPTS_DATA.prompts) {
+        allPrompts = window.STITCH_PROMPTS_DATA.prompts;
+      }
+
       renderSidebarNavigation();
       await loadPromptsData();
       bindEvents();
@@ -537,13 +561,15 @@
 
     async function loadPromptsData() {
       try {
-        const res = await fetch('data/prompts.json');
+        const res = await fetch(`data/prompts.json?t=${Date.now()}`);
         if (res.ok) {
           const json = await res.json();
-          allPrompts = json.prompts || [];
+          if (json.prompts && json.prompts.length > 0) {
+            allPrompts = json.prompts;
+          }
         }
       } catch (err) {
-        console.warn("Failed loading data/prompts.json", err);
+        console.warn("Using preloaded data:", err);
       }
 
       updateCounters();
@@ -677,14 +703,15 @@
       emptyState.classList.add('hidden');
 
       container.innerHTML = filtered.map(item => {
-        const isVideo = item.mediaType === 'video';
+        const media = getMediaInfo(item);
+        const isVideo = media.type === 'video';
         const mediaTag = isVideo ? '成片动态预览' : '成图画质预览';
         const mediaBadgeColor = isVideo ? 'text-stitch-teal bg-teal-950/60 border-teal-800/40' : 'text-stitch-amber bg-amber-950/60 border-amber-800/40';
 
-        // Media Render (Video or Image)
+        // Media Element with fallback onerror
         const mediaHtml = isVideo 
-          ? `<video src="${item.mediaUrl}" loop muted playsinline autoplay class="w-full h-full object-cover"></video>`
-          : `<img src="${item.mediaUrl}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">`;
+          ? `<video src="${media.url}" loop muted playsinline autoplay class="w-full h-full object-cover" onerror="this.src='assets/placeholder-video.mp4'"></video>`
+          : `<img src="${media.url}" alt="${escapeHtml(item.title)}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='assets/placeholder-image.jpg'">`;
 
         if (viewMode === 'list') {
           return `
@@ -797,7 +824,8 @@
       const item = allPrompts.find(p => p.id === id);
       if (!item) return;
 
-      const isVideo = item.mediaType === 'video';
+      const media = getMediaInfo(item);
+      const isVideo = media.type === 'video';
 
       document.getElementById('modal-title-text').innerText = item.title;
       document.getElementById('modal-tags-container').innerHTML = `
@@ -807,15 +835,15 @@
         ${item.aspectRatio ? `<span class="text-xs font-mono text-slate-400 px-2.5 py-1 rounded bg-white/[0.04] border border-white/[0.08]">${item.aspectRatio}</span>` : ''}
       `;
 
-      // Render Modal Media Viewport
+      // Render Modal Media Viewport with robust fallback
       const modalMediaBox = document.getElementById('modal-media-viewport');
       if (isVideo) {
         modalMediaBox.innerHTML = `
-          <video src="${item.mediaUrl}" controls loop autoplay playsinline class="w-full max-h-[360px] object-contain rounded-lg"></video>
+          <video src="${media.url}" controls loop autoplay playsinline class="w-full max-h-[360px] object-contain rounded-lg" onerror="this.src='assets/placeholder-video.mp4'"></video>
         `;
       } else {
         modalMediaBox.innerHTML = `
-          <img src="${item.mediaUrl}" alt="${item.title}" class="w-full max-h-[360px] object-contain rounded-lg">
+          <img src="${media.url}" alt="${escapeHtml(item.title)}" class="w-full max-h-[360px] object-contain rounded-lg" onerror="this.src='assets/placeholder-image.jpg'">
         `;
       }
 

@@ -3,7 +3,7 @@
 """
 Scan image/ and video/ directories for Markdown prompt files,
 detect associated media assets (or assign defaults),
-and generate data/prompts.json for the GitHub Pages static website.
+and generate both data/prompts.json and data/prompts.js for the GitHub Pages static website.
 """
 
 import os
@@ -84,7 +84,6 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
     media_url = ""
     media_type = cat # "image" or "video"
 
-    # Check if there is a matching image/video with same stem
     stem = file_path.stem
     parent_dir = file_path.parent
     for ext in ['.jpg', '.jpeg', '.png', '.webp']:
@@ -153,11 +152,17 @@ def build_data():
         "prompts": items
     }
 
+    # Write prompts.json
     out_file = data_dir / "prompts.json"
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(output_data, f, ensure_ascii=False, indent=2)
-    print(f"Generated {out_file} with {len(items)} prompts.")
 
+    # Write prompts.js for instant zero-latency loading
+    js_file = data_dir / "prompts.js"
+    with open(js_file, "w", encoding="utf-8") as f:
+        f.write("window.STITCH_PROMPTS_DATA = " + json.dumps(output_data, ensure_ascii=False, indent=2) + ";\n")
+
+    print(f"Generated {out_file} and {js_file} with {len(items)} prompts.")
     return output_data
 
 if __name__ == "__main__":
