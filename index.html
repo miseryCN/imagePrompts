@@ -37,7 +37,7 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <!-- Preloaded Data Dataset with Cache Busting Version -->
-  <script src="data/prompts.js?v=1788242728"></script>
+  <script src="data/prompts.js?v=1788242803"></script>
 
   <script>
     tailwind.config = {
@@ -139,9 +139,9 @@
 </head>
 <body class="min-h-screen flex flex-col font-sans antialiased selection:bg-stitch-accent selection:text-white bg-[#08090C]">
 
-  <!-- Top Solid Precision Navbar (Fixed Solid Background on Scroll) -->
-  <header class="sticky top-0 z-40 w-full border-b border-white/[0.1] bg-[#08090C] shadow-xl shadow-black/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4 sm:gap-6">
+  <!-- Top Solid Precision Navbar (High Z-Index & Solid Opaque Background) -->
+  <header class="sticky top-0 z-50 w-full border-b border-white/[0.1] bg-[#08090C] shadow-2xl shadow-black/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4 sm:gap-6 bg-[#08090C]">
       
       <!-- Brand Logo & Studio Name (wkmdog) -->
       <div class="flex items-center gap-4">
@@ -224,10 +224,10 @@
   </header>
 
   <!-- Main Container -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full flex gap-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full flex gap-8 relative z-10">
     
-    <!-- Sidebar Navigation -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-[#08090C] lg:bg-transparent border-r border-white/[0.08] lg:border-r-0 p-6 lg:p-0 lg:static lg:w-60 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-out flex flex-col gap-6 overflow-y-auto">
+    <!-- Sidebar Navigation (Sticky on Desktop, Clean Drawer on Mobile) -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-[60] w-72 bg-[#08090C] border-r border-white/[0.08] p-6 transform -translate-x-full transition-transform duration-300 ease-out flex flex-col gap-6 overflow-y-auto lg:translate-x-0 lg:static lg:z-auto lg:w-60 lg:bg-transparent lg:border-r-0 lg:p-0 lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100vh-7.5rem)]">
       
       <!-- Mobile Close Button -->
       <div class="flex items-center justify-between lg:hidden pb-4 border-b border-white/[0.08]">
@@ -310,8 +310,8 @@
 
     </aside>
 
-    <!-- Mobile Backdrop -->
-    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 lg:hidden hidden"></div>
+    <!-- Mobile Backdrop (z-[55]) -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[55] lg:hidden hidden"></div>
 
     <!-- Main Content Area -->
     <main class="flex-1 min-w-0">
@@ -368,8 +368,8 @@
 
   </div>
 
-  <!-- Command Palette Modal (⌘K / /) -->
-  <div id="command-palette-modal" class="fixed inset-0 z-50 hidden flex items-start justify-center pt-20 px-4 sm:px-6">
+  <!-- Command Palette Modal (z-[75]) -->
+  <div id="command-palette-modal" class="fixed inset-0 z-[75] hidden flex items-start justify-center pt-20 px-4 sm:px-6">
     <div id="command-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-xl opacity-0 transition-opacity"></div>
     <div id="command-box" class="relative w-full max-w-2xl bg-[#101217] border border-white/[0.12] rounded-2xl shadow-2xl overflow-hidden z-10 scale-95 opacity-0 transition-all duration-200">
       
@@ -399,8 +399,8 @@
     </div>
   </div>
 
-  <!-- Detail & Full Media Inspector Modal -->
-  <div id="detail-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 lg:p-8">
+  <!-- Detail & Full Media Inspector Modal (z-[80]) -->
+  <div id="detail-modal" class="fixed inset-0 z-[80] hidden flex items-center justify-center p-4 sm:p-6 lg:p-8">
     <div id="detail-backdrop" class="fixed inset-0 bg-black/85 backdrop-blur-xl opacity-0 transition-opacity duration-300"></div>
     
     <div id="detail-box" class="relative bg-[#101217] border border-white/[0.12] rounded-2xl w-full max-w-5xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden z-10 scale-95 opacity-0 transition-all duration-300">
@@ -475,16 +475,16 @@
     </div>
   </div>
 
-  <!-- Fullscreen Lightbox Modal -->
-  <div id="lightbox-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-2xl" onclick="closeLightbox()">
+  <!-- Fullscreen Lightbox Modal (z-[90]) -->
+  <div id="lightbox-modal" class="fixed inset-0 z-[90] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-2xl" onclick="closeLightbox()">
     <button onclick="closeLightbox()" class="absolute top-6 right-6 p-3 text-slate-400 hover:text-white rounded-full bg-white/[0.08] hover:bg-white/[0.15] transition-all z-20" title="关闭大图">
       <i data-lucide="x" class="w-6 h-6"></i>
     </button>
     <div id="lightbox-content" class="relative max-w-[95vw] max-h-[95vh] flex items-center justify-center" onclick="event.stopPropagation()"></div>
   </div>
 
-  <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-8 right-8 z-50 transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300">
+  <!-- Toast Notification (z-[100]) -->
+  <div id="toast" class="fixed bottom-8 right-8 z-[100] transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300">
     <div class="flex items-center gap-2.5 px-5 py-3 rounded-xl bg-[#181B22] border border-stitch-accent/50 text-white shadow-2xl text-xs font-bold tracking-wide">
       <i data-lucide="check-circle" class="w-4 h-4 text-stitch-accent"></i>
       <span id="toast-message">提示词已复制到剪贴板</span>
