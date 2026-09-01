@@ -37,7 +37,7 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <!-- Preloaded Data Dataset with Cache Busting Version -->
-  <script src="data/prompts.js?v=1788243259"></script>
+  <script src="data/prompts.js?v=1788243852"></script>
 
   <script>
     tailwind.config = {
@@ -229,9 +229,19 @@
           </div>
         </div>
 
-        <!-- Right Action Bar: Friend Links & GitHub -->
-        <div class="flex items-center gap-2.5">
+        <!-- Right Action Bar: Enjoy Mode, Friend Links & GitHub -->
+        <div class="flex items-center gap-2 sm:gap-3">
           
+          <!-- Pure Enjoy Mode Button (Prominent Entry) -->
+          <button 
+            onclick="window.location.hash = 'enjoy'" 
+            class="flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-gradient-to-r from-stitch-accent to-stitch-amber hover:brightness-110 active:scale-95 rounded-xl shadow-stitch-glow transition-all"
+            title="沉浸式短视频纯享刷刷刷"
+          >
+            <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+            <span>纯享模式</span>
+          </button>
+
           <!-- Friend Links -->
           <div class="hidden sm:flex items-center gap-2">
             <a 
@@ -288,6 +298,20 @@
         <!-- Navigation Tree -->
         <div class="space-y-6">
           
+          <!-- Pure Enjoy Mode Quick Launch Button in Sidebar -->
+          <div>
+            <button 
+              onclick="window.location.hash = 'enjoy'" 
+              class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-bold text-xs transition-all bg-gradient-to-r from-stitch-accent/20 to-stitch-amber/20 hover:from-stitch-accent/30 hover:to-stitch-amber/30 border border-stitch-accent/40 text-white shadow-md group active:scale-95"
+            >
+              <span class="flex items-center gap-2">
+                <i data-lucide="play" class="w-4 h-4 text-stitch-accent fill-current group-hover:scale-110 transition-transform"></i>
+                沉浸纯享模式
+              </span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-stitch-accent text-white font-bold">刷剧</span>
+            </button>
+          </div>
+
           <!-- All Button -->
           <div>
             <button 
@@ -436,7 +460,7 @@
         <span class="hidden sm:inline-block text-[11px] font-mono text-slate-400 bg-black/50 border border-white/10 px-2.5 py-1 rounded-xl">
           ↑ ↓ 键 / 滚轮 / 滑动切换 · 空格复制
         </span>
-        <button onclick="exitEnjoyMode()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold backdrop-blur-md transition-all shadow-lg">
+        <button onclick="exitEnjoyMode()" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold backdrop-blur-md transition-all shadow-lg active:scale-95">
           <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
           <span>退出纯享</span>
         </button>
@@ -447,15 +471,14 @@
     <div id="enjoy-feed" class="enjoy-feed-container"></div>
 
     <!-- Swipe Guide Arrow (Blinking at bottom) -->
-    <div id="enjoy-swipe-hint" class="absolute bottom-3 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none opacity-60 animate-bounce">
-      <span class="text-[10px] font-mono text-white/70 tracking-widest uppercase">SWIPE UP</span>
+    <div id="enjoy-swipe-hint" class="absolute bottom-2 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none opacity-50 animate-bounce">
       <i data-lucide="chevron-down" class="w-4 h-4 text-white/70"></i>
     </div>
 
   </div>
 
-  <!-- Command Palette Modal (z-[1200]) -->
-  <div id="command-palette-modal" class="fixed inset-0 z-[1200] hidden flex items-start justify-center pt-20 px-4 sm:px-6">
+  <!-- Command Palette Modal (z-[2100] - Always Above Enjoy Mode) -->
+  <div id="command-palette-modal" class="fixed inset-0 z-[2100] hidden flex items-start justify-center pt-20 px-4 sm:px-6">
     <div id="command-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-xl opacity-0 transition-opacity"></div>
     <div id="command-box" class="relative w-full max-w-2xl bg-[#101217] border border-white/[0.12] rounded-2xl shadow-2xl overflow-hidden z-10 scale-95 opacity-0 transition-all duration-200">
       
@@ -485,8 +508,8 @@
     </div>
   </div>
 
-  <!-- Detail & Full Media Inspector Modal (z-[1250]) -->
-  <div id="detail-modal" class="fixed inset-0 z-[1250] hidden flex items-center justify-center p-4 sm:p-6 lg:p-8">
+  <!-- Detail & Full Media Inspector Modal (z-[2200] - Always Above Enjoy Mode) -->
+  <div id="detail-modal" class="fixed inset-0 z-[2200] hidden flex items-center justify-center p-4 sm:p-6 lg:p-8">
     <div id="detail-backdrop" class="fixed inset-0 bg-black/85 backdrop-blur-xl opacity-0 transition-opacity duration-300"></div>
     
     <div id="detail-box" class="relative bg-[#101217] border border-white/[0.12] rounded-2xl w-full max-w-5xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden z-10 scale-95 opacity-0 transition-all duration-300">
@@ -561,16 +584,16 @@
     </div>
   </div>
 
-  <!-- Fullscreen Lightbox Modal (z-[1300]) -->
-  <div id="lightbox-modal" class="fixed inset-0 z-[1300] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-2xl" onclick="closeLightbox()">
+  <!-- Fullscreen Lightbox Modal (z-[2300] - Always Above Enjoy Mode) -->
+  <div id="lightbox-modal" class="fixed inset-0 z-[2300] hidden flex items-center justify-center p-4 bg-black/95 backdrop-blur-2xl" onclick="closeLightbox()">
     <button onclick="closeLightbox()" class="absolute top-6 right-6 p-3 text-slate-400 hover:text-white rounded-full bg-white/[0.08] hover:bg-white/[0.15] transition-all z-20" title="关闭大图">
       <i data-lucide="x" class="w-6 h-6"></i>
     </button>
     <div id="lightbox-content" class="relative max-w-[95vw] max-h-[95vh] flex items-center justify-center" onclick="event.stopPropagation()"></div>
   </div>
 
-  <!-- Toast Notification (z-[1400]) -->
-  <div id="toast" class="fixed bottom-8 right-8 z-[1400] transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300">
+  <!-- Toast Notification (z-[2400] - Always Above Enjoy Mode) -->
+  <div id="toast" class="fixed bottom-8 right-8 z-[2400] transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300">
     <div class="flex items-center gap-2.5 px-5 py-3 rounded-xl bg-[#181B22] border border-stitch-accent/50 text-white shadow-2xl text-xs font-bold tracking-wide">
       <i data-lucide="check-circle" class="w-4 h-4 text-stitch-accent"></i>
       <span id="toast-message">提示词已复制到剪贴板</span>
@@ -1167,7 +1190,6 @@
 
       // Randomly Shuffle Prompts for Endless Short Video Experience
       enjoyPlaylist = shuffleArray(allPrompts);
-      // Repeat to create endless flow if needed
       if (enjoyPlaylist.length < 10) {
         enjoyPlaylist = [...enjoyPlaylist, ...shuffleArray(allPrompts), ...shuffleArray(allPrompts)];
       }
@@ -1221,20 +1243,20 @@
             <!-- Center Media Canvas -->
             ${mediaLayer}
 
-            <!-- Right Floating Action Icons (TikTok / Reels Style) -->
-            <div class="absolute right-4 sm:right-8 bottom-28 z-30 flex flex-col items-center gap-5">
+            <!-- Right Floating Action Icons (TikTok / Reels Style - Isolated on Right) -->
+            <div class="absolute right-3.5 sm:right-6 bottom-20 z-30 flex flex-col items-center gap-4">
               
               <!-- Copy Prompt -->
               <button onclick="copyPromptText('${item.id}', this, event)" class="flex flex-col items-center gap-1 group">
-                <div class="w-12 h-12 rounded-full bg-black/60 hover:bg-stitch-accent border border-white/20 hover:border-stitch-accent flex items-center justify-center backdrop-blur-xl transition-all shadow-xl text-white group-hover:scale-110">
+                <div class="w-12 h-12 rounded-full bg-black/60 hover:bg-stitch-accent border border-white/20 hover:border-stitch-accent flex items-center justify-center backdrop-blur-xl transition-all shadow-xl text-white group-hover:scale-110 active:scale-90">
                   <i data-lucide="copy" class="w-5 h-5"></i>
                 </div>
                 <span class="text-[10px] font-bold text-white/90 drop-shadow">复制</span>
               </button>
 
-              <!-- View Details Modal -->
+              <!-- View Details Modal (Opens on top of Enjoy container) -->
               <button onclick="openDetailModal('${item.id}', event)" class="flex flex-col items-center gap-1 group">
-                <div class="w-12 h-12 rounded-full bg-black/60 hover:bg-white/20 border border-white/20 flex items-center justify-center backdrop-blur-xl transition-all shadow-xl text-white group-hover:scale-110">
+                <div class="w-12 h-12 rounded-full bg-black/60 hover:bg-white/20 border border-white/20 flex items-center justify-center backdrop-blur-xl transition-all shadow-xl text-white group-hover:scale-110 active:scale-90">
                   <i data-lucide="file-text" class="w-5 h-5"></i>
                 </div>
                 <span class="text-[10px] font-bold text-white/90 drop-shadow">详情</span>
@@ -1242,7 +1264,7 @@
 
               <!-- Next Random Item -->
               <button onclick="scrollToNextEnjoySlide()" class="flex flex-col items-center gap-1 group">
-                <div class="w-12 h-12 rounded-full bg-black/60 hover:bg-stitch-teal border border-white/20 hover:border-stitch-teal flex items-center justify-center backdrop-blur-xl transition-all shadow-xl text-white group-hover:scale-110">
+                <div class="w-12 h-12 rounded-full bg-black/60 hover:bg-stitch-teal border border-white/20 hover:border-stitch-teal flex items-center justify-center backdrop-blur-xl transition-all shadow-xl text-white group-hover:scale-110 active:scale-90">
                   <i data-lucide="shuffle" class="w-5 h-5"></i>
                 </div>
                 <span class="text-[10px] font-bold text-white/90 drop-shadow">换一个</span>
@@ -1250,26 +1272,11 @@
 
             </div>
 
-            <!-- Bottom Information Panel -->
-            <div class="absolute bottom-0 inset-x-0 z-20 p-5 sm:p-8 pt-16 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col gap-2 max-w-2xl">
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-md bg-stitch-accent text-white shadow-stitch-glow">
-                  ${item.categoryLabel} · ${item.subcategoryLabel}
-                </span>
-                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded-md bg-white/10 text-white border border-white/10 backdrop-blur-md">
-                  ${item.aspectRatio}
-                </span>
-                ${item.dimensions ? `<span class="text-[11px] font-mono text-slate-400">${item.dimensions}px</span>` : ''}
-              </div>
-
-              <h3 class="text-base sm:text-lg font-bold text-white leading-tight drop-shadow-md">
+            <!-- Bottom Left Title Panel (Clean, Minimal, No Overlap with Right Action Bar) -->
+            <div class="absolute bottom-6 left-5 sm:left-8 z-20 max-w-[calc(100vw-6.5rem)] sm:max-w-xl pointer-events-none">
+              <h3 class="text-sm sm:text-base font-bold text-white leading-snug drop-shadow-lg line-clamp-2">
                 ${escapeHtml(item.title)}
               </h3>
-
-              <!-- Expandable Prompt Preview -->
-              <p onclick="this.classList.toggle('line-clamp-2')" class="text-xs font-mono text-slate-300/95 leading-relaxed line-clamp-2 cursor-pointer bg-black/40 hover:bg-black/60 p-2.5 rounded-xl border border-white/10 backdrop-blur-md transition-all drop-shadow">
-                ${escapeHtml(item.prompt || item.target)}
-              </p>
             </div>
 
           </div>
