@@ -1,4 +1,4 @@
-# 提示词仓库 (Image & Video Prompts Hub)
+# wkmdog - 创意图像与视频提示词实验室
 
 > 🎨 图像与 🎬 视频 AI 提示词库 | 在线展示：[https://miserycn.github.io/imagePrompts/](https://miserycn.github.io/imagePrompts/)
 

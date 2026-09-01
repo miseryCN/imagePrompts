@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>STITCH PROMPTS // 创意图像与视频提示词实验室</title>
+  <title>wkmdog // 创意图像与视频提示词实验室</title>
+
+  <!-- Site Favicons -->
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
 
   <!-- Cache Control Directives (Dual-Pronged Cache Invalidation) -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -31,7 +37,7 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <!-- Preloaded Data Dataset with Cache Busting Version -->
-  <script src="data/prompts.js?v=1788242581"></script>
+  <script src="data/prompts.js?v=1788242728"></script>
 
   <script>
     tailwind.config = {
@@ -137,19 +143,17 @@
   <header class="sticky top-0 z-40 w-full border-b border-white/[0.1] bg-[#08090C] shadow-xl shadow-black/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4 sm:gap-6">
       
-      <!-- Brand Logo & Studio Name -->
+      <!-- Brand Logo & Studio Name (wkmdog) -->
       <div class="flex items-center gap-4">
         <button id="mobile-menu-btn" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.05] lg:hidden transition-all">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
-        <div class="flex items-center gap-3.5 group cursor-pointer" onclick="resetAllFilters()">
-          <div class="w-10 h-10 rounded-xl bg-[#141720] border border-white/[0.1] flex items-center justify-center group-hover:border-stitch-accent transition-all duration-200">
-            <div class="w-3.5 h-3.5 bg-stitch-accent rounded-sm rotate-45 group-hover:rotate-90 transition-transform duration-300"></div>
-          </div>
+        <div class="flex items-center gap-3 group cursor-pointer" onclick="resetAllFilters()">
+          <img src="assets/favicon.png" alt="wkmdog" class="w-9 h-9 rounded-xl border border-white/[0.12] group-hover:border-stitch-accent transition-all duration-200 shadow-md">
           <div>
             <div class="flex items-center gap-2">
               <span class="font-mono font-bold text-base tracking-tight text-white">
-                STITCH<span class="text-stitch-accent">/</span>PROMPTS
+                wkm<span class="text-stitch-accent">dog</span>
               </span>
               <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-white/[0.05] text-slate-300 border border-white/[0.08]">
                 STUDIO
@@ -389,7 +393,7 @@
           <span><kbd class="text-slate-400">↵</kbd> 打开详情</span>
           <span><kbd class="text-slate-400">ESC</kbd> 关闭</span>
         </div>
-        <span class="text-stitch-accent font-semibold">STITCH SEARCH</span>
+        <span class="text-stitch-accent font-semibold">WKMDOG SEARCH</span>
       </div>
 
     </div>
