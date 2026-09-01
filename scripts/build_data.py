@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Scan image/ and video/ directories for Markdown prompt files
+Scan image/ and video/ directories for Markdown prompt files,
+detect associated media assets (or assign defaults),
 and generate data/prompts.json for the GitHub Pages static website.
 """
 
@@ -56,16 +57,11 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
         title = file_path.stem.replace('_', ' ')
 
     # Extract prompt text
-    prompt_match = re.search(r'```text\s*\n(.*?)\n```', content, re.DOTALL)
+    prompt_match = re.search(r'```(?:text|prompt)?\s*\n(.*?)\n```', content, re.DOTALL)
     if prompt_match:
         prompt_text = prompt_match.group(1).strip()
     else:
-        # Fallback search for blockquote or general code block
-        code_match = re.search(r'```(?:prompt)?\s*\n(.*?)\n```', content, re.DOTALL)
-        if code_match:
-            prompt_text = code_match.group(1).strip()
-        else:
-            prompt_text = ""
+        prompt_text = ""
 
     # Extract metadata fields
     models = []
@@ -84,6 +80,37 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
     if ar_match:
         aspect_ratio = ar_match.group(1).strip()
 
+    # Detect custom media in same directory or frontmatter
+    media_url = ""
+    media_type = cat # "image" or "video"
+
+    # Check if there is a matching image/video with same stem
+    stem = file_path.stem
+    parent_dir = file_path.parent
+    for ext in ['.jpg', '.jpeg', '.png', '.webp']:
+        cand = parent_dir / f"{stem}{ext}"
+        if cand.exists():
+            media_url = cand.relative_to(root_dir).as_posix()
+            media_type = "image"
+            break
+    
+    if not media_url:
+        for ext in ['.mp4', '.webm', '.gif']:
+            cand = parent_dir / f"{stem}{ext}"
+            if cand.exists():
+                media_url = cand.relative_to(root_dir).as_posix()
+                media_type = "video"
+                break
+
+    # Fallback placeholders
+    if not media_url:
+        if cat == "video":
+            media_url = "assets/placeholder-video.mp4"
+            media_type = "video"
+        else:
+            media_url = "assets/placeholder-image.jpg"
+            media_type = "image"
+
     cat_label = CATEGORY_NAMES.get(cat, {}).get("_label", cat)
     subcat_label = CATEGORY_NAMES.get(cat, {}).get(subcat, subcat)
 
@@ -100,6 +127,8 @@ def parse_markdown_file(file_path: Path, root_dir: Path):
         "models": models,
         "aspectRatio": aspect_ratio,
         "prompt": prompt_text,
+        "mediaType": media_type,
+        "mediaUrl": media_url,
         "rawContent": content,
     }
 

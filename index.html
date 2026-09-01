@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PROMPTS.LAB // 顶级 AI 图像与视频提示词实验室</title>
+  <title>STITCH PROMPTS // 创意图像与视频提示词实验室</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- GSAP Motion & Easing Engine -->
+  <!-- GSAP Animation Engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   
   <!-- Canvas Confetti -->
@@ -33,28 +33,24 @@
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
-            display: ['"Cabinet Grotesk"', '"Plus Jakarta Sans"', 'sans-serif'],
           },
           colors: {
-            obsidian: {
-              950: '#030407',
-              900: '#07090E',
-              850: '#0C1017',
-              800: '#131824',
-              700: '#1C2436',
-            },
-            neon: {
-              purple: '#A855F7',
-              cyan: '#06B6D4',
-              pink: '#F43F5E',
-              amber: '#F59E0B',
-              emerald: '#10B981',
+            stitch: {
+              bg: '#08090C',
+              surface: '#101217',
+              elevated: '#181B22',
+              border: 'rgba(255, 255, 255, 0.08)',
+              borderFocus: '#E25B36',
+              accent: '#E25B36',       // Terracotta Flame
+              accentHover: '#F06E47',
+              amber: '#F59E0B',        // Warm Amber
+              teal: '#14B8A6',         // Sage Teal
+              muted: '#94A3B8',
             }
           },
           boxShadow: {
-            'glow-purple': '0 0 40px -8px rgba(168, 85, 247, 0.4)',
-            'glow-cyan': '0 0 40px -8px rgba(6, 182, 212, 0.4)',
-            'card-3d': '0 25px 50px -12px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
+            'stitch-glow': '0 0 30px -5px rgba(226, 91, 54, 0.25)',
+            'stitch-card': '0 20px 40px -15px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08)',
           }
         }
       }
@@ -62,79 +58,57 @@
   </script>
 
   <style>
-    /* CSS Variables & Dynamic Spotlight */
-    :root {
-      --card-radius: 24px;
+    /* Complete Scrollbar Styling & Fix White Corner Dot */
+    html, body {
+      background-color: #08090C !important;
+      color: #F1F5F9;
+      scrollbar-color: rgba(255, 255, 255, 0.15) #08090C;
     }
 
-    body {
-      background-color: #030407;
-      color: #E2E8F0;
-      overflow-x: hidden;
-    }
-
-    /* Card 3D Perspective & Spotlight Border */
-    .bento-card-wrapper {
-      perspective: 1200px;
-    }
-    
-    .bento-card {
-      position: relative;
-      background: radial-gradient(
-        700px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-        rgba(168, 85, 247, 0.12),
-        transparent 50%
-      ), #07090E;
-      border-radius: var(--card-radius);
-      transform-style: preserve-3d;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-      will-change: transform;
-    }
-
-    .bento-card::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      border-radius: calc(var(--card-radius) + 1px);
-      padding: 1px;
-      background: radial-gradient(
-        500px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
-        rgba(168, 85, 247, 0.6),
-        rgba(255, 255, 255, 0.08) 40%,
-        transparent 80%
-      );
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    /* Ambient noise & grid */
-    .cyber-grid {
-      background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    }
-
-    /* Smooth Custom Scrollbar */
     ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
+      background-color: #08090C;
     }
-    ::-webkit-scrollbar-track {
-      background: transparent;
+    ::-webkit-scrollbar-corner {
+      background-color: #08090C !important;
+      display: none !important;
     }
     ::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.15);
       border-radius: 9999px;
+      border: 1px solid #08090C;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(168, 85, 247, 0.6);
+      background: rgba(226, 91, 54, 0.7);
     }
 
-    /* Line clamp */
+    /* Stitch Hairline Spotlight Card */
+    .stitch-card {
+      position: relative;
+      background-color: #101217;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 20px;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .stitch-card:hover {
+      border-color: rgba(226, 91, 54, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.7), 0 0 20px -3px rgba(226, 91, 54, 0.15);
+    }
+
+    /* Media Viewport Aspect Containers */
+    .media-viewport {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      background-color: #050608;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Minimal Line Clamping */
     .line-clamp-2 {
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -149,75 +123,61 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans selection:bg-neon-purple selection:text-white">
+<body class="min-h-screen flex flex-col font-sans antialiased selection:bg-stitch-accent selection:text-white bg-[#08090C]">
 
-  <!-- Interactive Ambient Canvas -->
-  <canvas id="ambient-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-50"></canvas>
-  <div class="fixed inset-0 pointer-events-none z-0 cyber-grid"></div>
-
-  <!-- Ambient Radiant Orbs -->
-  <div class="fixed -top-40 left-1/3 w-[700px] h-[700px] bg-purple-600/15 rounded-full blur-[160px] pointer-events-none z-0"></div>
-  <div class="fixed top-1/2 -right-40 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[160px] pointer-events-none z-0"></div>
-
-  <!-- Top Glass Navigation Bar -->
-  <header class="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-obsidian-950/80 backdrop-blur-2xl">
+  <!-- Top Stitch Precision Navbar -->
+  <header class="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-[#08090C]/90 backdrop-blur-xl">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
       
-      <!-- Brand Logo -->
+      <!-- Brand Logo & Studio Name -->
       <div class="flex items-center gap-4">
-        <button id="mobile-menu-btn" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.06] lg:hidden transition-all">
+        <button id="mobile-menu-btn" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.05] lg:hidden transition-all">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
         <div class="flex items-center gap-3.5 group cursor-pointer" onclick="resetAllFilters()">
-          <div class="relative">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-neon-purple via-indigo-500 to-neon-cyan p-[1.5px] shadow-lg shadow-purple-950/80 group-hover:shadow-glow-purple transition-all duration-300">
-              <div class="w-full h-full bg-obsidian-950 rounded-2xl flex items-center justify-center">
-                <i data-lucide="sparkles" class="w-5 h-5 text-neon-purple group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300"></i>
-              </div>
-            </div>
-            <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-neon-emerald rounded-full border-2 border-obsidian-950 shadow-[0_0_8px_#10B981]"></div>
+          <div class="w-10 h-10 rounded-xl bg-[#141720] border border-white/[0.1] flex items-center justify-center group-hover:border-stitch-accent transition-all duration-200">
+            <div class="w-3.5 h-3.5 bg-stitch-accent rounded-sm rotate-45 group-hover:rotate-90 transition-transform duration-300"></div>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <span class="font-display font-black text-xl tracking-tight text-white">
-                PROMPTS<span class="text-neon-purple">.</span>LAB
+              <span class="font-mono font-bold text-base tracking-tight text-white">
+                STITCH<span class="text-stitch-accent">/</span>PROMPTS
               </span>
-              <span class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-neon-purple/10 text-purple-300 border border-neon-purple/30">
-                PRO V2
+              <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-white/[0.05] text-slate-300 border border-white/[0.08]">
+                STUDIO
               </span>
             </div>
-            <p class="text-[11px] font-mono text-slate-400">Cinematic AI Prompt Repository & Showcase</p>
+            <p class="text-xs text-slate-400 font-medium">成图与成片创意提示词资产库</p>
           </div>
         </div>
       </div>
 
-      <!-- Quick Command Bar / Search Trigger -->
-      <div class="flex-1 max-w-lg hidden md:block">
+      <!-- Quick Command Bar Trigger -->
+      <div class="flex-1 max-w-md hidden md:block">
         <div 
           onclick="openCommandPalette()" 
-          class="flex items-center justify-between bg-obsidian-900/90 hover:bg-obsidian-850 border border-white/[0.08] hover:border-neon-purple/40 rounded-2xl px-4 py-2.5 cursor-pointer shadow-inner transition-all duration-200 group"
+          class="flex items-center justify-between bg-[#101217] hover:bg-[#151820] border border-white/[0.08] hover:border-stitch-accent/40 rounded-xl px-4 py-2.5 cursor-pointer transition-all group"
         >
-          <div class="flex items-center gap-3 text-slate-400 group-hover:text-slate-200">
-            <i data-lucide="search" class="w-4 h-4 text-neon-purple"></i>
-            <span class="text-xs font-medium">快速搜索提示词、镜头、特征或模型...</span>
+          <div class="flex items-center gap-2.5 text-slate-400 group-hover:text-slate-200">
+            <i data-lucide="search" class="w-4 h-4 text-slate-400 group-hover:text-stitch-accent transition-colors"></i>
+            <span class="text-xs font-medium">搜索提示词、镜头特征、模型...</span>
           </div>
-          <div class="flex items-center gap-1.5 font-mono text-[10px] text-slate-400 bg-white/[0.05] border border-white/[0.1] px-2 py-0.5 rounded-lg">
+          <div class="flex items-center gap-1 font-mono text-[10px] text-slate-500 bg-white/[0.04] border border-white/[0.08] px-2 py-0.5 rounded">
             <span>⌘K</span>
-            <span class="text-slate-600">/</span>
             <span>/</span>
           </div>
         </div>
       </div>
 
-      <!-- GitHub Link & Stats -->
+      <!-- GitHub Link -->
       <div class="flex items-center gap-3">
         <a 
           href="https://github.com/miseryCN/imagePrompts" 
           target="_blank" 
           rel="noopener noreferrer"
-          class="flex items-center gap-2 px-4 py-2 text-xs font-bold text-slate-200 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.1] hover:border-neon-purple/40 rounded-xl transition-all hover:scale-105 active:scale-95 shadow-sm"
+          class="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-300 hover:text-white bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] hover:border-stitch-accent/40 rounded-xl transition-all"
         >
-          <i data-lucide="github" class="w-4 h-4 text-neon-purple"></i>
+          <i data-lucide="github" class="w-4 h-4"></i>
           <span>GitHub</span>
         </a>
       </div>
@@ -225,142 +185,127 @@
     </div>
   </header>
 
-  <!-- Main Workspace -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full flex gap-8 relative z-10">
+  <!-- Main Container -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full flex gap-8">
     
-    <!-- Sidebar Navigation Drawer -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-obsidian-950 lg:bg-transparent border-r border-white/[0.08] lg:border-r-0 p-6 lg:p-0 lg:static lg:w-64 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-out flex flex-col gap-6 overflow-y-auto">
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 bg-[#08090C] lg:bg-transparent border-r border-white/[0.08] lg:border-r-0 p-6 lg:p-0 lg:static lg:w-60 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-out flex flex-col gap-6 overflow-y-auto">
       
-      <!-- Mobile Close -->
+      <!-- Mobile Close Button -->
       <div class="flex items-center justify-between lg:hidden pb-4 border-b border-white/[0.08]">
-        <span class="font-bold text-sm text-white flex items-center gap-2">
-          <i data-lucide="compass" class="w-4 h-4 text-neon-purple"></i>
-          分类矩阵
-        </span>
+        <span class="font-bold text-sm text-white">分类导航</span>
         <button id="sidebar-close-btn" class="p-1 rounded-lg text-slate-400 hover:text-white">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <!-- Category Filter Tabs -->
+      <!-- Navigation Tree -->
       <div class="space-y-6">
         
-        <!-- All Prompts Tab -->
+        <!-- All Button -->
         <div>
           <button 
             data-cat="all" 
             data-sub="all" 
-            class="nav-tab w-full flex items-center justify-between px-3.5 py-3 rounded-2xl font-bold text-xs transition-all duration-200 bg-gradient-to-r from-neon-purple via-indigo-600 to-neon-purple bg-pos-0 hover:bg-pos-100 text-white shadow-glow-purple"
+            class="nav-tab w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-bold text-xs transition-all bg-stitch-accent text-white shadow-stitch-glow"
           >
-            <span class="flex items-center gap-2.5">
+            <span class="flex items-center gap-2">
               <i data-lucide="layout-grid" class="w-4 h-4"></i>
               全部提示词
             </span>
-            <span id="badge-all-count" class="text-[11px] font-mono px-2 py-0.5 rounded-full bg-black/40 text-purple-200">0</span>
+            <span id="badge-all-count" class="text-[11px] font-mono px-2 py-0.5 rounded bg-black/20 text-white">0</span>
           </button>
         </div>
 
-        <!-- Image Generation Group -->
+        <!-- Section 1: Image Generation -->
         <div class="space-y-1.5">
           <div class="flex items-center justify-between px-3 py-1 text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
             <span class="flex items-center gap-2 text-slate-300">
-              <span class="w-2 h-2 rounded-full bg-neon-purple shadow-[0_0_8px_#A855F7]"></span>
+              <i data-lucide="image" class="w-3.5 h-3.5 text-stitch-amber"></i>
               图像生成 (IMAGE)
             </span>
             <span id="badge-image-total" class="text-[11px] font-mono text-slate-500">0</span>
           </div>
-          <div class="space-y-1 pl-2" id="image-sub-nav">
-            <!-- Injected via JS -->
-          </div>
+          <div class="space-y-1 pl-2" id="image-sub-nav"></div>
         </div>
 
-        <!-- Video Generation Group -->
+        <!-- Section 2: Video Generation -->
         <div class="space-y-1.5">
           <div class="flex items-center justify-between px-3 py-1 text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
             <span class="flex items-center gap-2 text-slate-300">
-              <span class="w-2 h-2 rounded-full bg-neon-cyan shadow-[0_0_8px_#06B6D4]"></span>
+              <i data-lucide="film" class="w-3.5 h-3.5 text-stitch-teal"></i>
               视频生成 (VIDEO)
             </span>
             <span id="badge-video-total" class="text-[11px] font-mono text-slate-500">0</span>
           </div>
-          <div class="space-y-1 pl-2" id="video-sub-nav">
-            <!-- Injected via JS -->
-          </div>
+          <div class="space-y-1 pl-2" id="video-sub-nav"></div>
         </div>
 
       </div>
 
-      <!-- Quick Action Floating Card -->
-      <div class="mt-auto p-4 rounded-3xl bg-gradient-to-b from-obsidian-850 to-obsidian-900 border border-white/[0.08] text-xs space-y-2.5 shadow-card-3d">
-        <div class="flex items-center gap-2 text-white font-bold">
-          <i data-lucide="terminal" class="w-4 h-4 text-neon-purple"></i>
-          极速复制引擎
+      <!-- Studio Notice Card -->
+      <div class="mt-auto p-4 rounded-2xl bg-[#101217] border border-white/[0.06] text-xs space-y-2">
+        <div class="flex items-center gap-2 text-slate-200 font-bold">
+          <i data-lucide="info" class="w-4 h-4 text-stitch-accent"></i>
+          成图成片展示规范
         </div>
         <p class="text-[11px] leading-relaxed text-slate-400">
-          轻触卡片上任意复制键，即刻享受微触觉音效反馈与粒子特效，直通 Midjourney, Flux, Kling 与 MiniMax。
+          每个卡片均具备专属素材视口。在本地放入同名图片或视频文件，即可直接展示真实渲染成果。
         </p>
       </div>
 
     </aside>
 
-    <!-- Sidebar Backdrop for Mobile -->
-    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-md z-40 lg:hidden hidden"></div>
+    <!-- Mobile Backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-40 lg:hidden hidden"></div>
 
-    <!-- Gallery Main View -->
+    <!-- Main Content Area -->
     <main class="flex-1 min-w-0">
       
-      <!-- Top Filter Bar & Model Pills -->
+      <!-- Top Status & Filter Header -->
       <div class="flex flex-col gap-4 pb-6 mb-6 border-b border-white/[0.08]">
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-2 text-xs font-mono text-slate-400 mb-1">
               <span id="crumb-parent">INDEX</span>
               <span class="text-slate-700">/</span>
-              <span id="crumb-current" class="text-neon-purple font-semibold">ALL_PROMPTS</span>
+              <span id="crumb-current" class="text-stitch-accent font-semibold">ALL_PROMPTS</span>
             </div>
-            <h2 id="gallery-heading" class="text-2xl sm:text-3xl font-display font-black text-white tracking-tight flex items-center gap-3">
-              <span>探索顶级提示词</span>
-              <span id="gallery-badge" class="text-xs font-mono font-bold px-3 py-1 rounded-full bg-neon-purple/10 text-neon-purple border border-neon-purple/30">
+            <h2 id="gallery-heading" class="text-2xl font-extrabold text-white tracking-tight flex items-center gap-3">
+              <span>全部提示词与素材展示</span>
+              <span id="gallery-badge" class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-white/[0.05] text-slate-300 border border-white/[0.08]">
                 0 PROMPTS
               </span>
             </h2>
           </div>
 
           <!-- View Switcher -->
-          <div class="flex items-center gap-2">
-            <div class="flex items-center bg-obsidian-900 border border-white/[0.08] rounded-xl p-1">
-              <button id="view-grid-btn" onclick="setViewMode('grid')" class="p-1.5 rounded-lg bg-neon-purple text-white shadow-sm transition-all" title="Bento 网格视图">
-                <i data-lucide="layout-grid" class="w-4 h-4"></i>
-              </button>
-              <button id="view-list-btn" onclick="setViewMode('list')" class="p-1.5 rounded-lg text-slate-400 hover:text-white transition-all" title="密集列表视图">
-                <i data-lucide="list" class="w-4 h-4"></i>
-              </button>
-            </div>
+          <div class="flex items-center bg-[#101217] border border-white/[0.08] rounded-xl p-1">
+            <button id="view-grid-btn" onclick="switchViewMode('grid')" class="p-1.5 rounded-lg bg-stitch-accent text-white shadow-sm transition-all" title="网格视图">
+              <i data-lucide="layout-grid" class="w-4 h-4"></i>
+            </button>
+            <button id="view-list-btn" onclick="switchViewMode('list')" class="p-1.5 rounded-lg text-slate-400 hover:text-white transition-all" title="列表视图">
+              <i data-lucide="list" class="w-4 h-4"></i>
+            </button>
           </div>
         </div>
 
-        <!-- Filter Chips (Models & Aspect Ratios) -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar" id="model-chips-container">
-          <!-- Dynamic Model Pills -->
-        </div>
+        <!-- Model Filter Tags -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1" id="model-chips-container"></div>
       </div>
 
-      <!-- Bento Cards Grid -->
-      <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Cards injected via JS -->
-      </div>
+      <!-- Prompts Gallery Grid -->
+      <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
 
-      <!-- Zero Results Empty State -->
+      <!-- Empty State -->
       <div id="empty-state" class="hidden py-24 text-center space-y-4">
-        <div class="w-16 h-16 mx-auto rounded-3xl bg-obsidian-900 border border-white/[0.08] flex items-center justify-center text-slate-500 shadow-glow-purple">
-          <i data-lucide="search-x" class="w-8 h-8 text-neon-purple"></i>
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-[#101217] border border-white/[0.08] flex items-center justify-center text-slate-500">
+          <i data-lucide="search-x" class="w-6 h-6 text-stitch-accent"></i>
         </div>
-        <h3 class="text-lg font-bold text-white">未找到匹配的提示词</h3>
-        <p class="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
-          您可以尝试调整搜索关键词、切换模型标签或重置当前分类筛选。
-        </p>
-        <button onclick="resetAllFilters()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-neon-purple hover:bg-purple-500 text-white text-xs font-bold shadow-glow-purple transition-all hover:scale-105 active:scale-95">
-          <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+        <h3 class="text-base font-bold text-white">未找到匹配的提示词</h3>
+        <p class="text-xs text-slate-400 max-w-sm mx-auto">请尝试调整搜索关键词或重置筛选。</p>
+        <button onclick="resetAllFilters()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-stitch-accent text-white text-xs font-bold transition-all hover:bg-stitch-accentHover">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
           重置所有筛选
         </button>
       </div>
@@ -369,95 +314,100 @@
 
   </div>
 
-  <!-- Command Palette Modal (⌘K / Ctrl+K) -->
+  <!-- Command Palette Modal (⌘K / /) -->
   <div id="command-palette-modal" class="fixed inset-0 z-50 hidden flex items-start justify-center pt-20 px-4 sm:px-6">
     <div id="command-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-xl opacity-0 transition-opacity"></div>
-    <div id="command-box" class="relative w-full max-w-2xl bg-obsidian-900 border border-white/[0.12] rounded-3xl shadow-2xl overflow-hidden z-10 scale-95 opacity-0 transition-all duration-200">
+    <div id="command-box" class="relative w-full max-w-2xl bg-[#101217] border border-white/[0.12] rounded-2xl shadow-2xl overflow-hidden z-10 scale-95 opacity-0 transition-all duration-200">
       
-      <!-- Search Input -->
-      <div class="p-4 border-b border-white/[0.08] flex items-center gap-3">
-        <i data-lucide="search" class="w-5 h-5 text-neon-purple"></i>
+      <div class="p-4 border-b border-white/[0.08] flex items-center gap-3 bg-[#0C0E12]">
+        <i data-lucide="search" class="w-5 h-5 text-stitch-accent"></i>
         <input 
           type="text" 
           id="palette-input" 
-          placeholder="输入关键词、场景、画风、镜头语言或模型名称..." 
+          placeholder="快速搜索提示词、镜头特征、模型或类别..." 
           class="w-full bg-transparent text-white text-sm placeholder-slate-500 focus:outline-none"
         >
-        <kbd class="text-[10px] font-mono text-slate-400 bg-white/[0.05] border border-white/[0.1] px-2 py-0.5 rounded-md">
+        <kbd class="text-[10px] font-mono text-slate-400 bg-white/[0.05] border border-white/[0.08] px-2 py-0.5 rounded">
           ESC
         </kbd>
       </div>
 
-      <!-- Quick Results List -->
-      <div id="palette-results" class="max-h-[60vh] overflow-y-auto p-3 space-y-1.5 text-sm">
-        <!-- Results injected via JS -->
-      </div>
+      <div id="palette-results" class="max-h-[55vh] overflow-y-auto p-2 space-y-1 text-sm"></div>
 
-      <!-- Footer Help -->
-      <div class="p-3 px-5 border-t border-white/[0.08] bg-obsidian-950/80 flex items-center justify-between text-[11px] text-slate-500 font-mono">
+      <div class="p-3 px-5 border-t border-white/[0.08] bg-[#08090C] flex items-center justify-between text-[11px] text-slate-500 font-mono">
         <div class="flex items-center gap-3">
-          <span><kbd class="text-slate-400">↑↓</kbd> 导航</span>
           <span><kbd class="text-slate-400">↵</kbd> 打开详情</span>
-          <span><kbd class="text-slate-400">ESC</kbd> 退出</span>
+          <span><kbd class="text-slate-400">ESC</kbd> 关闭</span>
         </div>
-        <span class="text-neon-purple font-semibold">PROMPTS.LAB SEARCH</span>
+        <span class="text-stitch-accent font-semibold">STITCH SEARCH</span>
       </div>
 
     </div>
   </div>
 
-  <!-- Full Detail & Markdown Inspector Modal -->
-  <div id="detail-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 lg:p-10">
-    <div id="detail-backdrop" class="fixed inset-0 bg-black/85 backdrop-blur-2xl opacity-0 transition-opacity duration-300"></div>
+  <!-- Detail & Full Media Inspector Modal -->
+  <div id="detail-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 lg:p-8">
+    <div id="detail-backdrop" class="fixed inset-0 bg-black/85 backdrop-blur-xl opacity-0 transition-opacity duration-300"></div>
     
-    <div id="detail-box" class="relative bg-obsidian-900 border border-white/[0.12] rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl shadow-purple-950/80 overflow-hidden z-10 scale-95 opacity-0 transition-all duration-300">
+    <div id="detail-box" class="relative bg-[#101217] border border-white/[0.12] rounded-2xl w-full max-w-5xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden z-10 scale-95 opacity-0 transition-all duration-300">
       
-      <!-- Top Modal Header -->
-      <div class="p-6 border-b border-white/[0.08] flex items-start justify-between gap-4 bg-gradient-to-r from-obsidian-850 to-obsidian-900">
-        <div class="space-y-2">
+      <!-- Modal Header -->
+      <div class="p-5 border-b border-white/[0.08] flex items-start justify-between gap-4 bg-[#0C0E12]">
+        <div class="space-y-1.5">
           <div id="modal-tags-container" class="flex items-center gap-2 flex-wrap"></div>
-          <h3 id="modal-title-text" class="text-xl sm:text-2xl font-display font-extrabold text-white tracking-tight leading-snug"></h3>
+          <h3 id="modal-title-text" class="text-lg sm:text-xl font-bold text-white tracking-tight leading-snug"></h3>
         </div>
-        <button id="detail-close-btn" class="p-2 text-slate-400 hover:text-white rounded-2xl hover:bg-white/[0.08] transition-colors">
+        <button id="detail-close-btn" class="p-2 text-slate-400 hover:text-white rounded-xl hover:bg-white/[0.06] transition-colors">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <!-- Modal Body -->
+      <!-- Modal Body (Two-Column Media + Inspector Layout) -->
       <div class="p-6 overflow-y-auto space-y-6 flex-1 text-sm text-slate-300">
         
-        <!-- Prompt Box with Big Copy Button -->
-        <div class="space-y-2.5">
+        <!-- Top Media Showcase Viewport -->
+        <div class="space-y-2">
           <div class="flex items-center justify-between">
-            <span class="font-mono font-bold text-xs uppercase tracking-widest text-slate-400 flex items-center gap-2">
-              <i data-lucide="terminal" class="w-4 h-4 text-neon-purple"></i>
-              完整提示词 (PROMPT CODE)
+            <span class="font-mono font-bold text-xs uppercase tracking-wider text-slate-400 flex items-center gap-2">
+              <i data-lucide="film" class="w-4 h-4 text-stitch-accent"></i>
+              成图 / 成片高清素材视口 (MEDIA SHOWCASE)
             </span>
-            <button id="modal-copy-btn" class="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-neon-purple via-indigo-600 to-neon-purple hover:scale-105 active:scale-95 text-white rounded-2xl text-xs font-extrabold shadow-glow-purple transition-all">
-              <i data-lucide="copy" class="w-4 h-4"></i>
-              <span>一键复制提示词</span>
-            </button>
           </div>
-          <div class="relative">
-            <pre id="modal-prompt-text" class="p-5 bg-obsidian-950 border border-white/[0.08] rounded-2xl text-purple-200 font-mono text-xs whitespace-pre-wrap leading-relaxed selection:bg-neon-purple/40 shadow-inner overflow-x-auto"></pre>
+          <div id="modal-media-viewport" class="relative w-full max-h-[380px] bg-[#050608] border border-white/[0.08] rounded-xl overflow-hidden flex items-center justify-center">
+            <!-- Dynamic Video or Image Inserted Here -->
           </div>
         </div>
 
-        <!-- Markdown Structured Breakdown -->
-        <div class="space-y-2.5">
-          <span class="font-mono font-bold text-xs uppercase tracking-widest text-slate-400 flex items-center gap-2">
-            <i data-lucide="layers" class="w-4 h-4 text-neon-cyan"></i>
+        <!-- Prompt Code Block -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-xs uppercase tracking-wider text-slate-400 flex items-center gap-2">
+              <i data-lucide="terminal" class="w-4 h-4 text-stitch-accent"></i>
+              完整提示词 (PROMPT CODE)
+            </span>
+            <button id="modal-copy-btn" class="flex items-center gap-1.5 px-4 py-1.5 bg-stitch-accent hover:bg-stitch-accentHover text-white rounded-xl text-xs font-bold transition-all shadow-stitch-glow">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span>复制提示词</span>
+            </button>
+          </div>
+          <pre id="modal-prompt-text" class="p-4 bg-[#08090C] border border-white/[0.08] rounded-xl text-slate-200 font-mono text-xs whitespace-pre-wrap leading-relaxed overflow-x-auto shadow-inner"></pre>
+        </div>
+
+        <!-- Markdown Structured Info -->
+        <div class="space-y-2">
+          <span class="font-mono font-bold text-xs uppercase tracking-wider text-slate-400 flex items-center gap-2">
+            <i data-lucide="file-text" class="w-4 h-4 text-stitch-amber"></i>
             文档结构与参数详解 (SPECIFICATIONS)
           </span>
-          <div id="modal-markdown-render" class="p-6 bg-obsidian-950/80 border border-white/[0.06] rounded-2xl text-xs space-y-3.5 prose prose-invert max-w-none prose-headings:text-white prose-p:text-slate-300 prose-li:text-slate-300 prose-pre:bg-obsidian-900 prose-pre:border prose-pre:border-white/10"></div>
+          <div id="modal-markdown-render" class="p-5 bg-[#08090C] border border-white/[0.06] rounded-xl text-xs space-y-3 prose prose-invert max-w-none prose-headings:text-white prose-p:text-slate-300 prose-li:text-slate-300"></div>
         </div>
 
       </div>
 
       <!-- Modal Footer -->
-      <div class="p-4 px-6 border-t border-white/[0.08] bg-obsidian-950 flex items-center justify-between text-xs text-slate-400">
-        <span id="modal-rel-path" class="font-mono text-[11px] text-slate-500 truncate max-w-md"></span>
-        <a id="modal-github-link" href="#" target="_blank" class="flex items-center gap-1.5 text-purple-300 hover:text-white font-semibold px-4 py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] transition-all">
+      <div class="p-4 px-6 border-t border-white/[0.08] bg-[#08090C] flex items-center justify-between text-xs text-slate-400 font-mono">
+        <span id="modal-rel-path" class="text-slate-500 truncate max-w-md"></span>
+        <a id="modal-github-link" href="#" target="_blank" class="flex items-center gap-1.5 text-stitch-accent hover:underline font-semibold">
           <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
           在 GitHub 打开源文件
         </a>
@@ -468,15 +418,15 @@
 
   <!-- Toast Notification -->
   <div id="toast" class="fixed bottom-8 right-8 z-50 transform translate-y-24 opacity-0 pointer-events-none transition-all duration-300">
-    <div class="flex items-center gap-3 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-neon-purple via-indigo-600 to-neon-cyan text-white shadow-glow-purple text-xs font-black tracking-wide">
-      <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-      <span id="toast-message">✨ 提示词已成功复制到剪贴板！</span>
+    <div class="flex items-center gap-2.5 px-5 py-3 rounded-xl bg-[#181B22] border border-stitch-accent/50 text-white shadow-2xl text-xs font-bold tracking-wide">
+      <i data-lucide="check-circle" class="w-4 h-4 text-stitch-accent"></i>
+      <span id="toast-message">提示词已复制到剪贴板</span>
     </div>
   </div>
 
-  <!-- Core Scripts & Application Engine -->
+  <!-- Logic & Application Engine -->
   <script>
-    // Audio Synthesizer (Micro haptic sound on click)
+    // Audio Synthesizer (Micro Haptic Click)
     const AudioEngine = {
       ctx: null,
       init() {
@@ -491,32 +441,14 @@
           const osc = this.ctx.createOscillator();
           const gain = this.ctx.createGain();
           osc.type = 'sine';
-          osc.frequency.setValueAtTime(800, this.ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(300, this.ctx.currentTime + 0.04);
-          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.04);
+          osc.frequency.setValueAtTime(600, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(200, this.ctx.currentTime + 0.03);
+          gain.gain.setValueAtTime(0.06, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.03);
           osc.connect(gain);
           gain.connect(this.ctx.destination);
           osc.start();
-          osc.stop(this.ctx.currentTime + 0.04);
-        } catch (e) {}
-      },
-      playSuccess() {
-        try {
-          this.init();
-          if (!this.ctx) return;
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(523.25, this.ctx.currentTime); // C5
-          osc.frequency.setValueAtTime(659.25, this.ctx.currentTime + 0.06); // E5
-          osc.frequency.setValueAtTime(783.99, this.ctx.currentTime + 0.12); // G5
-          gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.25);
-          osc.connect(gain);
-          gain.connect(this.ctx.destination);
-          osc.start();
-          osc.stop(this.ctx.currentTime + 0.25);
+          osc.stop(this.ctx.currentTime + 0.03);
         } catch (e) {}
       }
     };
@@ -526,8 +458,6 @@
       image: {
         label: "图像生成",
         icon: "image",
-        color: "from-purple-600 via-indigo-600 to-cyan-500",
-        badge: "text-purple-300 bg-purple-500/10 border-purple-500/30",
         subs: {
           portrait: "人像写真",
           landscape: "风光场景",
@@ -540,8 +470,6 @@
       video: {
         label: "视频生成",
         icon: "video",
-        color: "from-cyan-500 via-blue-600 to-indigo-600",
-        badge: "text-cyan-300 bg-cyan-500/10 border-cyan-500/30",
         subs: {
           portrait: "人物动态",
           cinematic: "电影运镜",
@@ -552,20 +480,6 @@
       }
     };
 
-    // Visual Gradient Covers mapping by Subcategory
-    const COVER_GRADIENTS = {
-      "portrait": "bg-gradient-to-tr from-rose-950/60 via-purple-950/40 to-amber-950/30",
-      "landscape": "bg-gradient-to-tr from-emerald-950/60 via-teal-950/40 to-sky-950/30",
-      "anime": "bg-gradient-to-tr from-sky-950/60 via-indigo-950/40 to-pink-950/30",
-      "cg-fantasy": "bg-gradient-to-tr from-purple-950/70 via-fuchsia-950/40 to-cyan-950/30",
-      "commercial": "bg-gradient-to-tr from-slate-900 via-cyan-950/30 to-amber-950/20",
-      "artistic": "bg-gradient-to-tr from-amber-950/60 via-rose-950/40 to-purple-950/30",
-      "cinematic": "bg-gradient-to-tr from-amber-950/70 via-stone-900 to-orange-950/40",
-      "nature": "bg-gradient-to-tr from-green-950/60 via-emerald-950/40 to-sky-950/30",
-      "vfx": "bg-gradient-to-tr from-blue-950/70 via-purple-950/40 to-cyan-950/30"
-    };
-
-    // State Variables
     let allPrompts = [];
     let currentCategory = 'all';
     let currentSubcategory = 'all';
@@ -573,72 +487,23 @@
     let searchQuery = '';
     let viewMode = 'grid'; // 'grid' | 'list'
 
-    // Init App
+    // Init Application
     async function init() {
-      initAmbientCanvas();
       renderSidebarNavigation();
       await loadPromptsData();
       bindEvents();
-      setupCardInteractions();
       lucide.createIcons();
 
-      // GSAP Initial Reveal
-      gsap.from('header', { y: -40, opacity: 0, duration: 0.7, ease: 'power3.out' });
-      gsap.from('aside', { x: -40, opacity: 0, duration: 0.7, delay: 0.1, ease: 'power3.out' });
-      gsap.from('main', { opacity: 0, y: 30, duration: 0.7, delay: 0.2, ease: 'power3.out' });
+      gsap.from('header', { y: -20, opacity: 0, duration: 0.5, ease: 'power2.out' });
+      gsap.from('aside', { x: -20, opacity: 0, duration: 0.5, delay: 0.1, ease: 'power2.out' });
+      gsap.from('main', { opacity: 0, y: 20, duration: 0.5, delay: 0.15, ease: 'power2.out' });
     }
 
-    // Ambient Floating Particles Canvas
-    function initAmbientCanvas() {
-      const canvas = document.getElementById('ambient-canvas');
-      const ctx = canvas.getContext('2d');
-      let w = (canvas.width = window.innerWidth);
-      let h = (canvas.height = window.innerHeight);
-
-      window.addEventListener('resize', () => {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-      });
-
-      const particles = [];
-      const count = Math.floor((w * h) / 30000);
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: (Math.random() - 0.5) * 0.25,
-          size: Math.random() * 1.5 + 0.5,
-          alpha: Math.random() * 0.4 + 0.1
-        });
-      }
-
-      function loop() {
-        ctx.clearRect(0, 0, w, h);
-        particles.forEach(p => {
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.x < 0) p.x = w;
-          if (p.x > w) p.x = 0;
-          if (p.y < 0) p.y = h;
-          if (p.y > h) p.y = 0;
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(168, 85, 247, ${p.alpha})`;
-          ctx.fill();
-        });
-        requestAnimationFrame(loop);
-      }
-      loop();
-    }
-
-    // Render Navigation Sidebar
     function renderSidebarNavigation() {
       // Image Subcategories
       const imgContainer = document.getElementById('image-sub-nav');
       imgContainer.innerHTML = `
-        <button data-cat="image" data-sub="all" class="nav-tab w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all text-xs font-semibold">
+        <button data-cat="image" data-sub="all" class="nav-tab w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all text-xs font-semibold">
           <span class="flex items-center gap-2">
             <i data-lucide="grid" class="w-3.5 h-3.5"></i>
             全部图像
@@ -646,7 +511,7 @@
           <span id="badge-image-all" class="text-[10px] font-mono text-slate-500">0</span>
         </button>
       ` + Object.entries(CATEGORIES.image.subs).map(([key, label]) => `
-        <button data-cat="image" data-sub="${key}" class="nav-tab w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all text-xs font-medium">
+        <button data-cat="image" data-sub="${key}" class="nav-tab w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all text-xs font-medium">
           <span>${label}</span>
           <span id="badge-image-${key}" class="text-[10px] font-mono text-slate-500">0</span>
         </button>
@@ -655,7 +520,7 @@
       // Video Subcategories
       const vidContainer = document.getElementById('video-sub-nav');
       vidContainer.innerHTML = `
-        <button data-cat="video" data-sub="all" class="nav-tab w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all text-xs font-semibold">
+        <button data-cat="video" data-sub="all" class="nav-tab w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all text-xs font-semibold">
           <span class="flex items-center gap-2">
             <i data-lucide="film" class="w-3.5 h-3.5"></i>
             全部视频
@@ -663,14 +528,13 @@
           <span id="badge-video-all" class="text-[10px] font-mono text-slate-500">0</span>
         </button>
       ` + Object.entries(CATEGORIES.video.subs).map(([key, label]) => `
-        <button data-cat="video" data-sub="${key}" class="nav-tab w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all text-xs font-medium">
+        <button data-cat="video" data-sub="${key}" class="nav-tab w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all text-xs font-medium">
           <span>${label}</span>
           <span id="badge-video-${key}" class="text-[10px] font-mono text-slate-500">0</span>
         </button>
       `).join('');
     }
 
-    // Load Data from JSON
     async function loadPromptsData() {
       try {
         const res = await fetch('data/prompts.json');
@@ -679,7 +543,7 @@
           allPrompts = json.prompts || [];
         }
       } catch (err) {
-        console.warn("Failed fetching data/prompts.json", err);
+        console.warn("Failed loading data/prompts.json", err);
       }
 
       updateCounters();
@@ -728,11 +592,11 @@
 
       container.innerHTML = `
         <span class="text-[11px] font-mono text-slate-500 font-bold uppercase tracking-wider mr-1 shrink-0">模型:</span>
-        <button onclick="filterByModel('all')" class="model-pill shrink-0 text-xs px-3 py-1 rounded-xl font-bold transition-all ${currentModelFilter === 'all' ? 'bg-neon-purple text-white shadow-glow-purple' : 'bg-white/[0.04] text-slate-400 hover:text-white border border-white/[0.06]'}">
+        <button onclick="filterByModel('all')" class="model-pill shrink-0 text-xs px-2.5 py-1 rounded-lg font-bold transition-all ${currentModelFilter === 'all' ? 'bg-stitch-accent text-white' : 'bg-white/[0.04] text-slate-400 hover:text-white border border-white/[0.06]'}">
           全部
         </button>
       ` + list.map(m => `
-        <button onclick="filterByModel('${m}')" class="model-pill shrink-0 text-xs px-3 py-1 rounded-xl font-bold transition-all ${currentModelFilter === m ? 'bg-neon-purple text-white shadow-glow-purple' : 'bg-white/[0.04] text-slate-400 hover:text-white border border-white/[0.06]'}">
+        <button onclick="filterByModel('${m}')" class="model-pill shrink-0 text-xs px-2.5 py-1 rounded-lg font-bold transition-all ${currentModelFilter === m ? 'bg-stitch-accent text-white' : 'bg-white/[0.04] text-slate-400 hover:text-white border border-white/[0.06]'}">
           ${m}
         </button>
       `).join('');
@@ -745,11 +609,11 @@
       renderPromptsGallery();
     }
 
-    function setViewMode(mode) {
+    function switchViewMode(mode) {
       AudioEngine.playClick();
       viewMode = mode;
-      document.getElementById('view-grid-btn').className = mode === 'grid' ? 'p-1.5 rounded-lg bg-neon-purple text-white shadow-sm transition-all' : 'p-1.5 rounded-lg text-slate-400 hover:text-white transition-all';
-      document.getElementById('view-list-btn').className = mode === 'list' ? 'p-1.5 rounded-lg bg-neon-purple text-white shadow-sm transition-all' : 'p-1.5 rounded-lg text-slate-400 hover:text-white transition-all';
+      document.getElementById('view-grid-btn').className = mode === 'grid' ? 'p-1.5 rounded-lg bg-stitch-accent text-white shadow-sm transition-all' : 'p-1.5 rounded-lg text-slate-400 hover:text-white transition-all';
+      document.getElementById('view-list-btn').className = mode === 'list' ? 'p-1.5 rounded-lg bg-stitch-accent text-white shadow-sm transition-all' : 'p-1.5 rounded-lg text-slate-400 hover:text-white transition-all';
       
       const container = document.getElementById('cards-container');
       if (mode === 'list') {
@@ -787,11 +651,10 @@
 
       badge.innerText = `${filtered.length} PROMPTS`;
 
-      // Update Breadcrumb & Heading
       if (currentCategory === 'all') {
         document.getElementById('crumb-parent').innerText = 'INDEX';
         document.getElementById('crumb-current').innerText = 'ALL_PROMPTS';
-        document.getElementById('gallery-heading').firstElementChild.innerText = '探索顶级提示词';
+        document.getElementById('gallery-heading').firstElementChild.innerText = '全部提示词与素材展示';
       } else {
         const catInfo = CATEGORIES[currentCategory];
         document.getElementById('crumb-parent').innerText = currentCategory.toUpperCase();
@@ -814,138 +677,118 @@
       emptyState.classList.add('hidden');
 
       container.innerHTML = filtered.map(item => {
-        const isImage = item.category === 'image';
-        const badgeStyle = isImage ? 'text-purple-300 bg-purple-500/10 border-purple-500/30' : 'text-cyan-300 bg-cyan-500/10 border-cyan-500/30';
-        const iconName = isImage ? 'image' : 'video';
-        const coverGrad = COVER_GRADIENTS[item.subcategory] || "bg-gradient-to-tr from-purple-950/50 via-slate-900 to-indigo-950/40";
+        const isVideo = item.mediaType === 'video';
+        const mediaTag = isVideo ? '成片动态预览' : '成图画质预览';
+        const mediaBadgeColor = isVideo ? 'text-stitch-teal bg-teal-950/60 border-teal-800/40' : 'text-stitch-amber bg-amber-950/60 border-amber-800/40';
+
+        // Media Render (Video or Image)
+        const mediaHtml = isVideo 
+          ? `<video src="${item.mediaUrl}" loop muted playsinline autoplay class="w-full h-full object-cover"></video>`
+          : `<img src="${item.mediaUrl}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">`;
 
         if (viewMode === 'list') {
           return `
-            <div class="bento-card-wrapper">
-              <div class="bento-card p-5 border border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-4 group hover:border-neon-purple/40 transition-all cursor-default">
-                <div class="space-y-1.5 flex-1 min-w-0">
+            <div class="stitch-card p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group cursor-default">
+              <div class="flex items-center gap-4 flex-1 min-w-0">
+                <div class="w-20 h-16 rounded-lg overflow-hidden bg-black/40 border border-white/[0.08] shrink-0">
+                  ${mediaHtml}
+                </div>
+                <div class="space-y-1 min-w-0 flex-1">
                   <div class="flex items-center gap-2 flex-wrap">
-                    <span class="inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${badgeStyle}">
-                      <i data-lucide="${iconName}" class="w-3 h-3"></i>
+                    <span class="text-[10px] font-mono font-bold text-slate-300 px-2 py-0.5 rounded bg-white/[0.06]">
                       ${item.categoryLabel} · ${item.subcategoryLabel}
                     </span>
-                    ${item.aspectRatio ? `<span class="text-[10px] font-mono text-slate-400 px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.06]">${item.aspectRatio}</span>` : ''}
-                    ${item.models && item.models.length ? `<span class="text-[10px] font-mono text-purple-300 bg-purple-950/40 px-2 py-0.5 rounded-md border border-purple-800/40">${item.models[0]}</span>` : ''}
+                    ${item.aspectRatio ? `<span class="text-[10px] font-mono text-slate-400 px-2 py-0.5 rounded bg-white/[0.03]">${item.aspectRatio}</span>` : ''}
                   </div>
-                  <h3 class="text-sm font-bold text-white tracking-tight truncate group-hover:text-purple-300 transition-colors">
+                  <h3 class="text-sm font-bold text-white truncate group-hover:text-stitch-accent transition-colors">
                     ${escapeHtml(item.title)}
                   </h3>
                 </div>
-                <div class="flex items-center gap-2 shrink-0">
-                  <button onclick="openDetailModal('${item.id}')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] transition-all">
-                    详情
-                  </button>
-                  <button onclick="copyPromptText('${item.id}', this, event)" class="px-4 py-1.5 rounded-xl text-xs font-extrabold text-white bg-gradient-to-r from-neon-purple to-indigo-600 hover:scale-105 active:scale-95 shadow-glow-purple transition-all flex items-center gap-1.5">
-                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                    复制
-                  </button>
-                </div>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <button onclick="openDetailModal('${item.id}')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] transition-all">
+                  详情
+                </button>
+                <button onclick="copyPromptText('${item.id}', this, event)" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-white bg-stitch-accent hover:bg-stitch-accentHover transition-all flex items-center gap-1.5">
+                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                  复制
+                </button>
               </div>
             </div>
           `;
         }
 
         return `
-          <div class="bento-card-wrapper">
-            <div class="bento-card p-6 border border-white/[0.08] flex flex-col justify-between gap-5 group hover:border-neon-purple/40 transition-all cursor-default shadow-card-3d" data-id="${item.id}">
+          <div class="stitch-card p-5 flex flex-col justify-between gap-5 group cursor-default" data-id="${item.id}">
+            
+            <div class="space-y-4">
               
-              <div class="space-y-4">
-                
-                <!-- Visual Cinematic Mockup Cover Banner -->
-                <div class="relative h-28 rounded-2xl ${coverGrad} border border-white/[0.06] p-4 flex flex-col justify-between overflow-hidden shadow-inner">
-                  <!-- Ambient Light in Card -->
-                  <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-neon-purple/20 rounded-full blur-2xl"></div>
-                  
-                  <div class="flex items-center justify-between gap-2 relative z-10">
-                    <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border ${badgeStyle} backdrop-blur-md">
-                      <i data-lucide="${iconName}" class="w-3.5 h-3.5"></i>
-                      ${item.categoryLabel} · ${item.subcategoryLabel}
-                    </span>
-                    <span class="text-[10px] font-mono font-bold text-slate-300 px-2 py-0.5 rounded-md bg-black/40 border border-white/10 backdrop-blur-md">
-                      ${item.aspectRatio || '4K UHD'}
-                    </span>
-                  </div>
+              <!-- Dedicated Media Viewport -->
+              <div class="media-viewport group-hover:border-white/[0.12] transition-colors">
+                ${mediaHtml}
+                <div class="absolute top-2.5 left-2.5 flex items-center gap-2">
+                  <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-md border ${mediaBadgeColor} backdrop-blur-md">
+                    ${mediaTag}
+                  </span>
+                </div>
+                <div class="absolute top-2.5 right-2.5">
+                  <span class="text-[10px] font-mono font-bold text-slate-300 px-2 py-0.5 rounded-md bg-black/60 border border-white/10 backdrop-blur-md">
+                    ${item.aspectRatio || '4K UHD'}
+                  </span>
+                </div>
+              </div>
 
-                  <div class="flex items-center gap-1.5 relative z-10 flex-wrap">
-                    ${item.models && item.models.length ? item.models.map(m => `
-                      <span class="text-[10px] font-mono text-purple-200 bg-black/50 backdrop-blur-md px-2 py-0.5 rounded-md border border-purple-500/20">
-                        ${m}
-                      </span>
-                    `).join('') : ''}
-                  </div>
+              <!-- Title & Meta -->
+              <div class="space-y-2">
+                <div class="flex items-center gap-2 flex-wrap">
+                  <span class="text-[11px] font-mono font-bold text-slate-400 px-2 py-0.5 rounded bg-white/[0.05] border border-white/[0.06]">
+                    ${item.categoryLabel} · ${item.subcategoryLabel}
+                  </span>
+                  ${item.models && item.models.length ? item.models.map(m => `
+                    <span class="text-[10px] font-mono text-slate-400 bg-black/40 px-2 py-0.5 rounded border border-white/[0.06]">${m}</span>
+                  `).join('') : ''}
                 </div>
 
-                <!-- Title -->
-                <h3 class="text-base font-extrabold text-white tracking-tight line-clamp-2 leading-snug group-hover:text-purple-300 transition-colors">
+                <h3 class="text-base font-bold text-white tracking-tight line-clamp-2 leading-snug group-hover:text-stitch-accent transition-colors">
                   ${escapeHtml(item.title)}
                 </h3>
-
-                <!-- Prompt Code Block Snippet -->
-                <div class="relative bg-obsidian-950 border border-white/[0.06] rounded-2xl p-4 text-xs font-mono text-slate-300 line-clamp-3 leading-relaxed shadow-inner">
-                  ${escapeHtml(item.prompt || item.target)}
-                </div>
               </div>
 
-              <!-- Footer Action Buttons -->
-              <div class="flex items-center justify-between gap-3 pt-3 border-t border-white/[0.06]">
-                <button 
-                  onclick="openDetailModal('${item.id}')"
-                  class="flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white px-4 py-2 rounded-xl hover:bg-white/[0.06] transition-all"
-                >
-                  <i data-lucide="eye" class="w-4 h-4 text-neon-purple"></i>
-                  查看详情
-                </button>
-
-                <button 
-                  onclick="copyPromptText('${item.id}', this, event)"
-                  class="flex items-center gap-2 text-xs font-extrabold px-5 py-2.5 bg-gradient-to-r from-neon-purple via-indigo-600 to-neon-purple hover:scale-105 active:scale-95 text-white rounded-xl transition-all shadow-glow-purple"
-                >
-                  <i data-lucide="copy" class="w-4 h-4"></i>
-                  <span>一键复制</span>
-                </button>
+              <!-- Prompt Snippet Block -->
+              <div class="bg-[#0A0C10] border border-white/[0.06] rounded-xl p-3.5 text-xs font-mono text-slate-300 line-clamp-3 leading-relaxed">
+                ${escapeHtml(item.prompt || item.target)}
               </div>
-
             </div>
+
+            <!-- Footer Action Buttons -->
+            <div class="flex items-center justify-between gap-3 pt-3 border-t border-white/[0.06]">
+              <button 
+                onclick="openDetailModal('${item.id}')"
+                class="flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white px-3.5 py-2 rounded-lg hover:bg-white/[0.06] transition-all"
+              >
+                <i data-lucide="eye" class="w-4 h-4 text-slate-400"></i>
+                查看详情
+              </button>
+
+              <button 
+                onclick="copyPromptText('${item.id}', this, event)"
+                class="flex items-center gap-1.5 text-xs font-bold px-4 py-2 bg-stitch-accent hover:bg-stitch-accentHover text-white rounded-lg transition-all shadow-stitch-glow"
+              >
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span>一键复制</span>
+              </button>
+            </div>
+
           </div>
         `;
       }).join('');
 
       lucide.createIcons();
 
-      // GSAP Entrance Stagger
-      gsap.fromTo('.bento-card', 
-        { opacity: 0, y: 25, scale: 0.97 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.04, ease: 'power2.out' }
+      gsap.fromTo('.stitch-card', 
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.3, stagger: 0.03, ease: 'power2.out' }
       );
-    }
-
-    // 3D Physics Tilt and Dynamic Spotlight Cursor Tracking
-    function setupCardInteractions() {
-      document.addEventListener('mousemove', (e) => {
-        document.querySelectorAll('.bento-card').forEach(card => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          card.style.setProperty('--mouse-x', `${x}px`);
-          card.style.setProperty('--mouse-y', `${y}px`);
-
-          // 3D Tilt calculation if mouse inside
-          if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -4;
-            const rotateY = ((x - centerX) / centerX) * 4;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
-          } else {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-          }
-        });
-      });
     }
 
     // Modal Operations
@@ -954,22 +797,27 @@
       const item = allPrompts.find(p => p.id === id);
       if (!item) return;
 
-      const isImage = item.category === 'image';
-      const badgeStyle = isImage ? 'text-purple-300 bg-purple-500/10 border-purple-500/30' : 'text-cyan-300 bg-cyan-500/10 border-cyan-500/30';
-      const iconName = isImage ? 'image' : 'video';
+      const isVideo = item.mediaType === 'video';
 
       document.getElementById('modal-title-text').innerText = item.title;
       document.getElementById('modal-tags-container').innerHTML = `
-        <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full border ${badgeStyle}">
-          <i data-lucide="${iconName}" class="w-3.5 h-3.5"></i>
+        <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-white/[0.08] text-slate-200">
           ${item.categoryLabel} · ${item.subcategoryLabel}
         </span>
-        ${item.aspectRatio ? `
-          <span class="text-xs font-mono font-bold text-slate-300 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08]">
-            ${item.aspectRatio}
-          </span>
-        ` : ''}
+        ${item.aspectRatio ? `<span class="text-xs font-mono text-slate-400 px-2.5 py-1 rounded bg-white/[0.04] border border-white/[0.08]">${item.aspectRatio}</span>` : ''}
       `;
+
+      // Render Modal Media Viewport
+      const modalMediaBox = document.getElementById('modal-media-viewport');
+      if (isVideo) {
+        modalMediaBox.innerHTML = `
+          <video src="${item.mediaUrl}" controls loop autoplay playsinline class="w-full max-h-[360px] object-contain rounded-lg"></video>
+        `;
+      } else {
+        modalMediaBox.innerHTML = `
+          <img src="${item.mediaUrl}" alt="${item.title}" class="w-full max-h-[360px] object-contain rounded-lg">
+        `;
+      }
 
       document.getElementById('modal-prompt-text').innerText = item.prompt || '暂无纯文本提示词';
       document.getElementById('modal-rel-path').innerText = item.path;
@@ -990,8 +838,8 @@
       const box = document.getElementById('detail-box');
 
       modal.classList.remove('hidden');
-      gsap.to(backdrop, { opacity: 1, duration: 0.25 });
-      gsap.to(box, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(1.4)' });
+      gsap.to(backdrop, { opacity: 1, duration: 0.2 });
+      gsap.to(box, { opacity: 1, scale: 1, duration: 0.25, ease: 'power2.out' });
 
       lucide.createIcons();
     }
@@ -1002,8 +850,8 @@
       const backdrop = document.getElementById('detail-backdrop');
       const box = document.getElementById('detail-box');
 
-      gsap.to(backdrop, { opacity: 0, duration: 0.2 });
-      gsap.to(box, { opacity: 0, scale: 0.95, duration: 0.2, onComplete: () => {
+      gsap.to(backdrop, { opacity: 0, duration: 0.15 });
+      gsap.to(box, { opacity: 0, scale: 0.96, duration: 0.15, onComplete: () => {
         modal.classList.add('hidden');
       }});
     }
@@ -1021,7 +869,7 @@
 
       modal.classList.remove('hidden');
       gsap.to(backdrop, { opacity: 1, duration: 0.2 });
-      gsap.to(box, { opacity: 1, scale: 1, duration: 0.25, ease: 'power3.out' });
+      gsap.to(box, { opacity: 1, scale: 1, duration: 0.2, ease: 'power2.out' });
       input.focus();
     }
 
@@ -1031,7 +879,7 @@
       const box = document.getElementById('command-box');
 
       gsap.to(backdrop, { opacity: 0, duration: 0.15 });
-      gsap.to(box, { opacity: 0, scale: 0.95, duration: 0.15, onComplete: () => {
+      gsap.to(box, { opacity: 0, scale: 0.96, duration: 0.15, onComplete: () => {
         modal.classList.add('hidden');
       }});
     }
@@ -1045,15 +893,15 @@
       }).slice(0, 8);
 
       if (results.length === 0) {
-        container.innerHTML = `<div class="p-8 text-center text-slate-500 text-xs">无匹配结果</div>`;
+        container.innerHTML = `<div class="p-6 text-center text-slate-500 text-xs">无匹配结果</div>`;
         return;
       }
 
       container.innerHTML = results.map(item => `
-        <div onclick="selectPaletteItem('${item.id}')" class="p-3 rounded-2xl hover:bg-white/[0.06] border border-transparent hover:border-white/[0.08] cursor-pointer flex items-center justify-between gap-3 transition-all">
+        <div onclick="selectPaletteItem('${item.id}')" class="p-3 rounded-xl hover:bg-white/[0.06] cursor-pointer flex items-center justify-between gap-3 transition-all">
           <div class="space-y-1 min-w-0">
             <div class="flex items-center gap-2">
-              <span class="text-[10px] font-mono font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded">${item.categoryLabel} · ${item.subcategoryLabel}</span>
+              <span class="text-[10px] font-mono font-bold text-stitch-accent bg-stitch-accent/10 px-2 py-0.5 rounded">${item.categoryLabel} · ${item.subcategoryLabel}</span>
               <span class="text-xs font-bold text-white truncate">${escapeHtml(item.title)}</span>
             </div>
             <p class="text-[11px] font-mono text-slate-400 truncate">${escapeHtml(item.prompt || item.target)}</p>
@@ -1070,38 +918,35 @@
       openDetailModal(id);
     }
 
-    // Copy Prompt with Confetti & Audio
+    // Copy Prompt
     function copyPromptText(id, btnElement, event) {
       const item = allPrompts.find(p => p.id === id);
       if (!item || !item.prompt) return;
 
       navigator.clipboard.writeText(item.prompt);
-      AudioEngine.playSuccess();
+      AudioEngine.playClick();
 
-      // Confetti burst
       if (window.confetti && event) {
         const x = event.clientX / window.innerWidth;
         const y = event.clientY / window.innerHeight;
         confetti({
-          particleCount: 40,
-          spread: 70,
+          particleCount: 25,
+          spread: 60,
           origin: { x, y },
-          colors: ['#A855F7', '#06B6D4', '#F43F5E', '#10B981', '#FFFFFF']
+          colors: ['#E25B36', '#F59E0B', '#14B8A6', '#FFFFFF']
         });
       }
 
-      showToastNotification("✨ 提示词已成功复制到剪贴板！");
+      showToastNotification("✨ 提示词已复制到剪贴板！");
 
       if (btnElement) {
         const orig = btnElement.innerHTML;
-        btnElement.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i><span>已复制!</span>`;
-        btnElement.classList.add('from-emerald-600', 'to-teal-600');
+        btnElement.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i><span>已复制</span>`;
         lucide.createIcons();
         setTimeout(() => {
           btnElement.innerHTML = orig;
-          btnElement.classList.remove('from-emerald-600', 'to-teal-600');
           lucide.createIcons();
-        }, 1800);
+        }, 1500);
       }
     }
 
@@ -1111,7 +956,7 @@
       toast.classList.remove('translate-y-24', 'opacity-0');
       setTimeout(() => {
         toast.classList.add('translate-y-24', 'opacity-0');
-      }, 2600);
+      }, 2400);
     }
 
     function resetAllFilters() {
@@ -1127,20 +972,18 @@
 
     function updateNavHighlight() {
       document.querySelectorAll('.nav-tab').forEach(b => {
-        b.classList.remove('bg-gradient-to-r', 'from-neon-purple', 'via-indigo-600', 'to-neon-purple', 'text-white', 'shadow-glow-purple', 'bg-white/[0.08]');
+        b.classList.remove('bg-stitch-accent', 'text-white', 'shadow-stitch-glow');
         b.classList.add('text-slate-400');
       });
 
       const active = document.querySelector(`.nav-tab[data-cat="${currentCategory}"][data-sub="${currentSubcategory}"]`);
       if (active) {
         active.classList.remove('text-slate-400');
-        active.classList.add('bg-gradient-to-r', 'from-neon-purple', 'via-indigo-600', 'to-neon-purple', 'text-white', 'shadow-glow-purple');
+        active.classList.add('bg-stitch-accent', 'text-white', 'shadow-stitch-glow');
       }
     }
 
-    // Global Bindings
     function bindEvents() {
-      // Nav tabs
       document.addEventListener('click', (e) => {
         const tab = e.target.closest('.nav-tab');
         if (!tab) return;
@@ -1152,13 +995,11 @@
         closeMobileSidebar();
       });
 
-      // Palette input
       const pInput = document.getElementById('palette-input');
       pInput.addEventListener('input', (e) => {
         renderPaletteResults(e.target.value);
       });
 
-      // Keyboard Shortcuts
       window.addEventListener('keydown', (e) => {
         if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
           e.preventDefault();
@@ -1172,12 +1013,10 @@
         }
       });
 
-      // Detail Modal & Backdrop
       document.getElementById('detail-close-btn').addEventListener('click', closeDetailModal);
       document.getElementById('detail-backdrop').addEventListener('click', closeDetailModal);
       document.getElementById('command-backdrop').addEventListener('click', closeCommandPalette);
 
-      // Mobile Menu
       const mobileBtn = document.getElementById('mobile-menu-btn');
       const sidebar = document.getElementById('sidebar');
       const backdrop = document.getElementById('sidebar-backdrop');
