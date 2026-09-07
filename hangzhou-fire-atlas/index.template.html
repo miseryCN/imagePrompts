@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111311"><meta name="description" content="杭州13个区县市的烤肉与烧烤公开资料图鉴。独立分店、街边小店、摊位线索、来源追溯与个人实吃榜。">
+<title>炙 · 杭州｜全城炭火图鉴</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23171915'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-size='43' fill='%23d6b776'%3E炙%3C/text%3E%3C/svg%3E">
+<style>/*__CSS__*/</style>
+</head>
+<body>
+<a class="skip" href="#catalog">跳到门店档案</a>
+<div class="progress" id="scrollProgress"></div>
+<header class="header">
+ <a class="brand" href="#top" aria-label="炙杭州首页"><span class="brand-seal">炙<span>杭州</span></span><span class="brand-words">杭州炭火图鉴<small>HANGZHOU · FIRE ATLAS</small></span></a>
+ <nav aria-label="主导航"><a href="#catalog">夯到拉</a><a href="#atlas">炭火坐标</a><a href="#street">街头档案</a><a href="#method">数据底牌</a></nav>
+ <div class="header-actions"><button class="icon-button search-shortcut" id="navSearch" aria-label="搜索门店">⌕ <kbd>/</kbd></button><button class="save-nav" id="navSaved">想吃清单 <span id="savedCount">0</span></button></div>
+</header>
+<main>
+<section class="hero wrap" id="top">
+ <div class="hero-copy">
+  <div class="eyebrow"><i class="ember-dot"></i> 杭州全域 · 第 001 期 <span class="line"></span> 2026.09</div>
+  <h1>把杭州，<br>烤个<span class="gold-word">明白。</span></h1>
+  <p class="hero-poem">好肉不分门面。好吃，自有江湖。</p>
+  <p class="hero-desc">从烧肉吧台，到街边小炉。<br>沿着每一缕烟火，找一顿值得出门的晚饭。</p>
+  <div class="hero-buttons"><a class="button primary" href="#catalog">进入全城档案 <span>↗</span></a><button class="button ghost" id="randomHero">今晚吃哪家 <span>⤨</span></button></div>
+  <div class="hero-footnote"><span>公开资料采集版</span> 非全量商户库 · 非实吃认证</div>
+ </div>
+ <div class="hero-art" aria-label="原创炭火烤炉意象，不是门店照片">
+  <div class="art-aura"></div><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+  <img class="grill" src="__GRILL__" alt="原创生成式图形：炭火上交错排列的烤肉串" width="900" height="900">
+  <div class="art-label art-label-top"><span>01 / 炭火万象</span><small>FIRE IS A LANGUAGE.</small></div>
+  <div class="art-tag art-tag-one"><b>一口入魂</b><span>肉的质地，火的脾气。</span><i></i></div>
+  <div class="art-tag art-tag-two"><i></i><span>从湖滨，到街头。</span><b>全城寻味</b></div>
+  <span class="art-side">AFTER DARK, BEFORE GOODBYE.</span>
+  <div class="art-caption">原创炭火意象 / 非门店实拍</div>
+ </div>
+</section>
+<section class="stats wrap" aria-label="资料覆盖统计" id="stats"></section>
+<div class="ticker" aria-hidden="true"><div>炭火不熄 <b>✦</b> 从一块好肉开始 <b>✦</b> 不让路边小店缺席 <b>✦</b> HANGZHOU AFTER DARK <b>✦</b> 好吃自有江湖 <b>✦</b> 炭火不熄 <b>✦</b> 从一块好肉开始 <b>✦</b> 不让路边小店缺席 <b>✦</b> HANGZHOU AFTER DARK <b>✦</b></div></div>
+<section class="curated wrap" aria-labelledby="curatedTitle">
+ <div class="section-heading compact"><div><div class="eyebrow">THE FIRST BITE / 从这里开始</div><h2 id="curatedTitle">今晚，想吃哪种火？</h2></div><p>不是同一套标准，评尽所有风味。<br>先选一口喜欢的，再看分店的证据。</p></div>
+ <div class="routes">
+  <button class="route route-1" data-quick="日式烧肉"><span class="route-number">01</span><span class="route-character">肉</span><div><small>YAKINIKU / 日式烧肉</small><h3>把肉当主角。</h3><p>部位、油脂、火候。<br>查清具体门店，不迷信“和牛”二字。</p></div><span class="route-arrow">↗</span></button>
+  <button class="route route-2" data-quick="韩式烤肉"><span class="route-number">02</span><span class="route-character">炭</span><div><small>KOREAN BBQ / 韩式烤肉</small><h3>一炉，围住热闹。</h3><p>五花、小菜、炭火。<br>从浙大到下沙，一家一家找。</p></div><span class="route-arrow">↗</span></button>
+  <button class="route route-3" data-quick="street"><span class="route-number">03</span><span class="route-character">串</span><div><small>STREET FIRE / 街边串烤</small><h3>门面小，胃口大。</h3><p>小店、老档、摊位。<br>给没那么漂亮的招牌留个位置。</p></div><span class="route-arrow">↗</span></button>
+ </div>
+</section>
+<section class="catalog wrap" id="catalog" aria-labelledby="catalogTitle">
+ <div class="section-heading"><div><div class="eyebrow">THE FIRE INDEX / 全城档案</div><h2 id="catalogTitle">从<span>夯</span>，到拉。</h2></div><div class="heading-note"><span class="tiny-dot"></span> 好评有出处，差评不脑补。<small>档位是公开口碑初筛，不是作者实吃结论。</small><button class="text-button" id="openRules">这份榜怎么排？ ↗</button></div></div>
+ <div class="mode-row"><div class="segmented" role="group" aria-label="榜单模式"><button id="publicMode" class="active">公开资料榜</button><button id="personalMode">我的实吃榜 <span>本机</span></button></div><span class="mode-hint" id="modeHint">同档不强排名 · 分店独立建档</span></div>
+ <div class="tier-strip" id="tiers" role="group" aria-label="推荐档位"></div>
+ <div class="filter-panel">
+  <div class="searchbox"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 5 5"/></svg><input type="search" id="search" autocomplete="off" placeholder="搜店名、街道、商圈，或那道想吃的菜…" aria-label="搜索店名地址或特色菜"><kbd>/</kbd></div>
+  <div class="select-row"><label><span>去哪里</span><select id="district" aria-label="区县市"></select></label><label><span>吃什么</span><select id="category" aria-label="品类"></select></label><label><span>参考人均</span><select id="budget"><option value="all">不限 · 旧价仅供参考</option value="under80">有记录 · 80元以下</option><option value="80to150">有记录 · 80–150元</option><option value="over150">有记录 · 150元以上</option><option value="unknown">价格未核实</option></select></label><label><span>排序</span><select id="sort"><option value="tier">档位优先</option><option value="evidence">资料完整度</option><option value="price">参考价从低到高</option><option value="district">按行政区展开</option><option value="name">按店名排序</option></select></label></div>
+  <div class="filter-bottom"><div class="filter-chips"><button data-scope="all" class="active">全部档案</button><button data-scope="street">街边小店 / 摊位</button><button data-scope="saved">我想吃的</button><button data-scope="history">历史线索</button><button data-scope="suspended">停业提示</button></div><button id="resetFilters" class="text-button">重置筛选 ↺</button></div>
+ </div>
+ <div class="results-top"><p id="resultCount" role="status" aria-live="polite"></p><div class="view-actions"><button class="text-button" id="downloadFiltered">导出当前结果 ↓</button><div class="view-switch" aria-label="显示方式"><button id="gridView" class="active" aria-label="卡片视图">▦</button><button id="tableView" aria-label="表格视图">☷</button></div></div></div>
+ <div id="results" class="cards"></div>
+ <div id="loadRow" class="load-row"><button class="button ghost" id="loadMore">再看一炉 <span>↓</span></button><button class="text-button" id="showAll">一次展开全部</button></div>
+ <div class="inline-note">“待评”不是不好吃。它意味着：现有资料还不够，先不装懂。历史地址、未核实的价格和摊位线索均有单独标记。</div>
+</section>
+<section class="atlas-section" id="atlas">
+ <div class="wrap"><div class="section-heading"><div><div class="eyebrow">THE CITY AT NIGHT / 炭火坐标</div><h2>把夜晚，<span>摊开。</span></h2></div><p>13 个区县市，都值得找一找。<br>只有找到公开坐标的店，才落一个点。</p></div>
+ <div class="atlas-layout"><aside class="coverage"><div class="coverage-title">采集覆盖 <span>不是全城占有率</span></div><div id="districtBars"></div><p class="coverage-note">点击区名筛选门店。<br>颜色代表资料初筛档位，不代表实时营业。</p></aside><div class="map-card"><div class="map-toolbar"><div class="map-presets"><button data-extent="city" class="active">主城近看</button><button data-extent="all">杭州全域</button><button data-extent="fit">适配筛选</button></div><div class="map-controls"><button id="mapZoomIn" aria-label="图谱放大">＋</button><button id="mapZoomOut" aria-label="图谱缩小">−</button></div></div><div class="map-stage"><svg id="mapSvg" viewBox="0 0 860 530" role="img" aria-label="公开地点经纬度分布示意图，可点击点位查看店铺"></svg><div class="map-tooltip" id="mapTooltip"></div><div class="map-corner">N ↑<span>经纬度散点示意<br>非道路地图</span></div></div><div class="map-bottom"><div id="mapStats"></div><span>点击点位看详情 · 导航请用高德</span></div></div></div>
+ </div>
+</section>
+<section class="street-section wrap" id="street">
+ <div class="street-intro"><div><div class="eyebrow">OFF THE MAIN STREET / 街头档案</div><h2>路边，<br>也值得<span>一页。</span></h2><p>不只记录亮堂的商场。<br>那些小炉子，也可能藏着一座城的滋味。</p><button class="button ghost" id="seeStreet">只看街边小店与摊位 ↗</button></div><div class="street-letter"><span class="letter-top">一条真正的摊位线索</span><h3>平炼路，共富市集。</h3><p>2025 年的本地报道里，有一处东北烧烤摊。<br>但报道没写招牌，也没写摊位编号。</p><p>所以这里留下它的线索，而不是替它编个名字。</p><div class="letter-bottom"><span>有报道 ≠ 今晚一定出摊</span><button class="text-button" id="openStall">查看原始出处 ↗</button></div><span class="letter-seal">寻味<br>未完</span></div></div>
+ <div class="area-grid" id="areaGrid"></div>
+</section>
+<section class="method-section wrap" id="method">
+ <div class="section-heading"><div><div class="eyebrow">NO SMOKE, NO MIRRORS / 数据底牌</div><h2>好看的榜，<br>也要经得起<span>追问。</span></h2></div><button class="button ghost" id="downloadAll">带走全部数据 ↓</button></div>
+ <div class="principles"><article><span>01 / 数据从哪来</span><h3>每家，都能追到出处。</h3><p>高德、Apple Maps、当地媒体与餐饮名录。以分店地址为单位，不把品牌荣誉复制给每一家店。</p></article><article><span>02 / 哪些还不知道</span><h3>留白，比瞎填更有用。</h3><p>营业、价格、排队与菜单未核实的就标未知。来源的更新时间，与这次检索日期分开记录。</p></article><article><span>03 / “拉”为什么空着</span><h3>不拿一句差评定生死。</h3><p>样本不明、旧差评或停业，均不等于难吃。公开榜证据不足就待评；你可以在个人榜里真实表达。</p></article></div>
+ <details class="method-details"><summary>展开采集口径、分档规则与来源清单 <span>＋</span></summary><div class="method-content" id="methodContent"></div></details>
+ <div class="contribute"><div><b>这座城，还没烤完。</b><span>留下一家漏掉的店。补充内容只在本机生成，不会假装已提交到服务器。</span></div><button class="button primary" id="contributeBtn">补充一条线索 ↗</button></div>
+</section>
+</main>
+<footer class="footer wrap"><div class="footer-top"><div class="brand-words">炙 · 杭州<small>FIRE ATLAS / 一座城的炭火坐标</small></div><p>好吃，自有江湖。<br><span>资料采集 2026.09.07 · 非商业合作榜单</span></p><a href="#top" class="backtop" aria-label="回到顶部">↑</a></div><div class="footer-bottom"><span>无付费排名 · 无实吃伪装 · 无实时营业承诺</span><div><button id="backupBtn">备份我的清单</button><button id="importBtn">恢复备份</button><input type="file" id="importFile" accept="application/json,.json" hidden></div></div></footer>
+<div class="compare-tray" id="compareTray" hidden><div><b>放在同一桌比一比</b><span id="compareCount"></span></div><button class="text-button" id="clearCompare">清空</button><button class="button primary" id="openCompare">开始对比 ↗</button></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<dialog id="dialog" class="dialog"><button class="modal-close" id="closeDialog" aria-label="关闭弹窗">×</button><div id="dialogContent"></div></dialog>
+<noscript><div class="nojs">本页需要启用 JavaScript 才能搜索与查看完整门店档案。源码包内另附可独立读取的 JSON 数据。</div></noscript>
+<script id="dataset" type="application/json">__DATA__</script>
+<script>/*__JS__*/</script>
+</body></html>

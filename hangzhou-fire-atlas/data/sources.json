@@ -1,0 +1,2153 @@
+[
+  {
+    "placeId": "B0FFLAQI13",
+    "name": "串王阿三烧烤(高沙商业街店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFLAQI13",
+        "date": "2020-08-26",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      },
+      {
+        "title": "钱江晚报／潮新闻·2020烧烤报道",
+        "url": "https://news.qq.com/rain/a/20200826A0AKQ000",
+        "date": "2020-08-26",
+        "type": "交叉资料",
+        "fields": [
+          "分店地址",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0HUOZDVVM",
+    "name": "肉本家·炭烤肉(杭州浙大总店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0HUOZDVVM",
+        "date": "2025-09-29",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      },
+      {
+        "title": "杭州网·2025高德国庆TOP100报道",
+        "url": "https://ori.hangzhou.com.cn/ornews/content/2025-09/29/content_9094308.htm",
+        "date": "2025-09-29",
+        "type": "交叉资料",
+        "fields": [
+          "2025榜单表现"
+        ],
+        "retrievedAt": "2026-09-07"
+      },
+      {
+        "title": "高德·杭州2025榜单",
+        "url": "https://www.amap.com/ranking/hangzhou",
+        "date": "2025",
+        "type": "交叉资料",
+        "fields": [
+          "特色菜线索",
+          "榜单"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0JURM6891",
+    "name": "烤大仙·烤鲈鱼·东北烧烤(华中南路店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0JURM6891",
+        "date": "2023-07-23",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0K6BRJ30G",
+    "name": "牛小新烧肉·和牛放题(龙湖杭州金沙天街店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0K6BRJ30G",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0K3M7O3SX",
+    "name": "牛小新烧肉·和牛放题(萧山万象汇店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0K3M7O3SX",
+        "date": "2024-11-19",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0JAGSARXL",
+    "name": "京永盛·老北京铜锅涮肉·烤串(紫金港店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0JAGSARXL",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0K6C72LQD",
+    "name": "柒房里·鸡汤火锅·云南烤肉(滨江店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0K6C72LQD",
+        "date": "2024",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0IUTS4JWH",
+    "name": "牛小新烧肉屋(滨江银泰店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0IUTS4JWH",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0I2THX2A3",
+    "name": "齐齐哈尔烤肉鹤之乡(环翼城店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0I2THX2A3",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFJV1W68",
+    "name": "御牛道日式烤肉料理(杭州万象城店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFJV1W68",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0GKY1LDQS",
+    "name": "小屋烤肉",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0GKY1LDQS",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0J1FZ4USK",
+    "name": "朴太院·烤肉万岁·创意料理(大悦城店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0J1FZ4USK",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0H65SKZR5",
+    "name": "趣东北齐齐哈尔家庭烤肉",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0H65SKZR5",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFIK12DE",
+    "name": "御牛道日式烤肉料理(永旺梦乐城店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFIK12DE",
+        "date": "2018",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0IDDA75PD",
+    "name": "芝小官毛肚火锅烤肉自助(龙湖杭州吾角天街店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0IDDA75PD",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFIPNDJB",
+    "name": "AJIYA味屋日式烤肉(开元路店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFIPNDJB",
+        "date": "2018",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0LRYKV40L",
+    "name": "姜胖胖韩式自助烤肉(庆春银泰店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0LRYKV40L",
+        "date": "2025-11-30",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFK7E29G",
+    "name": "韩宫宴炭火烤肉(西湖银泰店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFK7E29G",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0L335AFVE",
+    "name": "喜牛吉烤肉·和牛放题(501城市广场店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0L335AFVE",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0GD0A8K79",
+    "name": "椒炉·鲜切自助烤肉(临安店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0GD0A8K79",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0JBYBR8IT",
+    "name": "山海盟海鲜烤肉自助餐厅(中大银泰店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0JBYBR8IT",
+        "date": "2023",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0KA7M5L8N",
+    "name": "熊福烤肉无限放题(湖滨88店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0KA7M5L8N",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0H37XEM01",
+    "name": "西塔老太太泥炉烤肉(杭州首店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0H37XEM01",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFJD46CB",
+    "name": "韩宫宴炭火烤肉(临平银泰城店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFJD46CB",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0H095KYGE",
+    "name": "肉本家·炭烤肉(下沙宝龙店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0H095KYGE",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0I67CR9SQ",
+    "name": "本逸·篹·和牛烧肉(黄龙店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0I67CR9SQ",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0L0L5A37I",
+    "name": "牛小新烧肉·和牛放题(西溪天街店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0L0L5A37I",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0I0NR6N5M",
+    "name": "东京烧肉Itimaru(屏风街店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0I0NR6N5M",
+        "date": "2025",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      },
+      {
+        "title": "高德·拱墅区2025必吃美食",
+        "url": "https://www.amap.com/ranking/hangzhou/food/330105",
+        "date": "2025",
+        "type": "交叉资料",
+        "fields": [
+          "全年综合分4.82",
+          "蒜香黄油横膈膜",
+          "代烤线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFMEP2N1",
+    "name": "牛一族泥炉碳火烤肉(浙大紫金港店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFMEP2N1",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0K23A0W1A",
+    "name": "韩宫宴烤肉(杭州萧山银泰店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0K23A0W1A",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0L6RKOORY",
+    "name": "夜肆·和牛烧肉料理(奥体店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0L6RKOORY",
+        "date": "2025-02-26",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFGH7O98",
+    "name": "蒙城羊肉汤·烧烤(闲林西路店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFGH7O98",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0GK1CYH6J",
+    "name": "新疆和田美味羊肉烧烤(怡丰城店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0GK1CYH6J",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0H10UWDH1",
+    "name": "夜航烧烤",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0H10UWDH1",
+        "date": "2021-09-05",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0LGJNHXES",
+    "name": "肉士家自助烤肉(义桥星天地店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0LGJNHXES",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0H391WSLV",
+    "name": "芝小官毛肚火锅烤肉自助(加州阳光·开元广场店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0H391WSLV",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0JG3M0UWI",
+    "name": "大渔农特色烤鱼·烧烤·小龙虾(崇贤佳源名城店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0JG3M0UWI",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0K33A04HL",
+    "name": "东北老徐烧烤(永宁路店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0K33A04HL",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFFA7Z3U",
+    "name": "明洞世家韩国料理烤肉(萧山工人路店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFFA7Z3U",
+        "date": "2018",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0JDU5MU6U",
+    "name": "金玉东北烧烤·东北菜",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0JDU5MU6U",
+        "date": "2023",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFMEMGBB",
+    "name": "我们家私房烧烤东北菜(未来科技城店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFMEMGBB",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0LKV54Y55",
+    "name": "虹姐正宗东北烧烤",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0LKV54Y55",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0IR2S31HD",
+    "name": "西塔老太太泥炉烤肉(萧山万象汇店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0IR2S31HD",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0HRFX3F67",
+    "name": "小胡子音乐餐吧·炒菜·烧烤",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0HRFX3F67",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0LRUODMW4",
+    "name": "串哥东北特色烧烤",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0LRUODMW4",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0IUU1BUC4",
+    "name": "137烧烤龙虾烤鱼·新疆羊肉串(南大街店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0IUU1BUC4",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0I23U12TP",
+    "name": "新疆和田烧烤(塘塍街店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0I23U12TP",
+        "date": "2024",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0J2LHZ9OG",
+    "name": "炭火匠人烧烤+龙虾+江湖菜",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0J2LHZ9OG",
+        "date": "2024-10",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0KKXS4STM",
+    "name": "炭鲜家东北烧烤",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0KKXS4STM",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFG976J0",
+    "name": "阿碳烧烤(桐庐高铁站格林豪泰商务酒店店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFG976J0",
+        "date": "2021",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFIB9P5V",
+    "name": "姚记烧烤",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFIB9P5V",
+        "date": "2024",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0M6TR6BIP",
+    "name": "新疆兄弟烤羊肉烧烤店",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0M6TR6BIP",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFKT9OY4",
+    "name": "东北朝鲜族烧烤",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFKT9OY4",
+        "date": "2024",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0JG9P2ANU",
+    "name": "串哥烧烤(富阳东桥路点)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0JG9P2ANU",
+        "date": "2024",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0IR0CS92O",
+    "name": "小杨炭烤烧烤海鲜火锅炒菜",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0IR0CS92O",
+        "date": "2024-11-18",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0J2MDX1HW",
+    "name": "刘老根·东北烧烤酒场(闻涛观潮店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0J2MDX1HW",
+        "date": "2023",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFHBHJDK",
+    "name": "鲁拉拉烧烤(桥南店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFHBHJDK",
+        "date": "2024-10-21",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0LU97D0UJ",
+    "name": "双人徐平价大排档·炒菜·烧烤·龙虾(新安江店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0LU97D0UJ",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0HAVA9Q62",
+    "name": "汉巴味德(杭州大悦城店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0HAVA9Q62",
+        "date": "2025",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      },
+      {
+        "title": "高德·拱墅区2025必吃美食",
+        "url": "https://www.amap.com/ranking/hangzhou/food/330105",
+        "date": "2025",
+        "type": "交叉资料",
+        "fields": [
+          "全年综合分4.74",
+          "巴西烤肉自助"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0H0BUY6WX",
+    "name": "木屋烧烤(拱墅胜利河店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0H0BUY6WX",
+        "date": "2022",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0IA15UZB2",
+    "name": "新疆阿布来提羊肉烧烤店",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0IA15UZB2",
+        "date": "2024-10-30",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0K02DYK2H",
+    "name": "东北烧烤大油边银湖店",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0K02DYK2H",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0L3JHDE4T",
+    "name": "好久不见烧烤·民谣酒馆(富阳店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0L3JHDE4T",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0LKBUTG6O",
+    "name": "小邵东北烧烤家常菜",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0LKBUTG6O",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFI1AC4B",
+    "name": "三哥烧烤炒菜(大桥南路店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFI1AC4B",
+        "date": "2021-01-11",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0IDVAT8DR",
+    "name": "过江烤鱼·农家菜·烧烤小海鲜(东望大厦店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0IDVAT8DR",
+        "date": "2023-10-01",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFJLU9JE",
+    "name": "牛表妹烤肉(杭州旗舰店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFJLU9JE",
+        "date": "2020-08-09",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0HB3G7ZHC",
+    "name": "鸟易·炭火烧鸟(杭州滨江店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0HB3G7ZHC",
+        "date": "2022-12-07",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0LDGMAIDW",
+    "name": "久旦鲜串烧鸟(杭州大悦城店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0LDGMAIDW",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0KAOC3VSZ",
+    "name": "三个蒙古大叔烤羊肉串(杭州临平inPARK店)",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0KAOC3VSZ",
+        "date": "2024-05-31",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "坐标",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0M63U94FS",
+    "name": "四季三食东北烧烤",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0M63U94FS",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "B0FFKFVGKY",
+    "name": "李记烧烤龙虾万州烤鱼",
+    "sources": [
+      {
+        "title": "高德地图·公开地点页",
+        "url": "https://www.amap.com/place/B0FFKFVGKY",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-772261b65a",
+    "name": "ASANSHAOKAO阿三烧烤(万塘汇店)",
+    "sources": [
+      {
+        "title": "找查网·餐厅目录",
+        "url": "https://www.zaoseo.com/place/1644503",
+        "date": "页面未注明资料更新时间",
+        "type": "名录资料",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-63ad1ca29d",
+    "name": "AJIYA味屋日式烧肉(滨江天街店)",
+    "sources": [
+      {
+        "title": "找查网·餐厅目录",
+        "url": "https://www.zaoseo.com/place/1604173",
+        "date": "页面未注明资料更新时间",
+        "type": "名录资料",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-7654119e53",
+    "name": "九田家黑牛烤肉料理(西溪银泰城店)",
+    "sources": [
+      {
+        "title": "找查网·餐厅目录",
+        "url": "https://www.zaoseo.com/place/1590025",
+        "date": "页面未注明资料更新时间",
+        "type": "名录资料",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-8f4f64c481",
+    "name": "御牛道日式料理炭火烤肉(滨江宝龙店)",
+    "sources": [
+      {
+        "title": "找查网·餐厅目录",
+        "url": "https://www.zaoseo.com/place/1209841",
+        "date": "页面未注明资料更新时间",
+        "type": "名录资料",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-9e4578f03e",
+    "name": "闻老头·菊花炭烤肉(文一路店)",
+    "sources": [
+      {
+        "title": "找查网·餐厅目录",
+        "url": "https://www.zaoseo.com/place/1670551",
+        "date": "页面未注明资料更新时间",
+        "type": "名录资料",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-fbc092c13e",
+    "name": "木浦喜肉堂·韩式烤肉(滨江天街店)",
+    "sources": [
+      {
+        "title": "找查网·餐厅目录",
+        "url": "https://www.zaoseo.com/place/1649118",
+        "date": "页面未注明资料更新时间",
+        "type": "名录资料",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-edb6c80d9c",
+    "name": "御牛道日式料理炭火烤肉(黄龙恒励大厦店)",
+    "sources": [
+      {
+        "title": "找查网·餐厅目录",
+        "url": "https://www.zaoseo.com/place/1354584",
+        "date": "页面未注明资料更新时间",
+        "type": "名录资料",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-dc920f8ec0",
+    "name": "阿三烧烤(胜利河店)",
+    "sources": [
+      {
+        "title": "杭州本地宝·网点目录",
+        "url": "https://hz.bendibao.com/wangdian/dian/3965339.shtm",
+        "date": "页面未注明资料更新时间",
+        "type": "名录资料",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-f135a66748",
+    "name": "东京烧肉(滨江天街店)",
+    "sources": [
+      {
+        "title": "Apple Maps·商户信息",
+        "url": "https://maps.apple.com/place?auid=1118897824019327&lsp=57879",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-817e684e86",
+    "name": "客串烧烤(千岛湖镇核心区域店)",
+    "sources": [
+      {
+        "title": "Apple Maps·商户信息",
+        "url": "https://maps.apple.com/place?auid=1118551951244503&lsp=57879",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-c1299f84a2",
+    "name": "一二3鲜货烧烤铺(千岛湖店)",
+    "sources": [
+      {
+        "title": "Apple Maps·商户信息",
+        "url": "https://maps.apple.com/place?auid=1118807644981902&lsp=57879",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-7e824af826",
+    "name": "六丁火烤肉(杭州首店)",
+    "sources": [
+      {
+        "title": "Trip.com·用户游记",
+        "url": "https://hk.trip.com/moments/poi-city-149809465/",
+        "date": "页面未注明资料更新时间",
+        "type": "游记线索",
+        "fields": [
+          "店名",
+          "地址",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-a3effcc5fd",
+    "name": "破路边烧烤工厂(临平inPARK店)",
+    "sources": [
+      {
+        "title": "杭州网·临平银泰inPARK周年报道",
+        "url": "https://fashion.hangzhou.com.cn/content/2025-05/09/content_8991067.htm",
+        "date": "2025-05-09",
+        "type": "报道线索",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-81dee03d50",
+    "name": "撸一手(皇后公园店)",
+    "sources": [
+      {
+        "title": "城市惠／CNPP100·历史餐饮目录",
+        "url": "https://www.cityhui.com/shop/19071.html",
+        "date": "页面未注明资料更新时间",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "电话"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-e9b6a148bc",
+    "name": "串哥烧烤(武林巷店)",
+    "sources": [
+      {
+        "title": "城市惠／CNPP100·历史餐饮目录",
+        "url": "https://www.cnpp100.com/shop/19073.html",
+        "date": "页面未注明资料更新时间",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-af85be86b6",
+    "name": "我们家私房纸包鱼&烧烤(佑昌巷店)",
+    "sources": [
+      {
+        "title": "城市惠／CNPP100·历史餐饮目录",
+        "url": "https://www.cnpp100.com/shop/19074.html",
+        "date": "页面未注明资料更新时间",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-26f773b807",
+    "name": "大陈海鲜烧烤",
+    "sources": [
+      {
+        "title": "城市惠／CNPP100·历史餐饮目录",
+        "url": "https://www.cnpp100.com/shop/19075.html",
+        "date": "页面未注明资料更新时间",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-29ed7e9b05",
+    "name": "清雅斋清真饭庄",
+    "sources": [
+      {
+        "title": "城市惠／CNPP100·历史餐饮目录",
+        "url": "https://www.cityhui.com/shop/19076.html",
+        "date": "页面未注明资料更新时间",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-6878e36508",
+    "name": "新凯旋郑燕烧烤(上塘路店)",
+    "sources": [
+      {
+        "title": "城市惠／CNPP100·历史餐饮目录",
+        "url": "https://www.cityhui.com/shop/19079.html",
+        "date": "页面未注明资料更新时间",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-798bb52207",
+    "name": "西北人家·羊坝头特色烧烤",
+    "sources": [
+      {
+        "title": "城市惠／CNPP100·历史餐饮目录",
+        "url": "https://www.cnpp100.com/shop/19080.html",
+        "date": "页面未注明资料更新时间",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-f939397b7c",
+    "name": "王记金图门串烤",
+    "sources": [
+      {
+        "title": "城市惠／CNPP100·历史餐饮目录",
+        "url": "https://www.cityhui.com/shop/19081.html",
+        "date": "页面未注明资料更新时间",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-f7cf9c7b45",
+    "name": "威武羊肉烧烤",
+    "sources": [
+      {
+        "title": "城市惠／CNPP100·历史餐饮目录",
+        "url": "https://www.cityhui.com/shop/19082.html",
+        "date": "页面未注明资料更新时间",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "电话",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-d69de7b6a0",
+    "name": "李不管把把烧",
+    "sources": [
+      {
+        "title": "钱江晚报／潮新闻·2020烧烤报道",
+        "url": "https://news.qq.com/rain/a/20200826A0AKQ000",
+        "date": "2020-08-26",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-90b6fb973f",
+    "name": "木屋烧烤(武林路店)",
+    "sources": [
+      {
+        "title": "钱江晚报／潮新闻·2020烧烤报道",
+        "url": "https://news.qq.com/rain/a/20200826A0AKQ000",
+        "date": "2020-08-26",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-955fd2864f",
+    "name": "老杨小黄鱼",
+    "sources": [
+      {
+        "title": "钱江晚报／潮新闻·2020烧烤报道",
+        "url": "https://news.qq.com/rain/a/20200826A0AKQ000",
+        "date": "2020-08-26",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      },
+      {
+        "title": "什么值得买·2019年个人探店",
+        "url": "https://post.smzdm.com/p/adwlnpkz/",
+        "date": "2019-06-26",
+        "type": "历史游记",
+        "fields": [
+          "烤小黄鱼",
+          "历史迁址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-b2135e5155",
+    "name": "深夜好食堂",
+    "sources": [
+      {
+        "title": "钱江晚报／潮新闻·2020烧烤报道",
+        "url": "https://news.qq.com/rain/a/20200826A0AKQ000",
+        "date": "2020-08-26",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-d2582d6ab0",
+    "name": "洪涛烤肉",
+    "sources": [
+      {
+        "title": "钱江晚报／潮新闻·2020烧烤报道",
+        "url": "https://news.qq.com/rain/a/20200826A0AKQ000",
+        "date": "2020-08-26",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-d82d20cb42",
+    "name": "新疆兄弟(德胜路点)",
+    "sources": [
+      {
+        "title": "钱江晚报／潮新闻·2020烧烤报道",
+        "url": "https://news.qq.com/rain/a/20200826A0AKQ000",
+        "date": "2020-08-26",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-1f0c11c881",
+    "name": "三肥两瘦(滨江宝龙点)",
+    "sources": [
+      {
+        "title": "钱江晚报／潮新闻·2020烧烤报道",
+        "url": "https://news.qq.com/rain/a/20200826A0AKQ000",
+        "date": "2020-08-26",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-9ec6dbe514",
+    "name": "蛮串(闻涛路点)",
+    "sources": [
+      {
+        "title": "钱江晚报／潮新闻·2020烧烤报道",
+        "url": "https://news.qq.com/rain/a/20200826A0AKQ000",
+        "date": "2020-08-26",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-a9cd373c9e",
+    "name": "新凯旋烧烤(东站西子国际点)",
+    "sources": [
+      {
+        "title": "钱江晚报／潮新闻·2020烧烤报道",
+        "url": "https://news.qq.com/rain/a/20200826A0AKQ000",
+        "date": "2020-08-26",
+        "type": "历史线索",
+        "fields": [
+          "店名",
+          "地址",
+          "菜品线索"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-42aa614d9d",
+    "name": "木屋烧烤(江干天虹店)",
+    "sources": [
+      {
+        "title": "高德地图·烧烤店白领推荐榜",
+        "url": "https://ranks.amap.com/ranking/烧烤店/杭州市/白领",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-6e655c4f20",
+    "name": "鹤之乡·齐齐哈尔烤肉(秋涛路店)",
+    "sources": [
+      {
+        "title": "高德地图·烧烤店白领推荐榜",
+        "url": "https://ranks.amap.com/ranking/烧烤店/杭州市/白领",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-442b0bc42d",
+    "name": "头牌鹤岗小串(天虹店)",
+    "sources": [
+      {
+        "title": "高德地图·烧烤店白领推荐榜",
+        "url": "https://ranks.amap.com/ranking/烧烤店/杭州市/白领",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-371ab7d43f",
+    "name": "忽然之间·露营烧烤·日咖夜酒·音乐驻唱",
+    "sources": [
+      {
+        "title": "高德地图·烧烤店白领推荐榜",
+        "url": "https://ranks.amap.com/ranking/烧烤店/杭州市/白领",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-a9cd5651b2",
+    "name": "凯旋烧烤(凯旋路)",
+    "sources": [
+      {
+        "title": "高德地图·烧烤店白领推荐榜",
+        "url": "https://ranks.amap.com/ranking/烧烤店/杭州市/白领",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-b37b09b5bd",
+    "name": "台客熊烧鸟(庆谐路店)",
+    "sources": [
+      {
+        "title": "高德地图·烧烤店白领推荐榜",
+        "url": "https://ranks.amap.com/ranking/烧烤店/杭州市/白领",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-c1d860656f",
+    "name": "木可记烤肉火锅(双菱路总店)",
+    "sources": [
+      {
+        "title": "高德地图·烧烤店白领推荐榜",
+        "url": "https://ranks.amap.com/ranking/烧烤店/杭州市/白领",
+        "date": "页面未注明资料更新时间",
+        "type": "地图定位",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  },
+  {
+    "placeId": "hz-da181bc54a",
+    "name": "平炼路共富市集·东北烧烤摊（报道未披露招牌）",
+    "sources": [
+      {
+        "title": "都市快报／杭州网·平炼路共富市集",
+        "url": "https://hznews.hangzhou.com.cn/chengshi/content/2025-06/22/content_9022405.htm",
+        "date": "2025-06-22",
+        "type": "报道线索",
+        "fields": [
+          "店名",
+          "地址"
+        ],
+        "retrievedAt": "2026-09-07"
+      }
+    ]
+  }
+]
